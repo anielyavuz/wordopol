@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "952466911914",
+    "project_id": "wordopol-7a16f",
+    "storage_bucket": "wordopol-7a16f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952466911914:android:bf659311dd54be6f7c16d3",
+        "android_client_info": {
+          "package_name": "com.example.wordopol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952466911914-a73onpql0346i676obbfpv5q8v1oafjn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJtuiAwQIN3_1WkphvB74sPnuIkNo-fNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952466911914-a73onpql0346i676obbfpv5q8v1oafjn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wordopol/firebase_options.dart';
+import 'package:wordopol/pages/checkAuth.dart';
 import 'package:wordopol/pages/welcomePage.dart';
 import 'package:wordopol/services/firebaseFunctions.dart';
 import 'package:hive/hive.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const WelcomePage(),
+      home: CheckAuth(),
     );
   }
 }

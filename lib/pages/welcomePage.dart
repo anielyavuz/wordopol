@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wordopol/services/authFunctions.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -10,6 +11,7 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   TextEditingController _turkceTextFieldController = TextEditingController();
+  AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +19,7 @@ class _WelcomePageState extends State<WelcomePage> {
           body: Container(
         child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("WELCOME"),
             TextField(
@@ -63,7 +65,11 @@ class _WelcomePageState extends State<WelcomePage> {
                       fontFamily: 'Times New Roman',
                       // fontWeight: FontWeight.bold
                     )),
-                onPressed: () {}),
+                onPressed: () async {
+                  print(_turkceTextFieldController.text);
+                  var a = await _authService
+                      .anonymSignIn(_turkceTextFieldController.text);
+                }),
           ],
         )),
       )),

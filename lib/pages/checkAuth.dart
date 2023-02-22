@@ -14,19 +14,31 @@ class CheckAuth extends StatefulWidget {
 class _CheckAuthState extends State<CheckAuth> {
   bool _login = false;
   late User _user;
+  String _uid = "";
   rootControl() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      // print(user?.uid);
       if (user == null) {
         print('User is currently signed out!');
       } else {
-        // print('User is signed in!');
+        print('User is signed in!');
+        print(user.uid);
+
+        // Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (BuildContext context) => HomePage(
+        //               userID: user.uid,
+        //             )),
+        //     (Route<dynamic> route) => false);
         setState(() {
           _login = true;
+          _uid = user.uid;
         });
       }
-      setState(() {
-        _user = user!;
-      });
+      // setState(() {
+      //   _user = user!;
+      // });
     });
   }
 
@@ -44,15 +56,8 @@ class _CheckAuthState extends State<CheckAuth> {
   @override
   Widget build(BuildContext context) {
     return (_login)
-        ? StreamProvider?.value(
-            value: DatabaseService(uid: _user.uid).people,
-            initialData: null,
-            child: DatabaseService(uid: _user.uid).people != null
-                ? HomePage()
-                : Scaffold(
-                    body: Container(
-                        color: Colors.white,
-                        child: Center(child: Text("Loading...")))),
+        ? HomePage(
+            userID: _uid,
           )
 
         // MainPage()

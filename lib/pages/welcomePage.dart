@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
+import 'package:wordopol/pages/checkAuth.dart';
 import 'package:wordopol/services/authFunctions.dart';
+import 'package:wordopol/services/firebaseFunctions.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -10,8 +13,21 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  late Box box;
   TextEditingController _turkceTextFieldController = TextEditingController();
   AuthService _authService = AuthService();
+
+  @override
+  void initState() {
+    box = Hive.box("wordopolHive");
+
+    //LOGOYU BELLİ SURE GOSTEREN KOD BURASIYDI YORUMA ALINDI
+//     Future.delayed(const Duration(milliseconds: 1500), () {
+// // Here you can write your code
+//     });
+    // rootControl();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -66,7 +82,6 @@ class _WelcomePageState extends State<WelcomePage> {
                       // fontWeight: FontWeight.bold
                     )),
                 onPressed: () async {
-                  print(_turkceTextFieldController.text);
                   var a = await _authService
                       .anonymSignIn(_turkceTextFieldController.text);
                 }),

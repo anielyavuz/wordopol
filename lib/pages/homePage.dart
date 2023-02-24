@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:wordopol/pages/checkAuth.dart';
+import 'package:wordopol/pages/playPage.dart';
 import 'package:wordopol/services/authFunctions.dart';
 import 'package:wordopol/services/firebaseFunctions.dart';
 
@@ -29,14 +30,31 @@ class _HomePageState extends State<HomePage> {
   var _wordPool;
   var _wordPoolData;
 
-  var _languageFull = "Türkçe";
+  var _languageFull = "English";
 
-  String _currentLanguage = "tr";
-  languageSelect() {
+  String _currentLanguage = "en";
+  List _wordsForPlay = [];
+
+  wordPickForPlay() {
+    _wordsForPlay = [];
     setState(() {
-      _currentLanguage =
-          Localizations.localeOf(context).languageCode.toString();
+      _wordsForPlay.add(_wordPoolData[_currentLanguage]['0']);
     });
+  }
+
+  languageSelect()
+  //telefonun native dili eğer desteklenen dillerdense dropdown'da o gelir
+
+  {
+    if (_configData['supportedLanguages']
+        .contains(Localizations.localeOf(context).languageCode.toString())) {
+      print("yes");
+      setState(() {
+        _currentLanguage =
+            Localizations.localeOf(context).languageCode.toString();
+      });
+    }
+
     setState(() {
       if (_currentLanguage == "tr") {
         _languageFull = "Türkçe";
@@ -120,8 +138,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Container(
                     child: Center(
-                        child:
-                            Text(_wordPoolData[_currentLanguage].toString()))),
+                        child: Text("Welcome"
+
+                            // _wordPoolData[_currentLanguage].toString()
+
+                            ))),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                   child: DropdownButton<String>(
@@ -172,6 +193,29 @@ class _HomePageState extends State<HomePage> {
                         print(_currentLanguage);
                       }),
                 ),
+                RawMaterialButton(
+                    fillColor: Color.fromARGB(255, 33, 39, 120),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                    splashColor: Color(0xff77A830),
+                    textStyle: TextStyle(color: Colors.white),
+                    child: Text("Play",
+                        style: TextStyle(
+                          color: Colors.amber,
+                          fontSize: 15,
+                          fontFamily: 'Times New Roman',
+                          // fontWeight: FontWeight.bold
+                        )),
+                    onPressed: () async {
+                      await wordPickForPlay();
+                      print(_wordsForPlay);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => PlayPage(
+                                    wordsForPlay: _wordsForPlay,
+                                  )));
+                    }),
                 RawMaterialButton(
                     fillColor: Color.fromARGB(255, 33, 39, 120),
                     shape: RoundedRectangleBorder(

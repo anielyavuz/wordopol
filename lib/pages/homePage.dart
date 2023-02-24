@@ -35,6 +35,14 @@ class _HomePageState extends State<HomePage> {
   String _currentLanguage = "en";
   List _wordsForPlay = [];
 
+  Map _languageDropdown = {
+    'Türkçe': 'tr',
+    'Español': 'es',
+    'Deutsch': 'de',
+    'Français': 'fr',
+    'English': 'en'
+  };
+
   wordPickForPlay() {
     _wordsForPlay = [];
     setState(() {
@@ -46,7 +54,14 @@ class _HomePageState extends State<HomePage> {
   //telefonun native dili eğer desteklenen dillerdense dropdown'da o gelir
 
   {
+    if (_configData['supportedLanguages'] != null) {
+      setState(() {
+        _languageDropdown = _configData['supportedLanguages'];
+      });
+    }
+
     if (_configData['supportedLanguages']
+        .keys
         .contains(Localizations.localeOf(context).languageCode.toString())) {
       print("yes");
       setState(() {
@@ -148,13 +163,8 @@ class _HomePageState extends State<HomePage> {
                   child: DropdownButton<String>(
                       dropdownColor: Color(0xff010114).withOpacity(1),
                       value: _languageFull,
-                      items: <String>[
-                        'Türkçe',
-                        'Español',
-                        'Deutsch',
-                        'Français',
-                        'English'
-                      ].map((String value) {
+                      items:
+                          _languageDropdown.keys.toList().map((dynamic value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: new Text(value,
@@ -168,27 +178,34 @@ class _HomePageState extends State<HomePage> {
                           _languageFull = value!;
                         });
 
-                        if (_languageFull == "Español") {
+                        if (_configData['supportedLanguages'] != null) {
                           setState(() {
-                            _currentLanguage = "es";
-                          });
-                        } else if (value == "Deutsch") {
-                          setState(() {
-                            _currentLanguage = "de";
-                          });
-                        } else if (value == "Français") {
-                          setState(() {
-                            _currentLanguage = "fr";
-                          });
-                        } else if (value == "English") {
-                          setState(() {
-                            _currentLanguage = "en";
-                          });
-                        } else {
-                          setState(() {
-                            _currentLanguage = "tr";
+                            _currentLanguage = _configData['supportedLanguages']
+                                [_languageFull];
                           });
                         }
+
+                        // if (_languageFull == "Español") {
+                        //   setState(() {
+                        //     _currentLanguage = "es";
+                        //   });
+                        // } else if (value == "Deutsch") {
+                        //   setState(() {
+                        //     _currentLanguage = "de";
+                        //   });
+                        // } else if (value == "Français") {
+                        //   setState(() {
+                        //     _currentLanguage = "fr";
+                        //   });
+                        // } else if (value == "English") {
+                        //   setState(() {
+                        //     _currentLanguage = "en";
+                        //   });
+                        // } else {
+                        //   setState(() {
+                        //     _currentLanguage = "tr";
+                        //   });
+                        // }
 
                         print(_currentLanguage);
                       }),

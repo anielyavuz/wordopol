@@ -21,6 +21,34 @@ class CloudDB {
     return _finalData;
   }
 
+  getScoreTable(String _scoreTableSeason) async {
+    var _finalData;
+    var data = await FirebaseFirestore.instance
+        .collection("ScoreTable")
+        .doc("Season" + _scoreTableSeason)
+        .get()
+        .then((gelenVeri) {
+      _finalData = gelenVeri.data();
+      // print(_finalData);
+    });
+
+    // print(_allResults);
+    return _finalData;
+  }
+
+  updateScoreTable(
+      String _scoreTableSeason, String uid, String username, int score) async {
+    var _finalData;
+    var data = await FirebaseFirestore.instance
+        .collection("ScoreTable")
+        .doc("Season" + _scoreTableSeason)
+        .update({
+      uid + "%" + username: score,
+    });
+    // print(_allResults);
+    return _finalData;
+  }
+
   getUserInfo(String _uid) async {
     var _finalData;
     var data = await FirebaseFirestore.instance

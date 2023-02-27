@@ -41,6 +41,7 @@ class _WelcomePageState extends State<WelcomePage> {
             TextField(
               inputFormatters: [
                 LengthLimitingTextInputFormatter(40),
+                FilteringTextInputFormatter.deny("%"),
               ],
               autofocus: true,
               onChanged: (value2) {},
@@ -74,7 +75,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     borderRadius: BorderRadius.all(Radius.circular(15.0))),
                 splashColor: Color(0xff77A830),
                 textStyle: TextStyle(color: Colors.white),
-                child: Text("Button",
+                child: Text("Next",
                     style: TextStyle(
                       color: Colors.amber,
                       fontSize: 15,

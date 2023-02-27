@@ -24,9 +24,11 @@ class _HomePageState extends State<HomePage> {
   late Box box;
 
   var _userInfo;
+  var _scoreTable;
   var _configData;
   AuthService _authService = AuthService();
   bool _userDataLoadScreen = true;
+  var _languageSelectedBefore;
   var _wordPool;
   var _wordPoolData;
 
@@ -46,7 +48,9 @@ class _HomePageState extends State<HomePage> {
   wordPickForPlay() {
     _wordsForPlay = [];
     setState(() {
-      _wordsForPlay.add(_wordPoolData[_currentLanguage]['0']);
+      for (var _id in ["0", "1", "2", "3", "4", "5"]) {
+        _wordsForPlay.add(_wordPoolData[_currentLanguage][_id]);
+      }
     });
   }
 
@@ -54,21 +58,23 @@ class _HomePageState extends State<HomePage> {
   //telefonun native dili eğer desteklenen dillerdense dropdown'da o gelir
 
   {
-    if (_configData['supportedLanguages'] != null) {
-      setState(() {
-        _languageDropdown = _configData['supportedLanguages'];
-      });
+    if (_configData != null) {
+      if (_configData['supportedLanguages'] != null) {
+        setState(() {
+          _languageDropdown = _configData['supportedLanguages'];
+        });
+      }
     }
 
-    if (_configData['supportedLanguages']
-        .keys
-        .contains(Localizations.localeOf(context).languageCode.toString())) {
-      print("yes");
-      setState(() {
-        _currentLanguage =
-            Localizations.localeOf(context).languageCode.toString();
-      });
-    }
+    // if (_configData['supportedLanguages']
+    //     .values
+    //     .contains(Localizations.localeOf(context).languageCode.toString())) {
+    //   print("yes");
+    //   setState(() {
+    //     _currentLanguage =
+    //         Localizations.localeOf(context).languageCode.toString();
+    //   });
+    // }
 
     setState(() {
       if (_currentLanguage == "tr") {
@@ -93,8 +99,13 @@ class _HomePageState extends State<HomePage> {
   wordDBSyncFunction() async {
     _userInfo = await CloudDB().getUserInfo(widget.userID);
     _configData = await CloudDB().getConfigDatas();
+    _scoreTable =
+        await CloudDB().getScoreTable(_configData['ScoreTableSeason']);
+    print("KKKKKKKKK");
+    print(_configData);
 
     var _DBId = box.get("DBId") ?? 0;
+    _currentLanguage = box.get("languageSelectedBefore") ?? "en";
     // var _configData = await CloudDB().getConfigDatas();
 
     // await CloudDB().firestoreFileReach(_configData['DBId']);
@@ -182,6 +193,7 @@ class _HomePageState extends State<HomePage> {
                           setState(() {
                             _currentLanguage = _configData['supportedLanguages']
                                 [_languageFull];
+                            box.put("languageSelectedBefore", _currentLanguage);
                           });
                         }
 
@@ -224,6 +236,11 @@ class _HomePageState extends State<HomePage> {
                           // fontWeight: FontWeight.bold
                         )),
                     onPressed: () async {
+                      // print(_userInfo['userName']);
+                      // print(_userInfo['id']);
+                      // print(_scoreTable[
+                      //     _userInfo['id'] + "%" + _userInfo['userName']]);
+
                       await wordPickForPlay();
                       print(_wordsForPlay);
                       Navigator.push(
@@ -231,6 +248,13 @@ class _HomePageState extends State<HomePage> {
                           MaterialPageRoute(
                               builder: (BuildContext context) => PlayPage(
                                     wordsForPlay: _wordsForPlay,
+                                    userName: _userInfo['userName'],
+                                    uid: _userInfo['id'],
+                                    point: _scoreTable[_userInfo['id'] +
+                                        "%" +
+                                        _userInfo['userName']],
+                                    seasonNumber:
+                                        _configData['ScoreTableSeason'],
                                   )));
                     }),
                 RawMaterialButton(
@@ -248,7 +272,10 @@ class _HomePageState extends State<HomePage> {
                         )),
                     onPressed: () async {
                       var a = await _authService.signOutAndDeleteUser(
-                          widget.userID, "Anonym");
+                          widget.userID,
+                          "Anonym",
+                          _userInfo['userName'],
+                          _configData['ScoreTableSeason']);
                       box.put("DBId", 0);
                       box.put("WordPool", {});
 

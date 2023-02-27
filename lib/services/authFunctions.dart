@@ -85,6 +85,9 @@ class AuthService {
             DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()).toString(),
         "gameScore": 0,
       });
+      await _firestore.collection("ScoreTable").doc("Season1").update({
+        user.user!.uid + "%" + _username: 0,
+      });
     } on FirebaseAuthException catch (e) {
       returnCode['status'] = false;
       returnCode['value'] = e.code;
@@ -207,7 +210,8 @@ class AuthService {
     return await _auth.signOut();
   }
 
-  signOutAndDeleteUser(String uid, String registerType) async {
+  signOutAndDeleteUser(String uid, String registerType, String userName,
+      String seasonNumber) async {
     if (registerType == "Anonym") {
       print("AAAAAAAAAAA $uid");
       var k = await FirebaseFirestore.instance
@@ -215,6 +219,11 @@ class AuthService {
           .doc(uid)
           .delete()
           .then((value) async {
+        FirebaseFirestore.instance
+            .collection('ScoreTable')
+            .doc("Season" + seasonNumber)
+            .update({uid + "%" + userName: FieldValue.delete()});
+
         return await _auth.signOut();
       }).onError((error, stackTrace) async {
         return await _auth.signOut();

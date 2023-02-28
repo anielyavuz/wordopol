@@ -45,10 +45,25 @@ class _HomePageState extends State<HomePage> {
     'English': 'en'
   };
 
+  dayOfToday() {
+    var now = DateTime.now();
+    var dayOfYear = now.difference(DateTime(now.year, 1, 1)).inDays + 1;
+    print("Bugün yılın $dayOfYear. günüdür.");
+    return dayOfYear;
+  }
+
   wordPickForPlay() {
+    var _todayInt = dayOfToday();
     _wordsForPlay = [];
     setState(() {
-      for (var _id in ["0", "1", "2", "3", "4", "5"]) {
+      for (var _id in [
+        _todayInt.toString(),
+        (_todayInt + 1).toString(),
+        (_todayInt + 2).toString(),
+        (_todayInt + 3).toString(),
+        (_todayInt + 4).toString(),
+        (_todayInt + 5).toString()
+      ]) {
         _wordsForPlay.add(_wordPoolData[_currentLanguage][_id]);
       }
     });
@@ -236,11 +251,6 @@ class _HomePageState extends State<HomePage> {
                           // fontWeight: FontWeight.bold
                         )),
                     onPressed: () async {
-                      // print(_userInfo['userName']);
-                      // print(_userInfo['id']);
-                      // print(_scoreTable[
-                      //     _userInfo['id'] + "%" + _userInfo['userName']]);
-
                       await wordPickForPlay();
                       print(_wordsForPlay);
                       Navigator.push(

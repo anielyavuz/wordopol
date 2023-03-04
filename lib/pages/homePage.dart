@@ -59,11 +59,54 @@ class _HomePageState extends State<HomePage> {
     'Français': 'fr',
     'English': 'en'
   };
+  Map _completedGames = {};
+  bool _Game1Completed = false;
+  bool _Game2Completed = false;
+  bool _Game3Completed = false;
+  bool _Game4Completed = false;
+  bool _Game5Completed = false;
+  bool _Game6Completed = false;
+
+  completedGames() {
+    // print("Completed Games:  $_completedGames");
+    if (_completedGames[_todayNumber] != null) {
+      if (_completedGames[_todayNumber][1] != null) {
+        setState(() {
+          _Game1Completed = _completedGames[_todayNumber][1];
+        });
+      }
+      if (_completedGames[_todayNumber][2] != null) {
+        setState(() {
+          _Game2Completed = _completedGames[_todayNumber][2];
+        });
+      }
+      if (_completedGames[_todayNumber][3] != null) {
+        setState(() {
+          _Game3Completed = _completedGames[_todayNumber][3];
+        });
+      }
+      // if (_completedGames[_todayNumber][4] != null) {
+      //   setState(() {
+      //     _Game4Completed = _completedGames[_todayNumber][4];
+      //   });
+      // }
+      // if (_completedGames[_todayNumber][5] != null) {
+      //   setState(() {
+      //     _Game5Completed = _completedGames[_todayNumber][5];
+      //   });
+      // }
+      // if (_completedGames[_todayNumber][6] != null) {
+      //   setState(() {
+      //     _Game6Completed = _completedGames[_todayNumber][6];
+      //   });
+      // }
+    }
+  }
 
   dayOfToday() {
     var now = DateTime.now();
     var dayOfYear = now.difference(DateTime(1, 1, 1)).inDays + 1;
-    print("Bugün yılın $dayOfYear. günüdür.");
+    // print("Bugün yılın $dayOfYear. günüdür.");
     return dayOfYear;
   }
 
@@ -153,11 +196,9 @@ class _HomePageState extends State<HomePage> {
         _languageFull = "Engilish";
       }
     });
-    print(_currentLanguage);
+    // print(_currentLanguage);
 
-    print((_languageFull));
-
-    groupOfWords();
+    // print((_languageFull));
   }
 
   wordDBSyncFunction() async {
@@ -165,8 +206,8 @@ class _HomePageState extends State<HomePage> {
     _configData = await CloudDB().getConfigDatas();
     _scoreTable =
         await CloudDB().getScoreTable(_configData['ScoreTableSeason']);
-    print("KKKKKKKKK");
-    print(_configData);
+    // print("KKKKKKKKK");
+    // print(_configData);
 
     var _DBId = box.get("DBId") ?? 0;
     _currentLanguage = box.get("languageSelectedBefore") ?? "en";
@@ -188,13 +229,19 @@ class _HomePageState extends State<HomePage> {
     } else {
       print("Dbler güncel");
     }
+
     setState(() {
       _userDataLoadScreen = false;
     });
     _DBId = box.get("DBId") ?? 0;
     _wordPoolData = box.get("WordPool") ?? {};
-
+    _completedGames = box.get("CompletedGames") ??
+        {
+          1: {1: false}
+        };
+    completedGames(); //tamamlanan günlerin atamaları ilgili değişkenler için yapılır.
     print(_DBId);
+    groupOfWords();
   }
 
   // getCloudData() async {
@@ -354,19 +401,21 @@ class _HomePageState extends State<HomePage> {
                           // fontWeight: FontWeight.bold
                         )),
                     onPressed: () async {
-                      var a = await _authService.signOutAndDeleteUser(
-                          widget.userID,
-                          "Anonym",
-                          _userInfo['userName'],
-                          _configData['ScoreTableSeason']);
-                      box.put("DBId", 0);
-                      box.put("WordPool", {});
+                      box.put("CompletedGames", {});
 
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => CheckAuth()),
-                          (Route<dynamic> route) => false);
+                      // var a = await _authService.signOutAndDeleteUser(
+                      //     widget.userID,
+                      //     "Anonym",
+                      //     _userInfo['userName'],
+                      //     _configData['ScoreTableSeason']);
+                      // box.put("DBId", 0);
+                      // box.put("WordPool", {});
+
+                      // Navigator.pushAndRemoveUntil(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (BuildContext context) => CheckAuth()),
+                      //     (Route<dynamic> route) => false);
                     }),
                 Expanded(
                   child: Container(
@@ -425,16 +474,31 @@ class _HomePageState extends State<HomePage> {
                                             child: Icon(
                                               TimeOfDay.now().hour >
                                                       _todayGames[index2].hour
-                                                  ? Icons.pending
+                                                  ? (_completedGames[
+                                                              _todayNumber] !=
+                                                          null
+                                                      ? (_completedGames[_todayNumber]
+                                                                  [
+                                                                  index2 + 1] ==
+                                                              true
+                                                          ? Icons.check
+                                                          : Icons.pending)
+                                                      : Icons.pending)
                                                   : TimeOfDay.now().hour ==
                                                           _todayGames[index2]
                                                               .hour
-                                                      ? TimeOfDay.now()
-                                                                  .minute >=
-                                                              _todayGames[
-                                                                      index2]
+                                                      ? TimeOfDay.now().minute >=
+                                                              _todayGames[index2]
                                                                   .minute
-                                                          ? Icons.pending
+                                                          ? (_completedGames[
+                                                                      _todayNumber] !=
+                                                                  null
+                                                              ? (_completedGames[_todayNumber]
+                                                                          [index2 + 1] ==
+                                                                      true
+                                                                  ? Icons.check
+                                                                  : Icons.pending)
+                                                              : Icons.pending)
                                                           : Icons.lock
                                                       : Icons.lock,
                                               size: 25,
@@ -459,14 +523,28 @@ class _HomePageState extends State<HomePage> {
                                           SizedBox(
                                             width: 15,
                                           ),
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () {},
-                                            child: Icon(
-                                              Icons.notifications_active,
-                                              size: 25,
-                                              color: Colors.blue,
+                                          Visibility(
+                                            visible: TimeOfDay.now().hour >
+                                                    _todayGames[index2].hour
+                                                ? false
+                                                : TimeOfDay.now().hour ==
+                                                        _todayGames[index2].hour
+                                                    ? TimeOfDay.now().minute >=
+                                                            _todayGames[index2]
+                                                                .minute
+                                                        ? false
+                                                        : true
+                                                    : true,
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () {},
+                                              child: Icon(
+                                                Icons.notifications_active,
+                                                size: 25,
+                                                color: Colors.blue,
+                                              ),
                                             ),
                                           ),
                                           SizedBox(
@@ -490,25 +568,40 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  bool _check = true;
+                                  String _check = "vakitGeldi";
 
                                   if (TimeOfDay.now().hour >
                                       _todayGames[index2].hour) {
-                                    _check = true;
+                                    _check = "vakitGeldi";
                                   } else {
                                     if (TimeOfDay.now().hour ==
                                         _todayGames[index2].hour) {
                                       if (TimeOfDay.now().minute >=
                                           _todayGames[index2].minute) {
-                                        _check = true;
+                                        _check = "vakitGeldi";
                                       } else {
-                                        _check = false;
+                                        _check = "vakitGelmedi";
                                       }
                                     } else {
-                                      _check = false;
+                                      _check = "vakitGelmedi";
                                     }
                                   }
-                                  if (_check) {
+
+                                  if (_completedGames[_todayNumber] != null) {
+                                    if (_completedGames[_todayNumber]
+                                            [index2 + 1] ==
+                                        true) {
+                                      _check = "oyunTamamlandi";
+                                    }
+                                  }
+
+                                  if (_check == "vakitGeldi") {
+                                    if (_completedGames[_todayNumber] == null) {
+                                      _completedGames[_todayNumber] = {};
+                                    }
+                                    _completedGames[_todayNumber][index2 + 1] =
+                                        true;
+                                    box.put("CompletedGames", _completedGames);
                                     if (index2 == 0) {
                                       Navigator.push(
                                           context,
@@ -567,6 +660,31 @@ class _HomePageState extends State<HomePage> {
                                                         'ScoreTableSeason'],
                                                   )));
                                     }
+                                  } else if (_check == "oyunTamamlandi") {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        duration: Duration(milliseconds: 2000),
+                                        content: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text("Bu oyunu oynadınız..."),
+                                          ],
+                                        ),
+                                        // action: SnackBarAction(
+                                        //   label: "Be a Premium User",
+                                        //   onPressed: () {
+                                        //     Navigator.push(
+                                        //         context,
+                                        //         MaterialPageRoute(
+                                        //             builder: (context) =>
+                                        //                 BePremiumUser()));
+                                        //   },
+                                        // )
+                                      ),
+                                    );
                                   } else {
                                     ScaffoldMessenger.of(context)
                                         .hideCurrentSnackBar();

@@ -39,9 +39,9 @@ class _HomePageState extends State<HomePage> {
   var _languageFull = "English";
   int _todayNumber = 100;
   List _todayGames = [
-    TimeOfDay(hour: 0, minute: 05),
+    TimeOfDay(hour: 8, minute: 30),
     TimeOfDay(hour: 12, minute: 30),
-    TimeOfDay(hour: 23, minute: 50)
+    TimeOfDay(hour: 20, minute: 30)
   ];
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   String _currentLanguage = "en";
@@ -134,6 +134,10 @@ class _HomePageState extends State<HomePage> {
         _6larMap.add(map[k]);
       }
     });
+
+    // print("_todayNumber $_todayNumber");
+    // print("_4lerMap.length " + _4lerMap.length.toString());
+
     _wordsForPlay1.add(_4lerMap[_todayNumber % _4lerMap.length]);
     _wordsForPlay1.add(_5lerMap[_todayNumber % _5lerMap.length]);
     _wordsForPlay1.add(_6larMap[_todayNumber % _6larMap.length]);
@@ -401,21 +405,19 @@ class _HomePageState extends State<HomePage> {
                           // fontWeight: FontWeight.bold
                         )),
                     onPressed: () async {
+                      var a = await _authService.signOutAndDeleteUser(
+                          widget.userID,
+                          "Anonym",
+                          _userInfo['userName'],
+                          _configData['ScoreTableSeason']);
+                      box.put("DBId", 0);
+                      box.put("WordPool", {});
                       box.put("CompletedGames", {});
-
-                      // var a = await _authService.signOutAndDeleteUser(
-                      //     widget.userID,
-                      //     "Anonym",
-                      //     _userInfo['userName'],
-                      //     _configData['ScoreTableSeason']);
-                      // box.put("DBId", 0);
-                      // box.put("WordPool", {});
-
-                      // Navigator.pushAndRemoveUntil(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (BuildContext context) => CheckAuth()),
-                      //     (Route<dynamic> route) => false);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => CheckAuth()),
+                          (Route<dynamic> route) => false);
                     }),
                 Expanded(
                   child: Container(

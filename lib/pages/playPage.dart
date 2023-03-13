@@ -34,7 +34,7 @@ class _PlayPageState extends State<PlayPage> {
   TextEditingController _cevapTextFieldController = TextEditingController();
 
   late Timer _timer;
-  int _geriSayilcakSure = 100;
+  int _geriSayilcakSure = 10000;
 
   late Timer _timer2;
   int _geriSayilcakSure2 = 25;
@@ -105,6 +105,8 @@ class _PlayPageState extends State<PlayPage> {
             .toString()
             .toLowerCase()) {
       print("Doğru cevap");
+
+      //Soru değişim
       if (_questionNumber + 1 < widget.wordsForPlay.length) {
         setState(() {
           _puan = _puan +

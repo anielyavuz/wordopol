@@ -220,7 +220,7 @@ class _PlayPageState extends State<PlayPage> {
                             autofocus: true,
                             onChanged: (value2) {
                               // print(_cevapTextFieldController.text);
-                              cevapKontrolFunction();
+                              
                             },
                             controller: _cevapTextFieldController,
                             decoration: InputDecoration(
@@ -265,7 +265,7 @@ class _PlayPageState extends State<PlayPage> {
                                           // fontWeight: FontWeight.bold
                                         )),
                                     onPressed: () async {
-                                      harfAl();
+                                      cevapKontrolFunction();
                                     }),
                         ),
                         Visibility(

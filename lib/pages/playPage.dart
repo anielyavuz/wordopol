@@ -37,7 +37,7 @@ class _PlayPageState extends State<PlayPage> {
   int _geriSayilcakSure = 10000;
 
   late Timer _timer2;
-  int _geriSayilcakSure2 = 25;
+  int _geriSayilcakSure2 = 2500;
   bool _cevapFieldVisible = false;
   void geriSayacCevapSuresiBasla() {
     const oneSec = const Duration(seconds: 1);
@@ -49,7 +49,7 @@ class _PlayPageState extends State<PlayPage> {
             _hint = "";
             _questionNumber = _questionNumber + 1;
             _cevapTextFieldController.text = "";
-            _geriSayilcakSure2 = 25;
+            _geriSayilcakSure2 = 2500;
             _cevapFieldVisible = false;
             _puan = _puan -
                 (widget.wordsForPlay[_questionNumber]["_answer"]
@@ -119,7 +119,7 @@ class _PlayPageState extends State<PlayPage> {
           _hint = "";
           _questionNumber = _questionNumber + 1;
           _cevapTextFieldController.text = "";
-          _geriSayilcakSure2 = 25;
+          _geriSayilcakSure2 = 2500;
         });
         _timer2.cancel();
         geriSayacBasla();
@@ -202,10 +202,11 @@ class _PlayPageState extends State<PlayPage> {
                           ),
                         ),
                         AnimatedContainer(
+                          padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
                           duration: Duration(milliseconds: 500),
                           child: Text(widget.wordsForPlay[_questionNumber]
                                   ["_question"]
-                              .toString()),
+                              .toString(),textAlign: TextAlign.center,),
                         ),
                         Text(_hint),
                         Visibility(
@@ -246,6 +247,26 @@ class _PlayPageState extends State<PlayPage> {
                                   color: Color.fromARGB(75, 21, 9, 35)),
                             ),
                           ),
+                        ),
+                        Visibility(
+                          visible: _cevapFieldVisible,
+                          child: RawMaterialButton(
+                                    fillColor: Color.fromARGB(255, 45, 179, 50),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15.0))),
+                                    splashColor: Color(0xff77A830),
+                                    textStyle: TextStyle(color: Colors.white),
+                                    child: Text("TAMAM",
+                                        style: TextStyle(
+                                          color: Color.fromARGB(255, 18, 9, 9),
+                                          fontSize: 15,
+                                          fontFamily: 'Times New Roman',
+                                          // fontWeight: FontWeight.bold
+                                        )),
+                                    onPressed: () async {
+                                      harfAl();
+                                    }),
                         ),
                         Visibility(
                           visible: !_cevapFieldVisible,

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wordopol/pages/homePage.dart';
 import 'package:wordopol/services/firebaseFunctions.dart';
+import 'package:wordopol/services/uppercaseFunction.dart';
 
 class PlayPage extends StatefulWidget {
   final List wordsForPlay;
@@ -65,6 +66,7 @@ class _PlayPageState extends State<PlayPage> {
         if (_geriSayilcakSure2 == 0) {
           setState(() {
             _hint = "";
+            _alinanHarfler = [];
             _questionNumber = _questionNumber + 1;
             ekrandakiCevapla();
             _cevapTextFieldController.text = "";
@@ -97,6 +99,7 @@ class _PlayPageState extends State<PlayPage> {
             timer.cancel();
             _gameEnd = true;
             _hint = "";
+            _alinanHarfler = [];
 
             CloudDB().updateScoreTable(widget.seasonNumber, widget.uid,
                 widget.userName, widget.point + _puan);
@@ -118,11 +121,23 @@ class _PlayPageState extends State<PlayPage> {
     geriSayacCevapSuresiBasla();
   }
 
+  cevabiYaz(String word) {
+    int _index = 0;
+    for (var item in _ekrandakiCevap) {
+      if (item == " ") {
+        setState(() {
+          _ekrandakiCevap[_index] = word;
+        });
+        break;
+      }
+      _index++;
+    }
+  }
+
   cevapKontrolFunction() {
-    if (_cevapTextFieldController.text.toLowerCase() ==
-        widget.wordsForPlay[_questionNumber]["_answer"]
-            .toString()
-            .toLowerCase()) {
+    if (Uppercase().upperCaseFunction(_cevapTextFieldController.text) ==
+        Uppercase().upperCaseFunction(
+            widget.wordsForPlay[_questionNumber]["_answer"])) {
       print("Doğru cevap");
 
       //Soru değişim
@@ -136,6 +151,7 @@ class _PlayPageState extends State<PlayPage> {
                   10);
           _cevapFieldVisible = false;
           _hint = "";
+          _alinanHarfler = [];
           _questionNumber = _questionNumber + 1;
           ekrandakiCevapla();
 
@@ -150,48 +166,60 @@ class _PlayPageState extends State<PlayPage> {
           _gameEnd = true;
           _puan = _puan + int.parse(_timer.toString());
           _hint = "";
+          _alinanHarfler = [];
         });
         CloudDB().updateScoreTable(widget.seasonNumber, widget.uid,
             widget.userName, widget.point + _puan);
       }
     } else {
       print("Cevap yanlış");
+      print(Uppercase().upperCaseFunction(_cevapTextFieldController.text));
+      print(widget.wordsForPlay[_questionNumber]["_answer"]);
+      print(Uppercase()
+          .upperCaseFunction(widget.wordsForPlay[_questionNumber]["_answer"]));
+      // print(_cevapTextFieldController.text.toUpperCase());
+      // print(widget.wordsForPlay[_questionNumber]["_answer"]
+      //     .toString()
+      //     .toUpperCase());
     }
   }
 
   harfAl() {
     List _tempListe =
         widget.wordsForPlay[_questionNumber]["_answer"].toString().split('');
+    if (_hint.length < _tempListe.length) {
+      Random rnd;
+      int min = 0;
+      int max = _tempListe.length;
 
-    Random rnd;
-    int min = 0;
-    int max = _tempListe.length;
-    rnd = new Random();
-    int _tempResult = 0;
-    for (var i = 0; i < max; i++) {
-      int _tempResult = min + rnd.nextInt(max - min);
-      if (!_alinanHarfler.contains(_tempResult)) {
-        setState(() {
-          _alinanHarfler.add(_tempResult);
-        });
-        break;
+      int _tempResult = 0;
+      for (var i = 0; i < max; i++) {
+        rnd = new Random();
+        _tempResult = min + rnd.nextInt(max - min);
+        print(_tempResult);
+        if (!_alinanHarfler.contains(_tempResult)) {
+          setState(() {
+            _alinanHarfler.add(_tempResult);
+          });
+          break;
+        }
       }
-    }
 
-    print(_tempResult);
-    setState(() {
-      _ekrandakiCevap[_tempResult] = _tempListe[_tempResult];
-    });
-    print(_ekrandakiCevap);
-
-    if (_hint.length <
-        widget.wordsForPlay[_questionNumber]["_answer"].toString().length) {
       setState(() {
-        // print(object)
-        _hint = widget.wordsForPlay[_questionNumber]["_answer"]
-            .toString()
-            .substring(0, _hint.toString().length + 1);
+        _ekrandakiCevap[_tempResult] =
+            _tempListe[_tempResult].toString().toUpperCase();
       });
+      print(_ekrandakiCevap);
+
+      if (_hint.length <
+          widget.wordsForPlay[_questionNumber]["_answer"].toString().length) {
+        setState(() {
+          // print(object)
+          _hint = widget.wordsForPlay[_questionNumber]["_answer"]
+              .toString()
+              .substring(0, _hint.toString().length + 1);
+        });
+      }
     }
   }
 
@@ -439,76 +467,104 @@ class _PlayPageState extends State<PlayPage> {
                                       ))),
                                 ))
                             .toList()),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: _alphabet0
-                        .map((word) => Padding(
-                              padding: const EdgeInsets.fromLTRB(4, 5, 4, 5),
-                              child: InkWell(
-                                onTap: (() async {}),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        // border:
-                                        //     Border.all(color: Colors.black),
-                                        color: Colors.amber,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10))),
-                                    width:
-                                        MediaQuery.of(context).size.width / 13,
-                                    height: 40,
-                                    child: Center(child: Text(word))),
-                              ),
-                            ))
-                        .toList()),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: _alphabet1
-                        .map((word) => Padding(
-                              padding: const EdgeInsets.fromLTRB(4, 5, 4, 5),
-                              child: InkWell(
-                                onTap: (() async {}),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        // border:
-                                        //     Border.all(color: Colors.black),
-                                        color: Colors.amber,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10))),
-                                    width:
-                                        MediaQuery.of(context).size.width / 13,
-                                    height: 40,
-                                    child: Center(child: Text(word))),
-                              ),
-                            ))
-                        .toList()),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: _alphabet2
-                            .map((word) => Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(4, 5, 4, 5),
-                                  child: InkWell(
-                                    onTap: (() async {}),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            // border:
-                                            //     Border.all(color: Colors.black),
-                                            color: Colors.amber,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                13,
-                                        height: 40,
-                                        child: Center(child: Text(word))),
-                                  ),
-                                ))
-                            .toList()),
-                  ],
+                Opacity(
+                  opacity: _cevapFieldVisible ? 1 : 0.4,
+                  child: Column(
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: _alphabet0
+                              .map((word) => Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(4, 5, 4, 5),
+                                    child: InkWell(
+                                      onTap: (() async {
+                                        cevabiYaz(word);
+                                      }),
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              // border:
+                                              //     Border.all(color: Colors.black),
+                                              color: _cevapFieldVisible
+                                                  ? Colors.amber
+                                                  : Colors.grey,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              13,
+                                          height: 40,
+                                          child: Center(child: Text(word))),
+                                    ),
+                                  ))
+                              .toList()),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: _alphabet1
+                              .map((word) => Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(4, 5, 4, 5),
+                                    child: InkWell(
+                                      onTap: (() async {
+                                        cevabiYaz(word);
+                                      }),
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              // border:
+                                              //     Border.all(color: Colors.black),
+                                              color: _cevapFieldVisible
+                                                  ? Colors.amber
+                                                  : Colors.grey,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              13,
+                                          height: 40,
+                                          child: Center(child: Text(word))),
+                                    ),
+                                  ))
+                              .toList()),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: _alphabet2
+                                  .map((word) => Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            4, 5, 4, 5),
+                                        child: InkWell(
+                                          onTap: (() async {
+                                            // print(word);
+                                            cevabiYaz(word);
+                                          }),
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                  // border:
+                                                  //     Border.all(color: Colors.black),
+                                                  color: _cevapFieldVisible
+                                                      ? Colors.amber
+                                                      : Colors.grey,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10))),
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  13,
+                                              height: 40,
+                                              child: Center(child: Text(word))),
+                                        ),
+                                      ))
+                                  .toList()),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

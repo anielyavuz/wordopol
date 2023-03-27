@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -157,63 +158,66 @@ class _WelcomePageState extends State<WelcomePage> {
                           ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                            child: DropdownButton<String>(
-                                borderRadius: BorderRadius.circular(10),
-                                alignment: AlignmentDirectional.topCenter,
-                                dropdownColor: Color(0xff010114).withOpacity(1),
-                                value: _languageFull,
-                                items: _languageDropdown.keys
-                                    .toList()
-                                    .map((dynamic value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: new Text(value,
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 137, 111, 111),
-                                            fontWeight: FontWeight.bold)),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _languageFull = value!;
-                                  });
-
-                                  if (_configData['supportedLanguages'] !=
-                                      null) {
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton2<String>(
+                                alignment: AlignmentDirectional.center,
+                                dropdownWidth: 90,
+                                  // borderRadius: BorderRadius.circular(10),
+                                  // dropdownColor: Color(0xff010114).withOpacity(1),
+                                  value: _languageFull,
+                                  items: _languageDropdown.keys
+                                      .toList()
+                                      .map((dynamic value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: new Text(value,
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 137, 111, 111),
+                                              fontWeight: FontWeight.bold)),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
                                     setState(() {
-                                      _currentLanguage =
-                                          _configData['supportedLanguages']
-                                              [_languageFull];
-                                      box.put("languageSelectedBefore",
-                                          _currentLanguage);
+                                      _languageFull = value!;
                                     });
-                                  }
-
-                                  // if (_languageFull == "Español") {
-                                  //   setState(() {
-                                  //     _currentLanguage = "es";
-                                  //   });
-                                  // } else if (value == "Deutsch") {
-                                  //   setState(() {
-                                  //     _currentLanguage = "de";
-                                  //   });
-                                  // } else if (value == "Français") {
-                                  //   setState(() {
-                                  //     _currentLanguage = "fr";
-                                  //   });
-                                  // } else if (value == "English") {
-                                  //   setState(() {
-                                  //     _currentLanguage = "en";
-                                  //   });
-                                  // } else {
-                                  //   setState(() {
-                                  //     _currentLanguage = "tr";
-                                  //   });
-                                  // }
-
-                                  print(_currentLanguage);
-                                }),
+                            
+                                    if (_configData['supportedLanguages'] !=
+                                        null) {
+                                      setState(() {
+                                        _currentLanguage =
+                                            _configData['supportedLanguages']
+                                                [_languageFull];
+                                        box.put("languageSelectedBefore",
+                                            _currentLanguage);
+                                      });
+                                    }
+                            
+                                    // if (_languageFull == "Español") {
+                                    //   setState(() {
+                                    //     _currentLanguage = "es";
+                                    //   });
+                                    // } else if (value == "Deutsch") {
+                                    //   setState(() {
+                                    //     _currentLanguage = "de";
+                                    //   });
+                                    // } else if (value == "Français") {
+                                    //   setState(() {
+                                    //     _currentLanguage = "fr";
+                                    //   });
+                                    // } else if (value == "English") {
+                                    //   setState(() {
+                                    //     _currentLanguage = "en";
+                                    //   });
+                                    // } else {
+                                    //   setState(() {
+                                    //     _currentLanguage = "tr";
+                                    //   });
+                                    // }
+                            
+                                    print(_currentLanguage);
+                                  }),
+                            ),
                           ),
                         ],
                       ),

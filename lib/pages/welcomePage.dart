@@ -120,6 +120,14 @@ class _WelcomePageState extends State<WelcomePage> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                             child: TextField(
+                              onSubmitted: (value) async {
+                                print(_textFieldValue.toString().length);
+                                if (_textFieldValue.toString().length == 0) {
+                                } else {
+                                  var a = await _authService.anonymSignIn(
+                                      _turkceTextFieldController.text);
+                                }
+                              },
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(40),
                                 FilteringTextInputFormatter.deny("%"),
@@ -160,9 +168,9 @@ class _WelcomePageState extends State<WelcomePage> {
                             padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2<String>(
-                                offset: const Offset(-8, 0),
-                                alignment: AlignmentDirectional.center,
-                                dropdownWidth: 90,
+                                  offset: const Offset(-8, 0),
+                                  alignment: AlignmentDirectional.center,
+                                  dropdownWidth: 90,
                                   // borderRadius: BorderRadius.circular(10),
                                   // dropdownColor: Color(0xff010114).withOpacity(1),
                                   value: _languageFull,
@@ -182,7 +190,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                     setState(() {
                                       _languageFull = value!;
                                     });
-                            
+
                                     if (_configData['supportedLanguages'] !=
                                         null) {
                                       setState(() {
@@ -193,7 +201,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                             _currentLanguage);
                                       });
                                     }
-                            
+
                                     // if (_languageFull == "Español") {
                                     //   setState(() {
                                     //     _currentLanguage = "es";
@@ -215,7 +223,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                     //     _currentLanguage = "tr";
                                     //   });
                                     // }
-                            
+
                                     print(_currentLanguage);
                                   }),
                             ),

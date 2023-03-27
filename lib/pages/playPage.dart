@@ -32,6 +32,7 @@ class _PlayPageState extends State<PlayPage> {
   List _alphabet0 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
   List _alphabet1 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
   List _alphabet2 = ["Z", "X", "C", "V", "B", "N", "M"];
+  List _alinanHarfler = [];
   List _ekrandakiCevap = [];
   int _puan = 0;
   int _questionNumber = 0; //hangi soruda olunduğu
@@ -46,7 +47,7 @@ class _PlayPageState extends State<PlayPage> {
   int _geriSayilcakSure2 = 2500;
   bool _cevapFieldVisible = false;
 
-  ekraniCevapla() {
+  ekrandakiCevapla() {
     _ekrandakiCevap = [];
     for (var item in widget.wordsForPlay[_questionNumber]["_answer"]
         .toString()
@@ -65,7 +66,7 @@ class _PlayPageState extends State<PlayPage> {
           setState(() {
             _hint = "";
             _questionNumber = _questionNumber + 1;
-            ekraniCevapla();
+            ekrandakiCevapla();
             _cevapTextFieldController.text = "";
             _geriSayilcakSure2 = 2500;
             _cevapFieldVisible = false;
@@ -136,7 +137,7 @@ class _PlayPageState extends State<PlayPage> {
           _cevapFieldVisible = false;
           _hint = "";
           _questionNumber = _questionNumber + 1;
-          ekraniCevapla();
+          ekrandakiCevapla();
 
           _cevapTextFieldController.text = "";
           _geriSayilcakSure2 = 2500;
@@ -168,7 +169,12 @@ class _PlayPageState extends State<PlayPage> {
     rnd = new Random();
 
     var _tempResult = min + rnd.nextInt(max - min);
-    _ekrandakiCevap[_tempResult] = _tempListe[_tempResult];
+
+    print(_tempResult);
+    setState(() {
+      _ekrandakiCevap[_tempResult] = _tempListe[_tempResult];
+    });
+    print(_ekrandakiCevap);
 
     if (_hint.length <
         widget.wordsForPlay[_questionNumber]["_answer"].toString().length) {
@@ -184,7 +190,7 @@ class _PlayPageState extends State<PlayPage> {
   @override
   void initState() {
     geriSayacBasla();
-    ekraniCevapla();
+    ekrandakiCevapla();
   }
 
   @override
@@ -414,7 +420,7 @@ class _PlayPageState extends State<PlayPage> {
                                       height: 40,
                                       child: Center(
                                           child: Text(
-                                        "",
+                                        word,
                                         style: TextStyle(
                                           // backgroundColor:
                                           //     Colors

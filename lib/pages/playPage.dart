@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 import 'package:wordopol/pages/homePage.dart';
 import 'package:wordopol/services/firebaseFunctions.dart';
 
@@ -27,6 +28,10 @@ class PlayPage extends StatefulWidget {
 }
 
 class _PlayPageState extends State<PlayPage> {
+  List _alphabet0 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
+  List _alphabet1 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
+  List _alphabet2 = ["Z", "X", "C", "V", "B", "N", "M"];
+  List _ekrandakiCevap = [];
   int _puan = 0;
   int _questionNumber = 0; //hangi soruda olunduğu
   bool _gameEnd = false;
@@ -39,6 +44,17 @@ class _PlayPageState extends State<PlayPage> {
   late Timer _timer2;
   int _geriSayilcakSure2 = 2500;
   bool _cevapFieldVisible = false;
+
+  ekraniCevapla() {
+    _ekrandakiCevap = [];
+    for (var item in widget.wordsForPlay[_questionNumber]["_answer"]
+        .toString()
+        .split("")) {
+      _ekrandakiCevap.add(" ");
+      print("AAAAAAAA");
+    }
+  }
+
   void geriSayacCevapSuresiBasla() {
     const oneSec = const Duration(seconds: 1);
     _timer2 = new Timer.periodic(
@@ -48,6 +64,7 @@ class _PlayPageState extends State<PlayPage> {
           setState(() {
             _hint = "";
             _questionNumber = _questionNumber + 1;
+            ekraniCevapla();
             _cevapTextFieldController.text = "";
             _geriSayilcakSure2 = 2500;
             _cevapFieldVisible = false;
@@ -118,6 +135,8 @@ class _PlayPageState extends State<PlayPage> {
           _cevapFieldVisible = false;
           _hint = "";
           _questionNumber = _questionNumber + 1;
+          ekraniCevapla();
+
           _cevapTextFieldController.text = "";
           _geriSayilcakSure2 = 2500;
         });
@@ -153,6 +172,7 @@ class _PlayPageState extends State<PlayPage> {
   @override
   void initState() {
     geriSayacBasla();
+    ekraniCevapla();
   }
 
   @override
@@ -174,10 +194,30 @@ class _PlayPageState extends State<PlayPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
-                          child: Text("Puan: " + _puan.toString(),
+                          child: Text("Toplam Puan: " + _puan.toString(),
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 49, 49, 196),
+                                fontSize: 35,
+                                fontFamily: 'Times New Roman',
+                                // fontWeight: FontWeight.bold
+                              )),
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Container(
+                          child: Text(
+                              "Bu sorunun puanı: " +
+                                  ((widget.wordsForPlay[_questionNumber]
+                                                      ["_answer"]
+                                                  .toString()
+                                                  .length -
+                                              _hint.length) *
+                                          10)
+                                      .toString(),
                               style: TextStyle(
                                 color: Colors.blueGrey,
-                                fontSize: 35,
+                                fontSize: 25,
                                 fontFamily: 'Times New Roman',
                                 // fontWeight: FontWeight.bold
                               )),
@@ -204,9 +244,11 @@ class _PlayPageState extends State<PlayPage> {
                         AnimatedContainer(
                           padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
                           duration: Duration(milliseconds: 500),
-                          child: Text(widget.wordsForPlay[_questionNumber]
-                                  ["_question"]
-                              .toString(),textAlign: TextAlign.center,),
+                          child: Text(
+                            widget.wordsForPlay[_questionNumber]["_question"]
+                                .toString(),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                         Text(_hint),
                         Visibility(
@@ -220,7 +262,6 @@ class _PlayPageState extends State<PlayPage> {
                             autofocus: true,
                             onChanged: (value2) {
                               // print(_cevapTextFieldController.text);
-                              
                             },
                             controller: _cevapTextFieldController,
                             decoration: InputDecoration(
@@ -251,22 +292,22 @@ class _PlayPageState extends State<PlayPage> {
                         Visibility(
                           visible: _cevapFieldVisible,
                           child: RawMaterialButton(
-                                    fillColor: Color.fromARGB(255, 45, 179, 50),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15.0))),
-                                    splashColor: Color(0xff77A830),
-                                    textStyle: TextStyle(color: Colors.white),
-                                    child: Text("TAMAM",
-                                        style: TextStyle(
-                                          color: Color.fromARGB(255, 18, 9, 9),
-                                          fontSize: 15,
-                                          fontFamily: 'Times New Roman',
-                                          // fontWeight: FontWeight.bold
-                                        )),
-                                    onPressed: () async {
-                                      cevapKontrolFunction();
-                                    }),
+                              fillColor: Color.fromARGB(255, 45, 179, 50),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15.0))),
+                              splashColor: Color(0xff77A830),
+                              textStyle: TextStyle(color: Colors.white),
+                              child: Text("TAMAM",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 18, 9, 9),
+                                    fontSize: 15,
+                                    fontFamily: 'Times New Roman',
+                                    // fontWeight: FontWeight.bold
+                                  )),
+                              onPressed: () async {
+                                cevapKontrolFunction();
+                              }),
                         ),
                         Visibility(
                           visible: !_cevapFieldVisible,
@@ -313,6 +354,139 @@ class _PlayPageState extends State<PlayPage> {
                       ],
                     )
                   : Center(child: Text(" Oyun tamamlandı... Puan: $_puan"))),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 20),
+            child: Column(
+              children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: widget.wordsForPlay[_questionNumber]["_answer"]
+                                .toString()
+                                .length ==
+                            0
+                        ? [
+                            Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      // border:
+                                      //     Border.all(color: Colors.black),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  width: 35,
+                                  height: 40,
+                                  child: Center(
+                                      child: Text(
+                                    "",
+                                    style: TextStyle(
+                                      // backgroundColor:
+                                      //     Colors
+                                      //         .white,
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                  ))),
+                            )
+                          ]
+                        : _ekrandakiCevap
+                            .map((word) => Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          // border:
+                                          //     Border.all(color: Colors.black),
+                                          color: Color(0xff240046),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      width: 35,
+                                      height: 40,
+                                      child: Center(
+                                          child: Text(
+                                        "",
+                                        style: TextStyle(
+                                          // backgroundColor:
+                                          //     Colors
+                                          //         .white,
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                      ))),
+                                ))
+                            .toList()),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: _alphabet0
+                        .map((word) => Padding(
+                              padding: const EdgeInsets.fromLTRB(4, 5, 4, 5),
+                              child: InkWell(
+                                onTap: (() async {}),
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        // border:
+                                        //     Border.all(color: Colors.black),
+                                        color: Colors.amber,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    width:
+                                        MediaQuery.of(context).size.width / 13,
+                                    height: 40,
+                                    child: Center(child: Text(word))),
+                              ),
+                            ))
+                        .toList()),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: _alphabet1
+                        .map((word) => Padding(
+                              padding: const EdgeInsets.fromLTRB(4, 5, 4, 5),
+                              child: InkWell(
+                                onTap: (() async {}),
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        // border:
+                                        //     Border.all(color: Colors.black),
+                                        color: Colors.amber,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    width:
+                                        MediaQuery.of(context).size.width / 13,
+                                    height: 40,
+                                    child: Center(child: Text(word))),
+                              ),
+                            ))
+                        .toList()),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: _alphabet2
+                            .map((word) => Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(4, 5, 4, 5),
+                                  child: InkWell(
+                                    onTap: (() async {}),
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            // border:
+                                            //     Border.all(color: Colors.black),
+                                            color: Colors.amber,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                13,
+                                        height: 40,
+                                        child: Center(child: Text(word))),
+                                  ),
+                                ))
+                            .toList()),
+                  ],
+                ),
+              ],
+            ),
+          ),
           RawMaterialButton(
               fillColor: Color.fromARGB(255, 33, 39, 120),
               shape: RoundedRectangleBorder(
@@ -327,13 +501,15 @@ class _PlayPageState extends State<PlayPage> {
                     // fontWeight: FontWeight.bold
                   )),
               onPressed: () async {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => HomePage(
-                              userID: widget.uid,
-                            )),
-                    (Route<dynamic> route) => false);
+                print(_ekrandakiCevap);
+
+                // Navigator.pushAndRemoveUntil(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (BuildContext context) => HomePage(
+                //               userID: widget.uid,
+                //             )),
+                //     (Route<dynamic> route) => false);
 
                 // Navigator.pop(context);
                 // (Route<dynamic> route) => false);

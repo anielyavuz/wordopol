@@ -188,26 +188,29 @@ class _WelcomePageState extends State<WelcomePage> {
                     print(_currentLanguage);
                   }),
             ),
-            Visibility(
-              visible: _textFieldValue.toString().length > 0,
-              child: RawMaterialButton(
-                  fillColor: Color.fromARGB(255, 33, 39, 120),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                  splashColor: Color(0xff77A830),
-                  textStyle: TextStyle(color: Colors.white),
-                  child: Text("Next",
-                      style: TextStyle(
-                        color: Colors.amber,
-                        fontSize: 15,
-                        fontFamily: 'Times New Roman',
-                        // fontWeight: FontWeight.bold
-                      )),
-                  onPressed: () async {
-                    var a = await _authService
-                        .anonymSignIn(_turkceTextFieldController.text);
-                  }),
-            ),
+            RawMaterialButton(
+                fillColor: _textFieldValue.toString().length == 0
+                    ? Color.fromARGB(255, 74, 74, 79).withOpacity(0.3)
+                    : Color.fromARGB(255, 33, 39, 120),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                splashColor: Color(0xff77A830),
+                textStyle: TextStyle(color: Colors.white),
+                child: Text("Next",
+                    style: TextStyle(
+                      color: _textFieldValue.toString().length == 0
+                          ? Color.fromARGB(255, 255, 255, 255)
+                          : Colors.amber,
+                      fontSize: 15,
+                      fontFamily: 'Times New Roman',
+                      // fontWeight: FontWeight.bold
+                    )),
+                onPressed: _textFieldValue.toString().length == 0
+                    ? null
+                    : () async {
+                        var a = await _authService
+                            .anonymSignIn(_turkceTextFieldController.text);
+                      }),
           ],
         )),
       )),

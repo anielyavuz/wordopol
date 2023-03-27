@@ -117,6 +117,8 @@ class _HomePageState extends State<HomePage> {
     List _4lerMap = [];
     List _5lerMap = [];
     List _6larMap = [];
+    List _7lerMap = [];
+    List _8lerMap = [];
 
     // Random rnd4ler;
     // int min = 0;
@@ -132,6 +134,10 @@ class _HomePageState extends State<HomePage> {
         _5lerMap.add(map[k]);
       } else if (v['_letterNumber'] == "6") {
         _6larMap.add(map[k]);
+      } else if (v['_letterNumber'] == "7") {
+        _7lerMap.add(map[k]);
+      } else if (v['_letterNumber'] == "8") {
+        _8lerMap.add(map[k]);
       }
     });
 
@@ -141,26 +147,38 @@ class _HomePageState extends State<HomePage> {
     _wordsForPlay1.add(_4lerMap[_todayNumber % _4lerMap.length]);
     _wordsForPlay1.add(_5lerMap[_todayNumber % _5lerMap.length]);
     _wordsForPlay1.add(_6larMap[_todayNumber % _6larMap.length]);
+    _wordsForPlay1.add(_7lerMap[_todayNumber % _7lerMap.length]);
+    _wordsForPlay1.add(_8lerMap[_todayNumber % _8lerMap.length]);
 
     _wordsForPlay2.add(_4lerMap[(_todayNumber + (47)) % _4lerMap.length]);
     _wordsForPlay2.add(_5lerMap[(_todayNumber + (47)) % _5lerMap.length]);
     _wordsForPlay2.add(_6larMap[(_todayNumber + (47)) % _6larMap.length]);
+    _wordsForPlay2.add(_7lerMap[(_todayNumber + (47)) % _7lerMap.length]);
+    _wordsForPlay2.add(_8lerMap[(_todayNumber + (47)) % _8lerMap.length]);
 
     _wordsForPlay3.add(_4lerMap[(_todayNumber + (67)) % _4lerMap.length]);
     _wordsForPlay3.add(_5lerMap[(_todayNumber + (67)) % _5lerMap.length]);
     _wordsForPlay3.add(_6larMap[(_todayNumber + (67)) % _6larMap.length]);
+    _wordsForPlay3.add(_7lerMap[(_todayNumber + (67)) % _7lerMap.length]);
+    _wordsForPlay3.add(_8lerMap[(_todayNumber + (67)) % _8lerMap.length]);
 
     _wordsForPlay4.add(_4lerMap[(_todayNumber + (97)) % _4lerMap.length]);
     _wordsForPlay4.add(_5lerMap[(_todayNumber + (97)) % _5lerMap.length]);
     _wordsForPlay4.add(_6larMap[(_todayNumber + (97)) % _6larMap.length]);
+    _wordsForPlay4.add(_7lerMap[(_todayNumber + (97)) % _7lerMap.length]);
+    _wordsForPlay4.add(_8lerMap[(_todayNumber + (97)) % _8lerMap.length]);
 
     _wordsForPlay5.add(_4lerMap[(_todayNumber + (137)) % _4lerMap.length]);
     _wordsForPlay5.add(_5lerMap[(_todayNumber + (137)) % _5lerMap.length]);
     _wordsForPlay5.add(_6larMap[(_todayNumber + (137)) % _6larMap.length]);
+    _wordsForPlay5.add(_7lerMap[(_todayNumber + (137)) % _7lerMap.length]);
+    _wordsForPlay5.add(_8lerMap[(_todayNumber + (137)) % _8lerMap.length]);
 
     _wordsForPlay6.add(_4lerMap[(_todayNumber + (167)) % _4lerMap.length]);
     _wordsForPlay6.add(_5lerMap[(_todayNumber + (167)) % _5lerMap.length]);
     _wordsForPlay6.add(_6larMap[(_todayNumber + (167)) % _6larMap.length]);
+    _wordsForPlay6.add(_7lerMap[(_todayNumber + (167)) % _7lerMap.length]);
+    _wordsForPlay6.add(_8lerMap[(_todayNumber + (167)) % _8lerMap.length]);
   }
 
   languageSelect()
@@ -302,94 +320,43 @@ class _HomePageState extends State<HomePage> {
 
                               ))),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: DropdownButton<String>(
-                        dropdownColor: Color(0xff010114).withOpacity(1),
-                        value: _languageFull,
-                        items: _languageDropdown.keys
-                            .toList()
-                            .map((dynamic value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: new Text(value,
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 137, 111, 111),
-                                    fontWeight: FontWeight.bold)),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            _languageFull = value!;
-                          });
 
-                          if (_configData['supportedLanguages'] != null) {
-                            setState(() {
-                              _currentLanguage =
-                                  _configData['supportedLanguages']
-                                      [_languageFull];
-                              box.put(
-                                  "languageSelectedBefore", _currentLanguage);
-                            });
-                          }
+                // Expanded(
+                //   child: Padding(
+                //     padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                //     child: DropdownButton<String>(
+                //         dropdownColor: Color(0xff010114).withOpacity(1),
+                //         value: _languageFull,
+                //         items: _languageDropdown.keys
+                //             .toList()
+                //             .map((dynamic value) {
+                //           return DropdownMenuItem<String>(
+                //             value: value,
+                //             child: new Text(value,
+                //                 style: TextStyle(
+                //                     color: Color.fromARGB(255, 137, 111, 111),
+                //                     fontWeight: FontWeight.bold)),
+                //           );
+                //         }).toList(),
+                //         onChanged: (value) {
+                //           setState(() {
+                //             _languageFull = value!;
+                //           });
 
-                          // if (_languageFull == "Español") {
-                          //   setState(() {
-                          //     _currentLanguage = "es";
-                          //   });
-                          // } else if (value == "Deutsch") {
-                          //   setState(() {
-                          //     _currentLanguage = "de";
-                          //   });
-                          // } else if (value == "Français") {
-                          //   setState(() {
-                          //     _currentLanguage = "fr";
-                          //   });
-                          // } else if (value == "English") {
-                          //   setState(() {
-                          //     _currentLanguage = "en";
-                          //   });
-                          // } else {
-                          //   setState(() {
-                          //     _currentLanguage = "tr";
-                          //   });
-                          // }
+                //           if (_configData['supportedLanguages'] != null) {
+                //             setState(() {
+                //               _currentLanguage =
+                //                   _configData['supportedLanguages']
+                //                       [_languageFull];
+                //               box.put(
+                //                   "languageSelectedBefore", _currentLanguage);
+                //             });
+                //           }
 
-                          print(_currentLanguage);
-                        }),
-                  ),
-                ),
-                // RawMaterialButton(
-                //     fillColor: Color.fromARGB(255, 33, 39, 120),
-                //     shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                //     splashColor: Color(0xff77A830),
-                //     textStyle: TextStyle(color: Colors.white),
-                //     child: Text("Play",
-                //         style: TextStyle(
-                //           color: Colors.amber,
-                //           fontSize: 15,
-                //           fontFamily: 'Times New Roman',
-                //           // fontWeight: FontWeight.bold
-                //         )),
-                //     onPressed: () async {
-                //       await wordPickForPlay();
-                //       print(_wordsForPlay);
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (BuildContext context) => PlayPage(
-                //                     wordsForPlay: _wordsForPlay,
-                //                     userName: _userInfo['userName'],
-                //                     uid: _userInfo['id'],
-                //                     point: _scoreTable[_userInfo['id'] +
-                //                         "%" +
-                //                         _userInfo['userName']],
-                //                     seasonNumber:
-                //                         _configData['ScoreTableSeason'],
-                //                   )));
-                //     }),
+                //           print(_currentLanguage);
+                //         }),
+                //   ),
+                // ),
 
                 RawMaterialButton(
                     fillColor: Color.fromARGB(255, 33, 39, 120),
@@ -597,7 +564,9 @@ class _HomePageState extends State<HomePage> {
                                     }
                                   }
 
-                                  if (_check == "vakitGeldi") {
+                                  if (
+                                      // _check == "vakitGeldi"
+                                      _check == _check) {
                                     if (_completedGames[_todayNumber] == null) {
                                       _completedGames[_todayNumber] = {};
                                     }

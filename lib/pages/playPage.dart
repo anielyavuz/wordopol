@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -158,6 +159,17 @@ class _PlayPageState extends State<PlayPage> {
   }
 
   harfAl() {
+    List _tempListe =
+        widget.wordsForPlay[_questionNumber]["_answer"].toString().split('');
+
+    Random rnd;
+    int min = 0;
+    int max = _tempListe.length;
+    rnd = new Random();
+
+    var _tempResult = min + rnd.nextInt(max - min);
+    _ekrandakiCevap[_tempResult] = _tempListe[_tempResult];
+
     if (_hint.length <
         widget.wordsForPlay[_questionNumber]["_answer"].toString().length) {
       setState(() {
@@ -501,15 +513,15 @@ class _PlayPageState extends State<PlayPage> {
                     // fontWeight: FontWeight.bold
                   )),
               onPressed: () async {
-                print(_ekrandakiCevap);
+                // print(_ekrandakiCevap);
 
-                // Navigator.pushAndRemoveUntil(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (BuildContext context) => HomePage(
-                //               userID: widget.uid,
-                //             )),
-                //     (Route<dynamic> route) => false);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => HomePage(
+                              userID: widget.uid,
+                            )),
+                    (Route<dynamic> route) => false);
 
                 // Navigator.pop(context);
                 // (Route<dynamic> route) => false);

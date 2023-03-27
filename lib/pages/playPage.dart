@@ -167,8 +167,16 @@ class _PlayPageState extends State<PlayPage> {
     int min = 0;
     int max = _tempListe.length;
     rnd = new Random();
-
-    var _tempResult = min + rnd.nextInt(max - min);
+    int _tempResult = 0;
+    for (var i = 0; i < max; i++) {
+      int _tempResult = min + rnd.nextInt(max - min);
+      if (!_alinanHarfler.contains(_tempResult)) {
+        setState(() {
+          _alinanHarfler.add(_tempResult);
+        });
+        break;
+      }
+    }
 
     print(_tempResult);
     setState(() {

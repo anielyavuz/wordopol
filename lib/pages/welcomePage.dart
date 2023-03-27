@@ -160,6 +160,7 @@ class _WelcomePageState extends State<WelcomePage> {
                             padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2<String>(
+                                offset: const Offset(-8, 0),
                                 alignment: AlignmentDirectional.center,
                                 dropdownWidth: 90,
                                   // borderRadius: BorderRadius.circular(10),

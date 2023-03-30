@@ -87,23 +87,36 @@ class _PlayPageState extends State<PlayPage> {
       oneSec,
       (Timer timer2) {
         if (_geriSayilcakSure2 == 0) {
-          setState(() {
-            _hint = "";
-            _cevabiYazilanIndexler = [];
-            _alinanHarfler = [];
-            _questionNumber = _questionNumber + 1;
-            ekrandakiCevapla();
-            _cevapTextFieldController.text = "";
-            _geriSayilcakSure2 = 30;
-            _cevapFieldVisible = false;
-            _puan = _puan -
-                (widget.wordsForPlay[_questionNumber]["_answer"]
-                        .toString()
-                        .length *
-                    5);
-          });
-          _timer2.cancel();
-          geriSayacBasla();
+          if (_questionNumber + 1 < widget.wordsForPlay.length) {
+            setState(() {
+              _hint = "";
+              _cevabiYazilanIndexler = [];
+              _alinanHarfler = [];
+              _questionNumber = _questionNumber + 1;
+              ekrandakiCevapla();
+              _cevapTextFieldController.text = "";
+              _geriSayilcakSure2 = 30;
+              _cevapFieldVisible = false;
+              _puan = _puan -
+                  (widget.wordsForPlay[_questionNumber]["_answer"]
+                          .toString()
+                          .length *
+                      5);
+            });
+            _timer2.cancel();
+            geriSayacBasla();
+          } else {
+            print("Tüm sorular bitti tebrikler Puanınız... $_puan ");
+            setState(() {
+              _gameEnd = true;
+              // _puan = _puan + int.parse(_timer.toString());
+              _hint = "";
+              _cevabiYazilanIndexler = [];
+              _alinanHarfler = [];
+            });
+            CloudDB().updateScoreTable(widget.seasonNumber, widget.uid,
+                widget.userName, widget.point + _puan);
+          }
         } else {
           setState(() {
             _geriSayilcakSure2--;
@@ -119,16 +132,30 @@ class _PlayPageState extends State<PlayPage> {
       oneSec,
       (Timer timer) {
         if (_geriSayilcakSure == 0) {
-          setState(() {
-            timer.cancel();
-            _gameEnd = true;
-            _hint = "";
-            _cevabiYazilanIndexler = [];
-            _alinanHarfler = [];
+          print(_questionNumber);
+          if (_questionNumber + 1 < widget.wordsForPlay.length) {
+            setState(() {
+              timer.cancel();
+              _gameEnd = true;
+              _hint = "";
+              _cevabiYazilanIndexler = [];
+              _alinanHarfler = [];
 
+              CloudDB().updateScoreTable(widget.seasonNumber, widget.uid,
+                  widget.userName, widget.point + _puan);
+            });
+          } else {
+            print("Tüm sorular bitti tebrikler Puanınız... $_puan ");
+            setState(() {
+              _gameEnd = true;
+              // _puan = _puan + int.parse(_timer.toString());
+              _hint = "";
+              _cevabiYazilanIndexler = [];
+              _alinanHarfler = [];
+            });
             CloudDB().updateScoreTable(widget.seasonNumber, widget.uid,
                 widget.userName, widget.point + _puan);
-          });
+          }
         } else {
           setState(() {
             _geriSayilcakSure--;
@@ -216,7 +243,7 @@ class _PlayPageState extends State<PlayPage> {
           print("Tüm sorular bitti tebrikler Puanınız... $_puan ");
           setState(() {
             _gameEnd = true;
-            _puan = _puan + int.parse(_timer.toString());
+            // _puan = _puan + int.parse(_timer.toString());
             _hint = "";
             _cevabiYazilanIndexler = [];
             _alinanHarfler = [];
@@ -471,30 +498,33 @@ class _PlayPageState extends State<PlayPage> {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: _ekrandakiCevap
-                            .map((word) => Padding(
-                                  padding: EdgeInsets.all((MediaQuery.of(context).size.width-(35*8))/16),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          // border:
-                                          //     Border.all(color: Colors.black),
-                                          color: Color(0xff240046),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      width: 35,
-                                      height: 40,
-                                      child: Center(
-                                          child: Text(
-                                        word,
-                                        style: TextStyle(
-                                          // backgroundColor:
-                                          //     Colors
-                                          //         .white,
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                        ),
-                                      ))),
-                                ))
-                            .toList()),
+                        .map((word) => Padding(
+                              padding: EdgeInsets.all(
+                                  (MediaQuery.of(context).size.width -
+                                          (35 * 8)) /
+                                      16),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      // border:
+                                      //     Border.all(color: Colors.black),
+                                      color: Color(0xff240046),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  width: 35,
+                                  height: 40,
+                                  child: Center(
+                                      child: Text(
+                                    word,
+                                    style: TextStyle(
+                                      // backgroundColor:
+                                      //     Colors
+                                      //         .white,
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                  ))),
+                            ))
+                        .toList()),
                 Visibility(
                   visible: _cevapFieldVisible ? true : false,
                   child: Column(

@@ -94,7 +94,7 @@ class _PlayPageState extends State<PlayPage> {
             _questionNumber = _questionNumber + 1;
             ekrandakiCevapla();
             _cevapTextFieldController.text = "";
-            _geriSayilcakSure2 = 2500;
+            _geriSayilcakSure2 = 30;
             _cevapFieldVisible = false;
             _puan = _puan -
                 (widget.wordsForPlay[_questionNumber]["_answer"]
@@ -208,7 +208,7 @@ class _PlayPageState extends State<PlayPage> {
             ekrandakiCevapla();
 
             _cevapTextFieldController.text = "";
-            _geriSayilcakSure2 = 2500;
+            _geriSayilcakSure2 = 30;
           });
           _timer2.cancel();
           geriSayacBasla();

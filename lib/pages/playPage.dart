@@ -471,37 +471,9 @@ class _PlayPageState extends State<PlayPage> {
               children: [
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: widget.wordsForPlay[_questionNumber]["_answer"]
-                                .toString()
-                                .length ==
-                            0
-                        ? [
-                            Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      // border:
-                                      //     Border.all(color: Colors.black),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  width: 35,
-                                  height: 40,
-                                  child: Center(
-                                      child: Text(
-                                    "",
-                                    style: TextStyle(
-                                      // backgroundColor:
-                                      //     Colors
-                                      //         .white,
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  ))),
-                            )
-                          ]
-                        : _ekrandakiCevap
+                    children: _ekrandakiCevap
                             .map((word) => Padding(
-                                  padding: const EdgeInsets.all(6.0),
+                                  padding: EdgeInsets.all((MediaQuery.of(context).size.width-(35*8))/16),
                                   child: Container(
                                       decoration: BoxDecoration(
                                           // border:

@@ -360,7 +360,6 @@ class _PlayPageState extends State<PlayPage> {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        Text(_hint),
                         // Visibility(
                         //   visible: _cevapFieldVisible,
                         //   child: TextField(
@@ -496,8 +495,8 @@ class _PlayPageState extends State<PlayPage> {
                                       ))),
                                 ))
                             .toList()),
-                Opacity(
-                  opacity: _cevapFieldVisible ? 1 : 0.4,
+                Visibility(
+                  visible: _cevapFieldVisible ? true : false,
                   child: Column(
                     children: [
                       Row(

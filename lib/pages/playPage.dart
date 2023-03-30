@@ -62,6 +62,8 @@ class _PlayPageState extends State<PlayPage> {
   int _questionNumber = 0; //hangi soruda olunduğu
   bool _gameEnd = false;
   String _hint = "";
+  bool _ekrandakiCevapVisibility = true;
+
   TextEditingController _cevapTextFieldController = TextEditingController();
 
   late Timer _timer;
@@ -107,7 +109,10 @@ class _PlayPageState extends State<PlayPage> {
             geriSayacBasla();
           } else {
             print("Tüm sorular bitti tebrikler Puanınız... $_puan ");
+            _timer2.cancel();
             setState(() {
+              _cevapFieldVisible = false;
+              _ekrandakiCevapVisibility = false;
               _gameEnd = true;
               // _puan = _puan + int.parse(_timer.toString());
               _hint = "";
@@ -146,7 +151,10 @@ class _PlayPageState extends State<PlayPage> {
             });
           } else {
             print("Tüm sorular bitti tebrikler Puanınız... $_puan ");
+            timer.cancel();
             setState(() {
+              _cevapFieldVisible = false;
+              _ekrandakiCevapVisibility = false;
               _gameEnd = true;
               // _puan = _puan + int.parse(_timer.toString());
               _hint = "";
@@ -241,7 +249,10 @@ class _PlayPageState extends State<PlayPage> {
           geriSayacBasla();
         } else {
           print("Tüm sorular bitti tebrikler Puanınız... $_puan ");
+          _timer2.cancel();
           setState(() {
+            _cevapFieldVisible = false;
+            _ekrandakiCevapVisibility = false;
             _gameEnd = true;
             // _puan = _puan + int.parse(_timer.toString());
             _hint = "";
@@ -495,36 +506,39 @@ class _PlayPageState extends State<PlayPage> {
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 20),
             child: Column(
               children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: _ekrandakiCevap
-                        .map((word) => Padding(
-                              padding: EdgeInsets.all(
-                                  (MediaQuery.of(context).size.width -
-                                          (35 * 8)) /
-                                      16),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                      // border:
-                                      //     Border.all(color: Colors.black),
-                                      color: Color(0xff240046),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  width: 35,
-                                  height: 40,
-                                  child: Center(
-                                      child: Text(
-                                    word,
-                                    style: TextStyle(
-                                      // backgroundColor:
-                                      //     Colors
-                                      //         .white,
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  ))),
-                            ))
-                        .toList()),
+                Visibility(
+                  visible: _ekrandakiCevapVisibility ? true : false,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: _ekrandakiCevap
+                          .map((word) => Padding(
+                                padding: EdgeInsets.all(
+                                    (MediaQuery.of(context).size.width -
+                                            (35 * 8)) /
+                                        16),
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        // border:
+                                        //     Border.all(color: Colors.black),
+                                        color: Color(0xff240046),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    width: 35,
+                                    height: 40,
+                                    child: Center(
+                                        child: Text(
+                                      word,
+                                      style: TextStyle(
+                                        // backgroundColor:
+                                        //     Colors
+                                        //         .white,
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                      ),
+                                    ))),
+                              ))
+                          .toList()),
+                ),
                 Visibility(
                   visible: _cevapFieldVisible ? true : false,
                   child: Column(

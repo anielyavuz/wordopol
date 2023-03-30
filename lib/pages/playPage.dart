@@ -263,7 +263,7 @@ class _PlayPageState extends State<PlayPage> {
 
       setState(() {
         _ekrandakiCevap[_tempResult] =
-            _tempListe[_tempResult].toString().toUpperCase();
+            Uppercase().upperCaseFunction(_tempListe[_tempResult].toString());
       });
       print(_ekrandakiCevap);
 

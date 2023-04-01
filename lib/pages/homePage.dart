@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
-
+import 'package:timezone/timezone.dart' as tz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -109,6 +109,8 @@ class _HomePageState extends State<HomePage> {
     // print("Bugün yılın $dayOfYear. günüdür.");
     return dayOfYear;
   }
+
+  testFunctionDeleteLater() {}
 
   groupOfWords() {
     _todayNumber = dayOfToday();
@@ -273,6 +275,75 @@ class _HomePageState extends State<HomePage> {
   //     _userDataLoadScreen = false;
   //   });
   // }
+  void listenToNotification() =>
+      notificationsServices.onNotificationClick.stream
+          .listen(onNotificationListener);
+
+  void onNotificationListener(String? payload) {
+    if (payload != null && payload.isNotEmpty) {
+      //print('payload $payload');
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => CheckAuth()));
+    }
+  }
+
+  notificaitonMap() {
+    notificationsServices.stopNotifications();
+    int _notificaitonID = 0;
+    if (DateTime.now()
+        .difference(DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 20, 30))
+        .isNegative) {
+      if (_completedGames[_todayNumber] != null) {
+        if (_completedGames[_todayNumber].keys.length < 3) {
+          DateTime _dt = DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            DateTime.now().day,
+            20,
+            30,
+            DateTime.now().add(Duration(seconds: 10)).second,
+          );
+          // print(_dt);
+          var tzdatetime = tz.TZDateTime.from(_dt, tz.local);
+          notificationsServices.sendScheduledNotifications2(
+              _notificaitonID,
+              "Wordopol🎯",
+              "Bugünkü kelimelerini tamamlayıp sıralamada yükselmek ister misin?",
+              // _startTime.hour.toString() +
+              //     ":0" +
+              //     _startTime.minute.toString(),
+              tzdatetime);
+          _notificaitonID++;
+          // print("Bugüne bildirim göndericem3");
+        }
+      }
+    }
+
+    for (var i = 1; i < 10; i++) {
+      DateTime _dt = DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+          DateTime.now().add(Duration(days: i)).day,
+          20,
+          30,
+          DateTime.now().add(Duration(seconds: 5)).second);
+
+      var tzdatetime = tz.TZDateTime.from(_dt, tz.local);
+      notificationsServices.sendScheduledNotifications2(
+          _notificaitonID,
+          "Wordopol🎯",
+          "Bugünkü kelimelerini tamamlayıp sıralamada yükselmek ister misin?",
+          // _startTime.hour.toString() +
+          //     ":0" +
+          //     _startTime.minute.toString(),
+          tzdatetime);
+      _notificaitonID++;
+    }
+
+    ////ABC
+  }
 
   @override
   void initState() {
@@ -285,21 +356,11 @@ class _HomePageState extends State<HomePage> {
     });
     // rootControl();
     listenToNotification(); //payload için
+    Future.delayed(const Duration(milliseconds: 2500), () {
+      notificaitonMap();
+    });
     notificationsServices.initialiseNotifications();
     // groupOfWords();
-  }
-
-  void listenToNotification() =>
-      notificationsServices.onNotificationClick.stream
-          .listen(onNotificationListener);
-
-  void onNotificationListener(String? payload) {
-    if (payload != null && payload.isNotEmpty) {
-      //print('payload $payload');
-
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => BePremiumUser()));
-    }
   }
 
   @override
@@ -372,19 +433,20 @@ class _HomePageState extends State<HomePage> {
                           // fontWeight: FontWeight.bold
                         )),
                     onPressed: () async {
-                      var a = await _authService.signOutAndDeleteUser(
-                          widget.userID,
-                          "Anonym",
-                          _userInfo['userName'],
-                          _configData['ScoreTableSeason']);
-                      box.put("DBId", 0);
-                      box.put("WordPool", {});
-                      box.put("CompletedGames", {});
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => CheckAuth()),
-                          (Route<dynamic> route) => false);
+                      notificaitonMap();
+                      // var a = await _authService.signOutAndDeleteUser(
+                      //     widget.userID,
+                      //     "Anonym",
+                      //     _userInfo['userName'],
+                      //     _configData['ScoreTableSeason']);
+                      // box.put("DBId", 0);
+                      // box.put("WordPool", {});
+                      // box.put("CompletedGames", {});
+                      // Navigator.pushAndRemoveUntil(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (BuildContext context) => CheckAuth()),
+                      //     (Route<dynamic> route) => false);
                     }),
                 Expanded(
                   child: Container(

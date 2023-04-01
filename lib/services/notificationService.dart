@@ -98,8 +98,10 @@ class NotificationsServices {
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: iosNotificationDetails);
 
+    print("A");
     await _flutterLocalNotificationsPlugin.show(
         0, title, body, notificationDetails);
+    print("B");
   }
 
   void sendScheduledNotifications(

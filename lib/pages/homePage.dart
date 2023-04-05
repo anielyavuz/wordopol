@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math';
 import 'dart:ui';
 import 'package:timezone/timezone.dart' as tz;
@@ -11,6 +12,7 @@ import 'package:wordopol/pages/checkAuth.dart';
 import 'package:wordopol/pages/playPage.dart';
 import 'package:wordopol/services/authFunctions.dart';
 import 'package:wordopol/services/firebaseFunctions.dart';
+import 'package:wordopol/services/langeuages.dart';
 import 'package:wordopol/services/notificationService.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,6 +31,7 @@ class _HomePageState extends State<HomePage> {
 
   var _userInfo;
   var _scoreTable;
+  var _scoreTable2;
   var _configData;
   AuthService _authService = AuthService();
   bool _userDataLoadScreen = true;
@@ -66,6 +69,23 @@ class _HomePageState extends State<HomePage> {
   bool _Game4Completed = false;
   bool _Game5Completed = false;
   bool _Game6Completed = false;
+
+  LanguageService _languageService = LanguageService();
+  String _lanWelcome = "";
+  String _lanLeaderboard = "";
+  String _lanSignOut = "";
+  String _lanGame = "";
+  languageService(String _lan) {
+    // _lanWelcome = _languageService.homePageWelcomeLangueages(_lan);
+    // _lanLeaderboard = _languageService.homePageLeaderboardLangueages(_lan);
+
+    // _lanSignOut = _languageService.homePageSignOutLangueages(_lan);
+    List _allLangueages = _languageService.homePageLanguages(_lan);
+    _lanWelcome = _allLangueages[0];
+    _lanLeaderboard = _allLangueages[1];
+    _lanSignOut = _allLangueages[2];
+    _lanGame = _allLangueages[3];
+  }
 
   completedGames() {
     // print("Completed Games:  $_completedGames");
@@ -223,6 +243,7 @@ class _HomePageState extends State<HomePage> {
     // print(_currentLanguage);
 
     // print((_languageFull));
+    languageService(_currentLanguage);
   }
 
   wordDBSyncFunction() async {
@@ -230,6 +251,9 @@ class _HomePageState extends State<HomePage> {
     _configData = await CloudDB().getConfigDatas();
     _scoreTable =
         await CloudDB().getScoreTable(_configData['ScoreTableSeason']);
+
+    _scoreTable2 = await SplayTreeMap.from(_scoreTable,
+        (key1, key2) => _scoreTable[key2].compareTo(_scoreTable[key1]));
     // print("KKKKKKKKK");
     // print(_configData);
 
@@ -375,13 +399,47 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: Container(
                       child: Center(
-                          child: Text("Welcome"
+                          child: Text(_lanWelcome
 
                               // _wordPoolData[_currentLanguage].toString()
 
                               ))),
                 ),
-
+                Container(
+                  height: MediaQuery.of(context).size.height / 4,
+                  child: Column(
+                    children: [
+                      Text(
+                        _lanLeaderboard,
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 10),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: _scoreTable2 != null
+                              ? _scoreTable2.keys.toList().length
+                              : 0,
+                          itemBuilder: (context, index) {
+                            final username = _scoreTable2.keys
+                                .toList()[index]
+                                .toString()
+                                .split('%')[1];
+                            final score = _scoreTable2.values.toList()[index];
+                            return ListTile(
+                              leading: Text(
+                                "${index + 1}.",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              title: Text(username),
+                              trailing: Text(score.toString()),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 // Expanded(
                 //   child: Padding(
                 //     padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
@@ -425,7 +483,7 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.all(Radius.circular(15.0))),
                     splashColor: Color(0xff77A830),
                     textStyle: TextStyle(color: Colors.white),
-                    child: Text("Sign Out",
+                    child: Text(_lanSignOut,
                         style: TextStyle(
                           color: Colors.amber,
                           fontSize: 15,
@@ -433,20 +491,19 @@ class _HomePageState extends State<HomePage> {
                           // fontWeight: FontWeight.bold
                         )),
                     onPressed: () async {
-                      notificaitonMap();
-                      // var a = await _authService.signOutAndDeleteUser(
-                      //     widget.userID,
-                      //     "Anonym",
-                      //     _userInfo['userName'],
-                      //     _configData['ScoreTableSeason']);
-                      // box.put("DBId", 0);
-                      // box.put("WordPool", {});
-                      // box.put("CompletedGames", {});
-                      // Navigator.pushAndRemoveUntil(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (BuildContext context) => CheckAuth()),
-                      //     (Route<dynamic> route) => false);
+                      var a = await _authService.signOutAndDeleteUser(
+                          widget.userID,
+                          "Anonym",
+                          _userInfo['userName'],
+                          _configData['ScoreTableSeason']);
+                      box.put("DBId", 0);
+                      box.put("WordPool", {});
+                      box.put("CompletedGames", {});
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => CheckAuth()),
+                          (Route<dynamic> route) => false);
                     }),
                 Expanded(
                   child: Container(
@@ -491,7 +548,10 @@ class _HomePageState extends State<HomePage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Oyun " + (index2 + 1).toString(),
+                                      Text(
+                                          _lanGame +
+                                              " " +
+                                              (index2 + 1).toString(),
                                           style: GoogleFonts.publicSans(
                                               // fontWeight: FontWeight.bold,
                                               fontSize: 15,

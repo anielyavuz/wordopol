@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:wordopol/pages/checkAuth.dart';
 import 'package:wordopol/services/authFunctions.dart';
 import 'package:wordopol/services/firebaseFunctions.dart';
+import 'package:wordopol/services/langeuages.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -29,6 +30,22 @@ class _WelcomePageState extends State<WelcomePage> {
   String _currentLanguage = "en";
   var _configData;
   var _textFieldValue = "";
+  LanguageService _languageService = LanguageService();
+  String _lanWelcome = "";
+  String _lanUsername = "";
+  String _lanNext = "";
+
+  languageService(String _lan) {
+    // _lanWelcome = _languageService.homePageWelcomeLangueages(_lan);
+    // _lanLeaderboard = _languageService.homePageLeaderboardLangueages(_lan);
+
+    // _lanSignOut = _languageService.homePageSignOutLangueages(_lan);
+    List _allLangueages = _languageService.welcomePageLanguages(_lan);
+    _lanWelcome = _allLangueages[0];
+    _lanUsername = _allLangueages[1];
+    _lanNext = _allLangueages[2];
+  }
+
   languageSelect()
   //telefonun native dili eğer desteklenen dillerdense dropdown'da o gelir
 
@@ -69,6 +86,7 @@ class _WelcomePageState extends State<WelcomePage> {
     print(_currentLanguage);
 
     print((_languageFull));
+    languageService(_currentLanguage);
   }
 
   startFunctions() async {
@@ -110,7 +128,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
                         child: Text(
-                          "WELCOME",
+                          _lanWelcome,
                           style: TextStyle(
                               fontWeight: FontWeight.w800, fontSize: 40),
                         ),
@@ -158,7 +176,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                     width: 2.0,
                                   ),
                                 ),
-                                hintText: "Username",
+                                hintText: _lanUsername,
                                 hintStyle: TextStyle(
                                     color: Color.fromARGB(75, 21, 9, 35)),
                               ),
@@ -201,7 +219,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                             _currentLanguage);
                                       });
                                     }
-
+                                    languageService(_currentLanguage);
                                     // if (_languageFull == "Español") {
                                     //   setState(() {
                                     //     _currentLanguage = "es";
@@ -239,7 +257,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                   BorderRadius.all(Radius.circular(15.0))),
                           splashColor: Color(0xff77A830),
                           textStyle: TextStyle(color: Colors.white),
-                          child: Text("Next",
+                          child: Text(_lanNext,
                               style: TextStyle(
                                 color: _textFieldValue.toString().length == 0
                                     ? Color.fromARGB(255, 255, 255, 255)

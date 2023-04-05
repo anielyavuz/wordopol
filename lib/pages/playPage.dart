@@ -703,14 +703,16 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
                                           // border:
                                           //     Border.all(color: Colors.black),
                                           color: _cevapFieldVisible
-                                              ? Colors.amber
+                                              ? Color.fromARGB(255, 72, 70, 85)
                                               : Colors.grey,
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10))),
                                       width: MediaQuery.of(context).size.width /
                                           13,
                                       height: 40,
-                                      child: Center(child: Text("🔔"))),
+                                      child: Center(
+                                          child: Lottie.asset(
+                                              "assets/json/lightLamb.json"))),
                                 ),
                               ),
                               Row(

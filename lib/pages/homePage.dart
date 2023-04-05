@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
   var _languageFull = "English";
   int _todayNumber = 100;
   List _todayGames = [
-    TimeOfDay(hour: 8, minute: 30),
+    TimeOfDay(hour: 08, minute: 30),
     TimeOfDay(hour: 12, minute: 30),
     TimeOfDay(hour: 20, minute: 30)
   ];
@@ -166,41 +166,167 @@ class _HomePageState extends State<HomePage> {
     // print("_todayNumber $_todayNumber");
     // print("_4lerMap.length " + _4lerMap.length.toString());
 
-    _wordsForPlay1.add(_4lerMap[_todayNumber % _4lerMap.length]);
-    _wordsForPlay1.add(_5lerMap[_todayNumber % _5lerMap.length]);
-    _wordsForPlay1.add(_6larMap[_todayNumber % _6larMap.length]);
-    _wordsForPlay1.add(_7lerMap[_todayNumber % _7lerMap.length]);
-    _wordsForPlay1.add(_8lerMap[_todayNumber % _8lerMap.length]);
+    _wordsForPlay1
+        .add(_4lerMap[((_todayNumber % 738615) * 12) % _4lerMap.length]);
+    _wordsForPlay1
+        .add(_4lerMap[((_todayNumber % 738615) * 12) + 1 % _4lerMap.length]);
+    _wordsForPlay1
+        .add(_5lerMap[((_todayNumber % 738615) * 12) % _5lerMap.length]);
+    _wordsForPlay1
+        .add(_5lerMap[((_todayNumber % 738615) * 12) + 1 % _5lerMap.length]);
+    _wordsForPlay1
+        .add(_6larMap[((_todayNumber % 738615) * 12) % _6larMap.length]);
+    _wordsForPlay1
+        .add(_6larMap[((_todayNumber % 738615) * 12) + 1 % _6larMap.length]);
+    _wordsForPlay1
+        .add(_7lerMap[((_todayNumber % 738615) * 12) % _7lerMap.length]);
+    _wordsForPlay1
+        .add(_7lerMap[((_todayNumber % 738615) * 12) + 1 % _7lerMap.length]);
+    _wordsForPlay1
+        .add(_8lerMap[((_todayNumber % 738615) * 12) % _8lerMap.length]);
+    _wordsForPlay1
+        .add(_8lerMap[((_todayNumber % 738615) * 12) + 1 % _8lerMap.length]);
 
-    _wordsForPlay2.add(_4lerMap[(_todayNumber + (47)) % _4lerMap.length]);
-    _wordsForPlay2.add(_5lerMap[(_todayNumber + (47)) % _5lerMap.length]);
-    _wordsForPlay2.add(_6larMap[(_todayNumber + (47)) % _6larMap.length]);
-    _wordsForPlay2.add(_7lerMap[(_todayNumber + (47)) % _7lerMap.length]);
-    _wordsForPlay2.add(_8lerMap[(_todayNumber + (47)) % _8lerMap.length]);
+    _wordsForPlay2
+        .add(_4lerMap[((_todayNumber % 738615) * 12) + 2 % _4lerMap.length]);
+    _wordsForPlay2
+        .add(_4lerMap[((_todayNumber % 738615) * 12) + 3 % _4lerMap.length]);
+    _wordsForPlay2
+        .add(_5lerMap[((_todayNumber % 738615) * 12) + 2 % _5lerMap.length]);
+    _wordsForPlay2
+        .add(_5lerMap[((_todayNumber % 738615) * 12) + 3 % _5lerMap.length]);
+    _wordsForPlay2
+        .add(_6larMap[((_todayNumber % 738615) * 12) + 2 % _6larMap.length]);
+    _wordsForPlay2
+        .add(_6larMap[((_todayNumber % 738615) * 12) + 3 % _6larMap.length]);
+    _wordsForPlay2
+        .add(_7lerMap[((_todayNumber % 738615) * 12) + 2 % _7lerMap.length]);
+    _wordsForPlay2
+        .add(_7lerMap[((_todayNumber % 738615) * 12) + 3 % _7lerMap.length]);
+    _wordsForPlay2
+        .add(_8lerMap[((_todayNumber % 738615) * 12) + 2 % _8lerMap.length]);
+    _wordsForPlay2
+        .add(_8lerMap[((_todayNumber % 738615) * 12) + 3 % _8lerMap.length]);
 
-    _wordsForPlay3.add(_4lerMap[(_todayNumber + (67)) % _4lerMap.length]);
-    _wordsForPlay3.add(_5lerMap[(_todayNumber + (67)) % _5lerMap.length]);
-    _wordsForPlay3.add(_6larMap[(_todayNumber + (67)) % _6larMap.length]);
-    _wordsForPlay3.add(_7lerMap[(_todayNumber + (67)) % _7lerMap.length]);
-    _wordsForPlay3.add(_8lerMap[(_todayNumber + (67)) % _8lerMap.length]);
+    _wordsForPlay3
+        .add(_4lerMap[((_todayNumber % 738615) * 12) + 4 % _4lerMap.length]);
+    _wordsForPlay3
+        .add(_4lerMap[((_todayNumber % 738615) * 12) + 5 % _4lerMap.length]);
+    _wordsForPlay3
+        .add(_5lerMap[((_todayNumber % 738615) * 12) + 4 % _5lerMap.length]);
+    _wordsForPlay3
+        .add(_5lerMap[((_todayNumber % 738615) * 12) + 5 % _5lerMap.length]);
+    _wordsForPlay3
+        .add(_6larMap[((_todayNumber % 738615) * 12) + 4 % _6larMap.length]);
+    _wordsForPlay3
+        .add(_6larMap[((_todayNumber % 738615) * 12) + 5 % _6larMap.length]);
+    _wordsForPlay3
+        .add(_7lerMap[((_todayNumber % 738615) * 12) + 4 % _7lerMap.length]);
+    _wordsForPlay3
+        .add(_7lerMap[((_todayNumber % 738615) * 12) + 5 % _7lerMap.length]);
+    _wordsForPlay3
+        .add(_8lerMap[((_todayNumber % 738615) * 12) + 4 % _8lerMap.length]);
+    _wordsForPlay3
+        .add(_8lerMap[((_todayNumber % 738615) * 12) + 5 % _8lerMap.length]);
 
-    _wordsForPlay4.add(_4lerMap[(_todayNumber + (97)) % _4lerMap.length]);
-    _wordsForPlay4.add(_5lerMap[(_todayNumber + (97)) % _5lerMap.length]);
-    _wordsForPlay4.add(_6larMap[(_todayNumber + (97)) % _6larMap.length]);
-    _wordsForPlay4.add(_7lerMap[(_todayNumber + (97)) % _7lerMap.length]);
-    _wordsForPlay4.add(_8lerMap[(_todayNumber + (97)) % _8lerMap.length]);
+    _wordsForPlay4
+        .add(_4lerMap[((_todayNumber % 738615) * 12) + 6 % _4lerMap.length]);
+    _wordsForPlay4
+        .add(_4lerMap[((_todayNumber % 738615) * 12) + 7 % _4lerMap.length]);
+    _wordsForPlay4
+        .add(_5lerMap[((_todayNumber % 738615) * 12) + 6 % _5lerMap.length]);
+    _wordsForPlay4
+        .add(_5lerMap[((_todayNumber % 738615) * 12) + 7 % _5lerMap.length]);
+    _wordsForPlay4
+        .add(_6larMap[((_todayNumber % 738615) * 12) + 6 % _6larMap.length]);
+    _wordsForPlay4
+        .add(_6larMap[((_todayNumber % 738615) * 12) + 7 % _6larMap.length]);
+    _wordsForPlay4
+        .add(_7lerMap[((_todayNumber % 738615) * 12) + 6 % _7lerMap.length]);
+    _wordsForPlay4
+        .add(_7lerMap[((_todayNumber % 738615) * 12) + 7 % _7lerMap.length]);
+    _wordsForPlay4
+        .add(_8lerMap[((_todayNumber % 738615) * 12) + 6 % _8lerMap.length]);
+    _wordsForPlay4
+        .add(_8lerMap[((_todayNumber % 738615) * 12) + 7 % _8lerMap.length]);
 
-    _wordsForPlay5.add(_4lerMap[(_todayNumber + (137)) % _4lerMap.length]);
-    _wordsForPlay5.add(_5lerMap[(_todayNumber + (137)) % _5lerMap.length]);
-    _wordsForPlay5.add(_6larMap[(_todayNumber + (137)) % _6larMap.length]);
-    _wordsForPlay5.add(_7lerMap[(_todayNumber + (137)) % _7lerMap.length]);
-    _wordsForPlay5.add(_8lerMap[(_todayNumber + (137)) % _8lerMap.length]);
+    _wordsForPlay5
+        .add(_4lerMap[((_todayNumber % 738615) * 12) + 8 % _4lerMap.length]);
+    _wordsForPlay5
+        .add(_4lerMap[((_todayNumber % 738615) * 12) + 9 % _4lerMap.length]);
+    _wordsForPlay5
+        .add(_5lerMap[((_todayNumber % 738615) * 12) + 8 % _5lerMap.length]);
+    _wordsForPlay5
+        .add(_5lerMap[((_todayNumber % 738615) * 12) + 9 % _5lerMap.length]);
+    _wordsForPlay5
+        .add(_6larMap[((_todayNumber % 738615) * 12) + 8 % _6larMap.length]);
+    _wordsForPlay5
+        .add(_6larMap[((_todayNumber % 738615) * 12) + 9 % _6larMap.length]);
+    _wordsForPlay5
+        .add(_7lerMap[((_todayNumber % 738615) * 12) + 8 % _7lerMap.length]);
+    _wordsForPlay5
+        .add(_7lerMap[((_todayNumber % 738615) * 12) + 9 % _7lerMap.length]);
+    _wordsForPlay5
+        .add(_8lerMap[((_todayNumber % 738615) * 12) + 8 % _8lerMap.length]);
+    _wordsForPlay5
+        .add(_8lerMap[((_todayNumber % 738615) * 12) + 9 % _8lerMap.length]);
 
-    _wordsForPlay6.add(_4lerMap[(_todayNumber + (167)) % _4lerMap.length]);
-    _wordsForPlay6.add(_5lerMap[(_todayNumber + (167)) % _5lerMap.length]);
-    _wordsForPlay6.add(_6larMap[(_todayNumber + (167)) % _6larMap.length]);
-    _wordsForPlay6.add(_7lerMap[(_todayNumber + (167)) % _7lerMap.length]);
-    _wordsForPlay6.add(_8lerMap[(_todayNumber + (167)) % _8lerMap.length]);
+    _wordsForPlay6
+        .add(_4lerMap[((_todayNumber % 738615) * 12) + 10 % _4lerMap.length]);
+    _wordsForPlay6
+        .add(_4lerMap[((_todayNumber % 738615) * 12) + 11 % _4lerMap.length]);
+    _wordsForPlay6
+        .add(_5lerMap[((_todayNumber % 738615) * 12) + 10 % _5lerMap.length]);
+    _wordsForPlay6
+        .add(_5lerMap[((_todayNumber % 738615) * 12) + 11 % _5lerMap.length]);
+    _wordsForPlay6
+        .add(_6larMap[((_todayNumber % 738615) * 12) + 10 % _6larMap.length]);
+    _wordsForPlay6
+        .add(_6larMap[((_todayNumber % 738615) * 12) + 11 % _6larMap.length]);
+    _wordsForPlay6
+        .add(_7lerMap[((_todayNumber % 738615) * 12) + 10 % _7lerMap.length]);
+    _wordsForPlay6
+        .add(_7lerMap[((_todayNumber % 738615) * 12) + 11 % _7lerMap.length]);
+    _wordsForPlay6
+        .add(_8lerMap[((_todayNumber % 738615) * 12) + 10 % _8lerMap.length]);
+    _wordsForPlay6
+        .add(_8lerMap[((_todayNumber % 738615) * 12) + 11 % _8lerMap.length]);
+
+    // _wordsForPlay1.add(_4lerMap[_todayNumber % _4lerMap.length]);
+    // _wordsForPlay1.add(_5lerMap[_todayNumber % _5lerMap.length]);
+    // _wordsForPlay1.add(_6larMap[_todayNumber % _6larMap.length]);
+    // _wordsForPlay1.add(_7lerMap[_todayNumber % _7lerMap.length]);
+    // _wordsForPlay1.add(_8lerMap[_todayNumber % _8lerMap.length]);
+
+    // _wordsForPlay2.add(_4lerMap[(_todayNumber + (47)) % _4lerMap.length]);
+    // _wordsForPlay2.add(_5lerMap[(_todayNumber + (47)) % _5lerMap.length]);
+    // _wordsForPlay2.add(_6larMap[(_todayNumber + (47)) % _6larMap.length]);
+    // _wordsForPlay2.add(_7lerMap[(_todayNumber + (47)) % _7lerMap.length]);
+    // _wordsForPlay2.add(_8lerMap[(_todayNumber + (47)) % _8lerMap.length]);
+
+    // _wordsForPlay3.add(_4lerMap[(_todayNumber + (67)) % _4lerMap.length]);
+    // _wordsForPlay3.add(_5lerMap[(_todayNumber + (67)) % _5lerMap.length]);
+    // _wordsForPlay3.add(_6larMap[(_todayNumber + (67)) % _6larMap.length]);
+    // _wordsForPlay3.add(_7lerMap[(_todayNumber + (67)) % _7lerMap.length]);
+    // _wordsForPlay3.add(_8lerMap[(_todayNumber + (67)) % _8lerMap.length]);
+
+    // _wordsForPlay4.add(_4lerMap[(_todayNumber + (97)) % _4lerMap.length]);
+    // _wordsForPlay4.add(_5lerMap[(_todayNumber + (97)) % _5lerMap.length]);
+    // _wordsForPlay4.add(_6larMap[(_todayNumber + (97)) % _6larMap.length]);
+    // _wordsForPlay4.add(_7lerMap[(_todayNumber + (97)) % _7lerMap.length]);
+    // _wordsForPlay4.add(_8lerMap[(_todayNumber + (97)) % _8lerMap.length]);
+
+    // _wordsForPlay5.add(_4lerMap[(_todayNumber + (137)) % _4lerMap.length]);
+    // _wordsForPlay5.add(_5lerMap[(_todayNumber + (137)) % _5lerMap.length]);
+    // _wordsForPlay5.add(_6larMap[(_todayNumber + (137)) % _6larMap.length]);
+    // _wordsForPlay5.add(_7lerMap[(_todayNumber + (137)) % _7lerMap.length]);
+    // _wordsForPlay5.add(_8lerMap[(_todayNumber + (137)) % _8lerMap.length]);
+
+    // _wordsForPlay6.add(_4lerMap[(_todayNumber + (167)) % _4lerMap.length]);
+    // _wordsForPlay6.add(_5lerMap[(_todayNumber + (167)) % _5lerMap.length]);
+    // _wordsForPlay6.add(_6larMap[(_todayNumber + (167)) % _6larMap.length]);
+    // _wordsForPlay6.add(_7lerMap[(_todayNumber + (167)) % _7lerMap.length]);
+    // _wordsForPlay6.add(_8lerMap[(_todayNumber + (167)) % _8lerMap.length]);
   }
 
   languageSelect()
@@ -491,19 +617,21 @@ class _HomePageState extends State<HomePage> {
                           // fontWeight: FontWeight.bold
                         )),
                     onPressed: () async {
-                      var a = await _authService.signOutAndDeleteUser(
-                          widget.userID,
-                          "Anonym",
-                          _userInfo['userName'],
-                          _configData['ScoreTableSeason']);
-                      box.put("DBId", 0);
-                      box.put("WordPool", {});
-                      box.put("CompletedGames", {});
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => CheckAuth()),
-                          (Route<dynamic> route) => false);
+                      print(_todayNumber);
+
+                      // var a = await _authService.signOutAndDeleteUser(
+                      //     widget.userID,
+                      //     "Anonym",
+                      //     _userInfo['userName'],
+                      //     _configData['ScoreTableSeason']);
+                      // box.put("DBId", 0);
+                      // box.put("WordPool", {});
+                      // box.put("CompletedGames", {});
+                      // Navigator.pushAndRemoveUntil(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (BuildContext context) => CheckAuth()),
+                      //     (Route<dynamic> route) => false);
                     }),
                 Expanded(
                   child: Container(

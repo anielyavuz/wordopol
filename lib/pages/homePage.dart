@@ -14,6 +14,7 @@ import 'package:wordopol/services/authFunctions.dart';
 import 'package:wordopol/services/firebaseFunctions.dart';
 import 'package:wordopol/services/langeuages.dart';
 import 'package:wordopol/services/notificationService.dart';
+import 'package:collection/collection.dart';
 
 class HomePage extends StatefulWidget {
   final String userID;
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage> {
   var _languageSelectedBefore;
   var _wordPool;
   var _wordPoolData;
-
+  Map _winners = {};
   var _languageFull = "English";
   int _todayNumber = 100;
   List _todayGames = [
@@ -75,6 +76,7 @@ class _HomePageState extends State<HomePage> {
   String _lanLeaderboard = "";
   String _lanSignOut = "";
   String _lanGame = "";
+  String _lanLastChamp = "";
   languageService(String _lan) {
     // _lanWelcome = _languageService.homePageWelcomeLangueages(_lan);
     // _lanLeaderboard = _languageService.homePageLeaderboardLangueages(_lan);
@@ -85,6 +87,24 @@ class _HomePageState extends State<HomePage> {
     _lanLeaderboard = _allLangueages[1];
     _lanSignOut = _allLangueages[2];
     _lanGame = _allLangueages[3];
+    _lanLastChamp = _allLangueages[4];
+  }
+
+  notificationCheck() {
+    if (!DeepCollectionEquality().equals(_winners, _configData['winners'])) {
+      var _key = "";
+      for (_key in _configData['winners'].keys) {
+        print(_key);
+      }
+      var _lastChamp = _configData['winners'][_key];
+      print("Aa $_lastChamp");
+
+      notificationsServices.sendNotifications(
+          "Wordopol🎯", "$_lanLastChamp $_lastChamp 😎🏆");
+      box.put("winners", _configData['winners']);
+    }
+
+    print(_configData['winners']);
   }
 
   completedGames() {
@@ -385,6 +405,11 @@ class _HomePageState extends State<HomePage> {
 
     var _DBId = box.get("DBId") ?? 0;
     _currentLanguage = box.get("languageSelectedBefore") ?? "en";
+    _winners = box.get("winners") ?? {"1": "Elo"};
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      notificationCheck();
+    });
+
     // var _configData = await CloudDB().getConfigDatas();
 
     // await CloudDB().firestoreFileReach(_configData['DBId']);
@@ -397,6 +422,7 @@ class _HomePageState extends State<HomePage> {
 
       box.put("DBId", _configData['DBId']);
       box.put("WordPool", _wordPool);
+
       setState(() {
         _userDataLoadScreen = false;
       });
@@ -617,21 +643,20 @@ class _HomePageState extends State<HomePage> {
                           // fontWeight: FontWeight.bold
                         )),
                     onPressed: () async {
-                      print(_todayNumber);
-
-                      // var a = await _authService.signOutAndDeleteUser(
-                      //     widget.userID,
-                      //     "Anonym",
-                      //     _userInfo['userName'],
-                      //     _configData['ScoreTableSeason']);
-                      // box.put("DBId", 0);
-                      // box.put("WordPool", {});
-                      // box.put("CompletedGames", {});
-                      // Navigator.pushAndRemoveUntil(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (BuildContext context) => CheckAuth()),
-                      //     (Route<dynamic> route) => false);
+                      var a = await _authService.signOutAndDeleteUser(
+                          widget.userID,
+                          "Anonym",
+                          _userInfo['userName'],
+                          _configData['ScoreTableSeason']);
+                      box.put("DBId", 0);
+                      box.put("WordPool", {});
+                      box.put("CompletedGames", {});
+                      box.put("winners", {});
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => CheckAuth()),
+                          (Route<dynamic> route) => false);
                     }),
                 Expanded(
                   child: Container(

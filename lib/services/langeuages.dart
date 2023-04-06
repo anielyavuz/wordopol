@@ -5,18 +5,21 @@ class LanguageService {
     String _leaderboard = "Leaderboard";
     String _signout = "Sign Out";
     String _game = "Game";
+    String _lanLastChamp = "Last Champion";
     if (_lan == "en") {
     } else if (_lan == "tr") {
       _welcome = "Hoşgeldiniz";
       _leaderboard = "Skor Tablosu";
       _signout = "Çıkış";
       _game = "Oyun";
+      _lanLastChamp = "Son Şampiyon";
     }
 
     _result.insert(0, _welcome);
     _result.insert(1, _leaderboard);
     _result.insert(2, _signout);
     _result.insert(3, _game);
+    _result.insert(4, _lanLastChamp);
     return _result;
   }
 

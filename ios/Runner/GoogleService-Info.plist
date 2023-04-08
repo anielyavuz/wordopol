@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>952466911914-qa9qhnf0805mbbjkjhnn80d05ufrvbd7.apps.googleusercontent.com</string>
+	<string>952466911914-938f04lfr0n39spd3cge4aoog8ot7rk2.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.952466911914-qa9qhnf0805mbbjkjhnn80d05ufrvbd7</string>
+	<string>com.googleusercontent.apps.952466911914-938f04lfr0n39spd3cge4aoog8ot7rk2</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB6Ni_AjDTlJxRRVlHPOyO9Wq9Lm-goWUQ</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.wordopol</string>
+	<string>com.wordopol</string>
 	<key>PROJECT_ID</key>
 	<string>wordopol-7a16f</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:952466911914:ios:4e082812b49d11217c16d3</string>
+	<string>1:952466911914:ios:19a84ae822b39aae7c16d3</string>
 </dict>
 </plist>

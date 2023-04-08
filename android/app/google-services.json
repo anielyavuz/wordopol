@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:952466911914:android:bf659311dd54be6f7c16d3",
+        "mobilesdk_app_id": "1:952466911914:android:5532b7ab6906fc937c16d3",
         "android_client_info": {
-          "package_name": "com.example.wordopol"
+          "package_name": "com.wordopol"
         }
       },
       "oauth_client": [
@@ -29,6 +29,13 @@
             {
               "client_id": "952466911914-a73onpql0346i676obbfpv5q8v1oafjn.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "952466911914-qa9qhnf0805mbbjkjhnn80d05ufrvbd7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.wordopol"
+              }
             }
           ]
         }

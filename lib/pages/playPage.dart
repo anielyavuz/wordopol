@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wordopol/pages/homePage.dart';
 import 'package:wordopol/services/firebaseFunctions.dart';
+import 'package:wordopol/services/langeuages.dart';
 import 'package:wordopol/services/uppercaseFunction.dart';
 
 class PlayPage extends StatefulWidget {
@@ -14,6 +15,7 @@ class PlayPage extends StatefulWidget {
   final String userName;
   final int point;
   final String seasonNumber;
+  final String language;
 
   //Note: statefull'a parametre göndermek için gerekli
   const PlayPage(
@@ -22,7 +24,8 @@ class PlayPage extends StatefulWidget {
       required this.userName,
       required this.uid,
       required this.point,
-      required this.seasonNumber})
+      required this.seasonNumber,
+      required this.language})
       : super(key: key);
 
   @override
@@ -56,6 +59,28 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
   ];
   List _alphabet2 = ["Z", "X", "C", "V", "B", "N", "M"];
   List _alphabet3 = ["Ğ", "Ü", "Ş", "İ", "Ö", "Ç"];
+
+  LanguageService _languageService = LanguageService();
+  String _lanTotalPoint = "";
+  String _lanQuestionPoint = "";
+  String _lanTakeLetter = "";
+  String _lanFoundAnswer = "";
+  String _lanOkay = "";
+  String _lanQuit = "";
+  languageService(String _lan) {
+    // _lanWelcome = _languageService.homePageWelcomeLangueages(_lan);
+    // _lanLeaderboard = _languageService.homePageLeaderboardLangueages(_lan);
+
+    // _lanSignOut = _languageService.homePageSignOutLangueages(_lan);
+    List _allLangueages = _languageService.playPageLanguages(_lan);
+    _lanTotalPoint = _allLangueages[0];
+    _lanQuestionPoint = _allLangueages[1];
+    _lanTakeLetter = _allLangueages[2];
+    _lanFoundAnswer = _allLangueages[3];
+    _lanOkay = _allLangueages[4];
+    _lanQuit = _allLangueages[5];
+  }
+
   List _alinanHarfler = [];
   List _ekrandakiCevap = [];
   List _cevabiYazilanIndexler = [];
@@ -391,10 +416,15 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    languageService(widget.language);
     geriSayacBasla();
     ekrandakiCevapla();
     _checkController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1500));
+
+    Future.delayed(const Duration(milliseconds: 1000), () {
+// Here you can write your code
+    });
   }
 
   @override
@@ -420,20 +450,22 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
-                              child: Text("Toplam Puan: " + _puan.toString(),
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 49, 49, 196),
-                                    fontSize: 35,
-                                    fontFamily: 'Times New Roman',
-                                    // fontWeight: FontWeight.bold
-                                  )),
+                              child:
+                                  Text(_lanTotalPoint + " " + _puan.toString(),
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 49, 49, 196),
+                                        fontSize: 35,
+                                        fontFamily: 'Times New Roman',
+                                        // fontWeight: FontWeight.bold
+                                      )),
                             ),
                             SizedBox(
                               height: 50,
                             ),
                             Container(
                               child: Text(
-                                  "Bu sorunun puanı: " +
+                                  _lanQuestionPoint +
+                                      ": " +
                                       ((widget.wordsForPlay[_questionNumber]
                                                           ["_answer"]
                                                       .toString()
@@ -525,7 +557,7 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
                                           Radius.circular(15.0))),
                                   splashColor: Color(0xff77A830),
                                   textStyle: TextStyle(color: Colors.white),
-                                  child: Text("TAMAM",
+                                  child: Text(_lanOkay,
                                       style: TextStyle(
                                         color: Color.fromARGB(255, 18, 9, 9),
                                         fontSize: 15,
@@ -550,7 +582,7 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
                                               Radius.circular(15.0))),
                                       splashColor: Color(0xff77A830),
                                       textStyle: TextStyle(color: Colors.white),
-                                      child: Text("Harf alayım..",
+                                      child: Text(_lanTakeLetter,
                                           style: TextStyle(
                                             color: Colors.amber,
                                             fontSize: 15,
@@ -568,7 +600,7 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
                                               Radius.circular(15.0))),
                                       splashColor: Color(0xff77A830),
                                       textStyle: TextStyle(color: Colors.white),
-                                      child: Text("Cevabımı buldum..",
+                                      child: Text(_lanFoundAnswer,
                                           style: TextStyle(
                                             color: Colors.amber,
                                             fontSize: 15,
@@ -816,7 +848,7 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
                       borderRadius: BorderRadius.all(Radius.circular(15.0))),
                   splashColor: Color(0xff77A830),
                   textStyle: TextStyle(color: Colors.white),
-                  child: Text("Çıkış",
+                  child: Text(_lanQuit,
                       style: TextStyle(
                         color: Colors.amber,
                         fontSize: 15,

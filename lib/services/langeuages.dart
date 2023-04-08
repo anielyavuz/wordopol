@@ -42,4 +42,35 @@ class LanguageService {
 
     return _result;
   }
+
+  playPageLanguages(String _lan) {
+    List _result = [];
+    String _lanTotalPoint = "Total Point";
+    String _lanQuestionPoint = "Question Point";
+    String _lanTakeLetter = "Take Letter";
+
+    String _lanFoundAnswer = "I found answer!";
+    String _lanOkay = "Okay";
+    String _lanSignOut = "Quit";
+
+    if (_lan == "en") {
+    } else if (_lan == "tr") {
+      _lanTotalPoint = "Toplam Puan";
+      _lanQuestionPoint = "Bu sorunun puanı";
+      _lanTakeLetter = "Harf Al";
+
+      _lanFoundAnswer = "Cevabı buldum";
+      _lanOkay = "Tamam";
+      _lanSignOut = "Çıkış";
+    }
+
+    _result.insert(0, _lanTotalPoint);
+    _result.insert(1, _lanQuestionPoint);
+    _result.insert(2, _lanTakeLetter);
+    _result.insert(3, _lanFoundAnswer);
+    _result.insert(4, _lanOkay);
+    _result.insert(5, _lanSignOut);
+
+    return _result;
+  }
 }

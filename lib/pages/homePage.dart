@@ -677,19 +677,33 @@ class _HomePageState extends State<HomePage> {
                                 // fillColor: _yaziTipiRengi,
                                 shape: RoundedRectangleBorder(
                                     side: BorderSide(
-                                        color: TimeOfDay.now().hour >
-                                                _todayGames[index2].hour
-                                            ? Color(0xff77A830)
-                                            : TimeOfDay.now().hour ==
-                                                    _todayGames[index2].hour
-                                                ? TimeOfDay.now().minute >=
-                                                        _todayGames[index2]
-                                                            .minute
-                                                    ? Color(0xff77A830)
-                                                    : Color.fromARGB(
-                                                        255, 168, 76, 48)
+                                        color: (_completedGames[_todayNumber] !=
+                                                null
+                                            ? (_completedGames[_todayNumber]
+                                                        [index2 + 1] ==
+                                                    true
+                                                ? Color(0xff77A830)
                                                 : Color.fromARGB(
-                                                    255, 168, 76, 48)),
+                                                    255, 168, 76, 48))
+                                            : Color.fromARGB(
+                                                255, 168, 76, 48))),
+
+                                    //eski sistemin kodu
+                                    //  TimeOfDay.now().hour >
+                                    //         _todayGames[index2].hour
+                                    //     ? Color(0xff77A830)
+                                    //     : TimeOfDay.now().hour ==
+                                    //             _todayGames[index2].hour
+                                    //         ? TimeOfDay.now().minute >=
+                                    //                 _todayGames[index2]
+                                    //                     .minute
+                                    //             ? Color(0xff77A830)
+                                    //             : Color.fromARGB(
+                                    //                 255, 168, 76, 48)
+                                    //         : Color.fromARGB(
+                                    //             255, 168, 76, 48)),
+//eski sistemin kodu
+
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(15.0))),
                                 // splashColor: Colors.green,
@@ -716,96 +730,97 @@ class _HomePageState extends State<HomePage> {
                                             highlightColor: Colors.transparent,
                                             onTap: () {},
                                             child: Icon(
-                                              TimeOfDay.now().hour >
-                                                      _todayGames[index2].hour
+                                              (_completedGames[_todayNumber] !=
+                                                      null
                                                   ? (_completedGames[
-                                                              _todayNumber] !=
-                                                          null
-                                                      ? (_completedGames[_todayNumber]
-                                                                  [
-                                                                  index2 + 1] ==
-                                                              true
-                                                          ? Icons.check
-                                                          : Icons.pending)
+                                                                  _todayNumber]
+                                                              [index2 + 1] ==
+                                                          true
+                                                      ? Icons.check
                                                       : Icons.pending)
-                                                  : TimeOfDay.now().hour ==
-                                                          _todayGames[index2]
-                                                              .hour
-                                                      ? TimeOfDay.now().minute >=
-                                                              _todayGames[index2]
-                                                                  .minute
-                                                          ? (_completedGames[
-                                                                      _todayNumber] !=
-                                                                  null
-                                                              ? (_completedGames[_todayNumber]
-                                                                          [index2 + 1] ==
-                                                                      true
-                                                                  ? Icons.check
-                                                                  : Icons.pending)
-                                                              : Icons.pending)
-                                                          : Icons.lock
-                                                      : Icons.lock,
+                                                  : Icons.pending),
+
+                                              //eski sistemin kodu
+                                              // Icon(
+                                              //   TimeOfDay.now().hour >
+                                              //           _todayGames[index2].hour
+                                              //       ? (_completedGames[
+                                              //                   _todayNumber] !=
+                                              //               null
+                                              //           ? (_completedGames[_todayNumber]
+                                              //                       [
+                                              //                       index2 + 1] ==
+                                              //                   true
+                                              //               ? Icons.check
+                                              //               : Icons.pending)
+                                              //           : Icons.pending)
+                                              //       : TimeOfDay.now().hour ==
+                                              //               _todayGames[index2]
+                                              //                   .hour
+                                              //           ? TimeOfDay.now().minute >=
+                                              //                   _todayGames[index2]
+                                              //                       .minute
+                                              //               ? (_completedGames[
+                                              //                           _todayNumber] !=
+                                              //                       null
+                                              //                   ? (_completedGames[_todayNumber]
+                                              //                               [index2 + 1] ==
+                                              //                           true
+                                              //                       ? Icons.check
+                                              //                       : Icons.pending)
+                                              //                   : Icons.pending)
+                                              //               : Icons.lock
+                                              //           : Icons.lock,
+                                              //eski sistemin kodu
                                               size: 25,
-                                              color: TimeOfDay.now().hour >
-                                                      _todayGames[index2].hour
-                                                  ? Color(0xff77A830)
-                                                  : TimeOfDay.now().hour ==
-                                                          _todayGames[index2]
-                                                              .hour
-                                                      ? TimeOfDay.now()
-                                                                  .minute >=
-                                                              _todayGames[
-                                                                      index2]
-                                                                  .minute
-                                                          ? Color(0xff77A830)
-                                                          : Color.fromARGB(
-                                                              255, 168, 76, 48)
+                                              color: (_completedGames[
+                                                          _todayNumber] !=
+                                                      null
+                                                  ? (_completedGames[
+                                                                  _todayNumber]
+                                                              [index2 + 1] ==
+                                                          true
+                                                      ? Color(0xff77A830)
                                                       : Color.fromARGB(
-                                                          255, 168, 76, 48),
+                                                          255, 168, 76, 48))
+                                                  : Color.fromARGB(
+                                                      255, 168, 76, 48)),
+
+                                              //eski sistemin renk düzeni
+                                              // TimeOfDay.now().hour >
+                                              //         _todayGames[index2].hour
+                                              //     ? Color(0xff77A830)
+                                              //     : TimeOfDay.now().hour ==
+                                              //             _todayGames[index2]
+                                              //                 .hour
+                                              //         ? TimeOfDay.now()
+                                              //                     .minute >=
+                                              //                 _todayGames[
+                                              //                         index2]
+                                              //                     .minute
+                                              //             ? Color(0xff77A830)
+                                              //             : Color.fromARGB(
+                                              //                 255, 168, 76, 48)
+                                              //         : Color.fromARGB(
+                                              //             255, 168, 76, 48),
+                                              //eski sistemin renk düzeni
                                             ),
                                           ),
-                                          SizedBox(
-                                            width: 15,
-                                          ),
-                                          Visibility(
-                                            visible: TimeOfDay.now().hour >
-                                                    _todayGames[index2].hour
-                                                ? false
-                                                : TimeOfDay.now().hour ==
-                                                        _todayGames[index2].hour
-                                                    ? TimeOfDay.now().minute >=
-                                                            _todayGames[index2]
-                                                                .minute
-                                                        ? false
-                                                        : true
-                                                    : true,
-                                            child: InkWell(
-                                              splashColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () {},
-                                              child: Icon(
-                                                Icons.notifications_active,
-                                                size: 25,
-                                                color: Colors.blue,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 15,
-                                          ),
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {},
-                                            child: Text(
-                                                _todayGames[index2]
-                                                    .format(context),
-                                                style: GoogleFonts.publicSans(
-                                                    // fontWeight: FontWeight.bold,
-                                                    fontSize: 25,
-                                                    color: Colors.black)),
-                                          ),
+
+                                          //eski sistemin kodu
+                                          // InkWell(
+                                          //   splashColor: Colors.transparent,
+                                          //   highlightColor: Colors.transparent,
+                                          //   onTap: () async {},
+                                          //   child: Text(
+                                          //       _todayGames[index2]
+                                          //           .format(context),
+                                          //       style: GoogleFonts.publicSans(
+                                          //           // fontWeight: FontWeight.bold,
+                                          //           fontSize: 25,
+                                          //           color: Colors.black)),
+                                          // ),
+                                          //eski sistemin kodu
                                         ],
                                       ),
                                     ],
@@ -866,6 +881,7 @@ class _HomePageState extends State<HomePage> {
                                                                 'userName']],
                                                     seasonNumber: _configData[
                                                         'ScoreTableSeason'],
+                                                    language: _currentLanguage,
                                                   )));
                                     } else if (index2 == 1) {
                                       Navigator.push(
@@ -885,6 +901,7 @@ class _HomePageState extends State<HomePage> {
                                                                 'userName']],
                                                     seasonNumber: _configData[
                                                         'ScoreTableSeason'],
+                                                    language: _currentLanguage,
                                                   )));
                                     } else if (index2 == 2) {
                                       Navigator.push(
@@ -904,6 +921,7 @@ class _HomePageState extends State<HomePage> {
                                                                 'userName']],
                                                     seasonNumber: _configData[
                                                         'ScoreTableSeason'],
+                                                    language: _currentLanguage,
                                                   )));
                                     }
                                   } else if (_check == "oyunTamamlandi") {

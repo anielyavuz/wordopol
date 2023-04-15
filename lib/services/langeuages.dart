@@ -27,13 +27,13 @@ class LanguageService {
     List _result = [];
     String _welcome = "Welcome";
     String _username = "Username";
-    String _next = "Next";
+    String _next = "Let's Start";
 
     if (_lan == "en") {
     } else if (_lan == "tr") {
       _welcome = "Hoşgeldiniz";
       _username = "Kullanıcı Adınız";
-      _next = "Devam";
+      _next = "Başlayalım";
     }
 
     _result.insert(0, _welcome);

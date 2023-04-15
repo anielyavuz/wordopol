@@ -117,20 +117,36 @@ class _WelcomePageState extends State<WelcomePage> {
       home: Scaffold(
           resizeToAvoidBottomInset: false,
           body: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [
+              Color.fromARGB(255, 255, 80, 80),
+              Color.fromARGB(255, 219, 243, 243),
+              Color.fromARGB(255, 255, 80, 80),
+            ])),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * 3 / 5,
+                  height: MediaQuery.of(context).size.height * 5 / 7,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
                         child: Text(
-                          _lanWelcome,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800, fontSize: 40),
+                          "WORDOPOL",
+                          style: TextStyle(shadows: <Shadow>[
+                            // Shadow(
+                            //   offset: Offset(5.0, 2),
+                            //   blurRadius: 3.0,
+                            //   color: Color.fromARGB(255, 0, 0, 0),
+                            // ),
+                            Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 8.0,
+                              color: Color.fromARGB(255, 48, 57, 107),
+                            ),
+                          ], fontWeight: FontWeight.w800, fontSize: 40),
                         ),
                       ),
                       Column(
@@ -138,6 +154,8 @@ class _WelcomePageState extends State<WelcomePage> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
                             child: TextField(
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 244, 246, 248)),
                               onSubmitted: (value) async {
                                 print(_textFieldValue.toString().length);
                                 if (_textFieldValue.toString().length == 0) {
@@ -161,24 +179,24 @@ class _WelcomePageState extends State<WelcomePage> {
                                 contentPadding: EdgeInsets.all(10),
                                 isCollapsed: true,
                                 filled: true,
-                                fillColor: Color.fromARGB(255, 216, 255, 161),
+                                fillColor: Color.fromARGB(219, 19, 21, 52),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide: BorderSide(
-                                    color: Colors.green,
+                                    color: Color.fromARGB(255, 0, 5, 64),
                                     width: 1.0,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide: BorderSide(
-                                    color: Colors.purple,
+                                    color: Color.fromARGB(255, 200, 202, 204),
                                     width: 2.0,
                                   ),
                                 ),
                                 hintText: _lanUsername,
                                 hintStyle: TextStyle(
-                                    color: Color.fromARGB(75, 21, 9, 35)),
+                                    color: Color.fromARGB(195, 219, 230, 229)),
                               ),
                             ),
                           ),
@@ -186,6 +204,12 @@ class _WelcomePageState extends State<WelcomePage> {
                             padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton2<String>(
+                                  buttonDecoration: BoxDecoration(
+                                      // color: Color.fromARGB(255, 112, 112, 112),
+                                      ),
+                                  dropdownDecoration: BoxDecoration(
+                                    color: Color.fromARGB(195, 219, 230, 229),
+                                  ),
                                   offset: const Offset(-8, 0),
                                   alignment: AlignmentDirectional.center,
                                   dropdownWidth: 90,
@@ -200,7 +224,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                       child: new Text(value,
                                           style: TextStyle(
                                               color: Color.fromARGB(
-                                                  255, 137, 111, 111),
+                                                  219, 19, 21, 52),
                                               fontWeight: FontWeight.bold)),
                                     );
                                   }).toList(),
@@ -249,20 +273,26 @@ class _WelcomePageState extends State<WelcomePage> {
                         ],
                       ),
                       RawMaterialButton(
+                          constraints: BoxConstraints(
+                            minHeight: 80,
+                            minWidth: 150,
+                          ),
                           fillColor: _textFieldValue.toString().length == 0
                               ? Color.fromARGB(255, 74, 74, 79).withOpacity(0.3)
-                              : Color.fromARGB(255, 33, 39, 120),
+                              : Color.fromARGB(219, 19, 21, 52),
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15.0))),
-                          splashColor: Color(0xff77A830),
+                          // splashColor: Color.fromARGB(255, 255, 80, 80),
+                          splashColor: Colors.transparent,
+                          // highlightColor: Colors.transparent,
                           textStyle: TextStyle(color: Colors.white),
                           child: Text(_lanNext,
                               style: TextStyle(
                                 color: _textFieldValue.toString().length == 0
                                     ? Color.fromARGB(255, 255, 255, 255)
-                                    : Colors.amber,
-                                fontSize: 15,
+                                    : Color.fromARGB(255, 255, 80, 80),
+                                fontSize: 25,
                                 fontFamily: 'Times New Roman',
                                 // fontWeight: FontWeight.bold
                               )),
@@ -275,8 +305,27 @@ class _WelcomePageState extends State<WelcomePage> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 3,
+                Container(
+                  // padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
+                  // child: Center(
+                  //   child: Text(
+                  //     _lanWelcome,
+                  //     style:
+                  //         TextStyle(shadows: <Shadow>[
+                  //           // Shadow(
+                  //           //   offset: Offset(5.0, 2),
+                  //           //   blurRadius: 3.0,
+                  //           //   color: Color.fromARGB(255, 0, 0, 0),
+                  //           // ),
+                  //           Shadow(
+                  //             offset: Offset(3.0, 3.0),
+                  //             blurRadius: 8.0,
+                  //             color: Color.fromARGB(255, 48, 57, 107),
+                  //           ),
+                  //         ],fontWeight: FontWeight.w800, fontSize: 40),
+                  //   ),
+                  // ),
+                  height: MediaQuery.of(context).size.height * 2 / 7,
                 )
               ],
             ),

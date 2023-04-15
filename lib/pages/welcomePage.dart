@@ -210,9 +210,9 @@ class _WelcomePageState extends State<WelcomePage> {
                                   dropdownDecoration: BoxDecoration(
                                     color: Color.fromARGB(195, 219, 230, 229),
                                   ),
-                                  offset: const Offset(-8, 0),
+                                  offset: const Offset(-15.5, 0),
                                   alignment: AlignmentDirectional.center,
-                                  dropdownWidth: 90,
+                                  dropdownWidth: 105,
                                   // borderRadius: BorderRadius.circular(10),
                                   // dropdownColor: Color(0xff010114).withOpacity(1),
                                   value: _languageFull,
@@ -221,11 +221,13 @@ class _WelcomePageState extends State<WelcomePage> {
                                       .map((dynamic value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
-                                      child: new Text(value,
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  219, 19, 21, 52),
-                                              fontWeight: FontWeight.bold)),
+                                      child: Center(
+                                        child: new Text(value,
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    219, 19, 21, 52),
+                                                fontWeight: FontWeight.bold)),
+                                      ),
                                     );
                                   }).toList(),
                                   onChanged: (value) {

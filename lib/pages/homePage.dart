@@ -15,6 +15,7 @@ import 'package:wordopol/services/firebaseFunctions.dart';
 import 'package:wordopol/services/langeuages.dart';
 import 'package:wordopol/services/notificationService.dart';
 import 'package:collection/collection.dart';
+import 'package:wordopol/services/speechService.dart';
 
 class HomePage extends StatefulWidget {
   final String userID;
@@ -392,14 +393,19 @@ class _HomePageState extends State<HomePage> {
     languageService(_currentLanguage);
   }
 
-  wordDBSyncFunction() async {
-    _userInfo = await CloudDB().getUserInfo(widget.userID);
-    _configData = await CloudDB().getConfigDatas();
+  scoreTableGetFunction() async {
     _scoreTable =
         await CloudDB().getScoreTable(_configData['ScoreTableSeason']);
 
     _scoreTable2 = await SplayTreeMap.from(_scoreTable,
         (key1, key2) => _scoreTable[key2].compareTo(_scoreTable[key1]));
+  }
+
+  wordDBSyncFunction() async {
+    _userInfo = await CloudDB().getUserInfo(widget.userID);
+    _configData = await CloudDB().getConfigDatas();
+    scoreTableGetFunction();
+
     // print("KKKKKKKKK");
     // print(_configData);
 
@@ -568,25 +574,28 @@ class _HomePageState extends State<HomePage> {
                       ),
                       SizedBox(height: 10),
                       Expanded(
-                        child: ListView.builder(
-                          itemCount: _scoreTable2 != null
-                              ? _scoreTable2.keys.toList().length
-                              : 0,
-                          itemBuilder: (context, index) {
-                            final username = _scoreTable2.keys
-                                .toList()[index]
-                                .toString()
-                                .split('%')[1];
-                            final score = _scoreTable2.values.toList()[index];
-                            return ListTile(
-                              leading: Text(
-                                "${index + 1}.",
-                                style: TextStyle(fontSize: 16),
-                              ),
-                              title: Text(username),
-                              trailing: Text(score.toString()),
-                            );
-                          },
+                        child: RefreshIndicator(
+                          onRefresh: () => scoreTableGetFunction(),
+                          child: ListView.builder(
+                            itemCount: _scoreTable2 != null
+                                ? _scoreTable2.keys.toList().length
+                                : 0,
+                            itemBuilder: (context, index) {
+                              final username = _scoreTable2.keys
+                                  .toList()[index]
+                                  .toString()
+                                  .split('%')[1];
+                              final score = _scoreTable2.values.toList()[index];
+                              return ListTile(
+                                leading: Text(
+                                  "${index + 1}.",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                title: Text(username),
+                                trailing: Text(score.toString()),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],

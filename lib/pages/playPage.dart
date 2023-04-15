@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:wordopol/pages/homePage.dart';
 import 'package:wordopol/services/firebaseFunctions.dart';
 import 'package:wordopol/services/langeuages.dart';
+import 'package:wordopol/services/speechService.dart';
 import 'package:wordopol/services/uppercaseFunction.dart';
 
 class PlayPage extends StatefulWidget {
@@ -574,6 +575,28 @@ class _PlayPageState extends State<PlayPage> with TickerProviderStateMixin {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
+                                  RawMaterialButton(
+                                      fillColor:
+                                          Color.fromARGB(255, 33, 39, 120),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15.0))),
+                                      splashColor: Color(0xff77A830),
+                                      textStyle: TextStyle(color: Colors.white),
+                                      child: Text("🎤",
+                                          style: TextStyle(
+                                            color: Colors.amber,
+                                            fontSize: 15,
+                                            fontFamily: 'Times New Roman',
+                                            // fontWeight: FontWeight.bold
+                                          )),
+                                      onPressed: () async {
+                                        SpeechService().speak(
+                                            widget.wordsForPlay[_questionNumber]
+                                                    ["_question"]
+                                                .toString(),
+                                            widget.language);
+                                      }),
                                   RawMaterialButton(
                                       fillColor:
                                           Color.fromARGB(255, 33, 39, 120),

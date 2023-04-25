@@ -31,6 +31,8 @@ class _HomePageState extends State<HomePage> {
   late Box box;
   NotificationsServices notificationsServices = NotificationsServices();
 
+  final Color _yaziTipiRengi = Color(0xffE4EBDE);
+  final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
   var _userInfo;
   var _scoreTable;
   var _scoreTable2;
@@ -48,7 +50,7 @@ class _HomePageState extends State<HomePage> {
     TimeOfDay(hour: 12, minute: 30),
     TimeOfDay(hour: 20, minute: 30)
   ];
-  final Color _yaziTipiRengi = Color(0xffE4EBDE);
+
   String _currentLanguage = "en";
   List _wordsForPlay1 = [];
   List _wordsForPlay2 = [];
@@ -547,6 +549,266 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          title: Text("Wordopol"),
+        ),
+        drawer: Drawer(
+            backgroundColor: _yaziTipiRengi,
+            child: Container(
+              child: Column(
+                children: [
+                  UserAccountsDrawerHeader(
+                    accountName: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text("_todayText",
+                            style: GoogleFonts.publicSans(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20,
+                                color: _backgroudRengi)),
+                        Column(
+                          children: [
+                            Text("asd",
+                                style: TextStyle(
+                                  color: _backgroudRengi,
+                                  // fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  // fontFamily: 'Times New Roman'
+                                )),
+                          ],
+                        ),
+                      ],
+                    ),
+                    currentAccountPicture: GestureDetector(
+                        onTap: () {
+                          // uploadImage();
+                          // //profil fotosunun yenileneceği alan burası
+                        },
+                        child: Stack(
+                          children: [
+                            // CircleAvatar(
+                            //   backgroundColor: Colors.transparent,
+                            //   backgroundImage: _photo,
+                            //   // child: ClipOval(
+                            //   //   child: _photo,
+                            //   // )
+                            // ),
+                            // Center(child: Icon(Icons.add_a_photo_rounded))
+                          ],
+                        )),
+                    decoration: BoxDecoration(
+                      color: _backgroudRengi,
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage("assets/images/kapak.jpg")),
+                    ),
+                    accountEmail: null,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Visibility(
+                              visible: true,
+                              child: ListTile(
+                                leading: Icon(Icons.analytics),
+                                title: InkWell(
+                                  onTap: () async {},
+                                  child: Container(
+                                    child: Text("Analytics",
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18,
+                                            color: _backgroudRengi)),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            Visibility(
+                              visible: true,
+                              child: ListTile(
+                                leading: Icon(Icons.voicemail),
+                                title: InkWell(
+                                  onTap: () async {},
+                                  child: Container(
+                                    child: Text("Audio Test",
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18,
+                                            color: _backgroudRengi)),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            _userInfo != null
+                                ? _userInfo['userName'] == "Guest"
+                                    ? ListTile(
+                                        leading: Icon(Icons.person),
+                                        title: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {},
+                                          child: Container(
+                                            child: Text("_signIn",
+                                                style: GoogleFonts.publicSans(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 18,
+                                                    color: _backgroudRengi)),
+                                          ),
+                                        ),
+                                      )
+                                    : ListTile(
+                                        leading: CircleAvatar(
+                                            backgroundColor:
+                                                Colors.black.withOpacity(0),
+                                            backgroundImage: NetworkImage(
+                                                _userInfo['photoUrl'])),
+                                        title: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {},
+                                          child: Container(
+                                            child: Text(_userInfo['userName'],
+                                                style: GoogleFonts.publicSans(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 18,
+                                                    color: _backgroudRengi)),
+                                          ),
+                                        ),
+                                      )
+                                : SizedBox(),
+
+                            // ListTile(
+                            //   leading:
+                            //       Icon(Icons.notification_important_rounded),
+                            //   title: InkWell(
+                            //     splashColor: Colors.transparent,
+                            //     highlightColor: Colors.transparent,
+                            //     onTap: () async {
+                            //       //print(DateFormat('dd/MM/yyyy - HH:mm:ss')
+                            //           .format(DateTime.now())
+                            //           .toString());
+
+                            //       // //print(_configsInfo.docs[_configsInfoInteger]
+                            //       //     ['Social']);
+                            //       // // //print(_todayText);
+                            //       // // notificationsServices
+                            //       // //     .specificTimeNotification(
+                            //       // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
+
+                            //       // //////////BURASI ÖNEMLİ////////////
+                            //       // notificationsServices.sendNotifications(
+                            //       //     "KiWi🥝", "Yoga zamanı 💁");
+
+                            //       // notificationsServices
+                            //       //     .sendPayloadNotifications(
+                            //       //         0,
+                            //       //         "KiWi🥝",
+                            //       //         "Premium ol 💁",
+                            //       //         "payload navigationnnnn");
+                            //       // DateTime dt = DateTime.now().add(Duration(
+                            //       //     seconds:
+                            //       //         5)); //Or whatever DateTime you want
+                            //       // var tzdatetime = tz.TZDateTime.from(dt,
+                            //       //     tz.local); //could be var instead of final
+                            //       // // notificationsServices
+                            //       // //     .sendScheduledNotifications2(
+                            //       // //         0, "Swim", "20:05", tzdatetime);
+                            //       // notificationsServices.stopNotifications();
+
+                            //       //////////BURASI ÖNEMLİ////////////
+                            //     },
+                            //     child: Container(
+                            //       child: Text("Notifications Test",
+                            //           style: GoogleFonts.publicSans(
+                            //               fontWeight: FontWeight.w600,
+                            //               fontSize: 18,
+                            //               color: _backgroudRengi)),
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                        Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Version: ",
+                                      style: GoogleFonts.publicSans(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: _backgroudRengi)),
+                                  Text(_userInfo != null ? _userInfo['id'] : "",
+                                      style: GoogleFonts.publicSans(
+                                          fontWeight: FontWeight.w200,
+                                          fontSize: 8,
+                                          color: _backgroudRengi))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
+                              child: Column(
+                                children: [
+                                  _userInfo != null
+                                      ? _userInfo['userName'] == "Guest"
+                                          ? SizedBox()
+                                          : ListTile(
+                                              leading: Icon(Icons.delete),
+                                              title: InkWell(
+                                                splashColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {},
+                                                child: Container(
+                                                  child: Text("_deleteAccount",
+                                                      style: GoogleFonts.publicSans(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18,
+                                                          color:
+                                                              _backgroudRengi)),
+                                                ),
+                                              ),
+                                            )
+                                      : SizedBox(),
+                                  ListTile(
+                                    leading: Icon(Icons.exit_to_app),
+                                    title: InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        if (_userInfo['userName'] == "Guest") {
+                                        } else {}
+                                      },
+                                      child: Container(
+                                        child: Text("_exitButton",
+                                            style: GoogleFonts.publicSans(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18,
+                                                color: _backgroudRengi)),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )),
         body: Stack(
           children: [
             Column(

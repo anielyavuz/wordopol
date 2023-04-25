@@ -30,7 +30,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late Box box;
   NotificationsServices notificationsServices = NotificationsServices();
-
+  GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
   final Color _yaziTipiRengi = Color(0xffE4EBDE);
   final Color _backgroudRengi = Color.fromRGBO(21, 9, 35, 1);
   var _userInfo;
@@ -548,740 +548,745 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Wordopol"),
-        ),
-        drawer: Drawer(
-            backgroundColor: _yaziTipiRengi,
-            child: Container(
-              child: Column(
-                children: [
-                  UserAccountsDrawerHeader(
-                    accountName: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text("_todayText",
-                            style: GoogleFonts.publicSans(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                                color: _backgroudRengi)),
-                        Column(
-                          children: [
-                            Text("asd",
-                                style: TextStyle(
-                                  color: _backgroudRengi,
-                                  // fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  // fontFamily: 'Times New Roman'
-                                )),
-                          ],
-                        ),
-                      ],
+      home: SafeArea(
+        child: Scaffold(
+          drawer: Drawer(
+              key: _scaffoldState,
+              backgroundColor: _yaziTipiRengi,
+              child: Container(
+                child: Column(
+                  children: [
+                    UserAccountsDrawerHeader(
+                      accountName: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text("_todayText",
+                              style: GoogleFonts.publicSans(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: _backgroudRengi)),
+                          Column(
+                            children: [
+                              Text("asd",
+                                  style: TextStyle(
+                                    color: _backgroudRengi,
+                                    // fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    // fontFamily: 'Times New Roman'
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
+                      currentAccountPicture: GestureDetector(
+                          onTap: () {
+                            // uploadImage();
+                            // //profil fotosunun yenileneceği alan burası
+                          },
+                          child: Stack(
+                            children: [
+                              // CircleAvatar(
+                              //   backgroundColor: Colors.transparent,
+                              //   backgroundImage: _photo,
+                              //   // child: ClipOval(
+                              //   //   child: _photo,
+                              //   // )
+                              // ),
+                              // Center(child: Icon(Icons.add_a_photo_rounded))
+                            ],
+                          )),
+                      decoration: BoxDecoration(
+                        color: _backgroudRengi,
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage("assets/images/kapak.jpg")),
+                      ),
+                      accountEmail: null,
                     ),
-                    currentAccountPicture: GestureDetector(
-                        onTap: () {
-                          // uploadImage();
-                          // //profil fotosunun yenileneceği alan burası
-                        },
-                        child: Stack(
-                          children: [
-                            // CircleAvatar(
-                            //   backgroundColor: Colors.transparent,
-                            //   backgroundImage: _photo,
-                            //   // child: ClipOval(
-                            //   //   child: _photo,
-                            //   // )
-                            // ),
-                            // Center(child: Icon(Icons.add_a_photo_rounded))
-                          ],
-                        )),
-                    decoration: BoxDecoration(
-                      color: _backgroudRengi,
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage("assets/images/kapak.jpg")),
-                    ),
-                    accountEmail: null,
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Visibility(
-                              visible: true,
-                              child: ListTile(
-                                leading: Icon(Icons.analytics),
-                                title: InkWell(
-                                  onTap: () async {},
-                                  child: Container(
-                                    child: Text("Analytics",
-                                        style: GoogleFonts.publicSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                            color: _backgroudRengi)),
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            Visibility(
-                              visible: true,
-                              child: ListTile(
-                                leading: Icon(Icons.voicemail),
-                                title: InkWell(
-                                  onTap: () async {},
-                                  child: Container(
-                                    child: Text("Audio Test",
-                                        style: GoogleFonts.publicSans(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18,
-                                            color: _backgroudRengi)),
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            _userInfo != null
-                                ? _userInfo['userName'] == "Guest"
-                                    ? ListTile(
-                                        leading: Icon(Icons.person),
-                                        title: InkWell(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {},
-                                          child: Container(
-                                            child: Text("_signIn",
-                                                style: GoogleFonts.publicSans(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 18,
-                                                    color: _backgroudRengi)),
-                                          ),
-                                        ),
-                                      )
-                                    : ListTile(
-                                        leading: CircleAvatar(
-                                            backgroundColor:
-                                                Colors.black.withOpacity(0),
-                                            backgroundImage: NetworkImage(
-                                                _userInfo['photoUrl'])),
-                                        title: InkWell(
-                                          splashColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {},
-                                          child: Container(
-                                            child: Text(_userInfo['userName'],
-                                                style: GoogleFonts.publicSans(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 18,
-                                                    color: _backgroudRengi)),
-                                          ),
-                                        ),
-                                      )
-                                : SizedBox(),
-
-                            // ListTile(
-                            //   leading:
-                            //       Icon(Icons.notification_important_rounded),
-                            //   title: InkWell(
-                            //     splashColor: Colors.transparent,
-                            //     highlightColor: Colors.transparent,
-                            //     onTap: () async {
-                            //       //print(DateFormat('dd/MM/yyyy - HH:mm:ss')
-                            //           .format(DateTime.now())
-                            //           .toString());
-
-                            //       // //print(_configsInfo.docs[_configsInfoInteger]
-                            //       //     ['Social']);
-                            //       // // //print(_todayText);
-                            //       // // notificationsServices
-                            //       // //     .specificTimeNotification(
-                            //       // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
-
-                            //       // //////////BURASI ÖNEMLİ////////////
-                            //       // notificationsServices.sendNotifications(
-                            //       //     "KiWi🥝", "Yoga zamanı 💁");
-
-                            //       // notificationsServices
-                            //       //     .sendPayloadNotifications(
-                            //       //         0,
-                            //       //         "KiWi🥝",
-                            //       //         "Premium ol 💁",
-                            //       //         "payload navigationnnnn");
-                            //       // DateTime dt = DateTime.now().add(Duration(
-                            //       //     seconds:
-                            //       //         5)); //Or whatever DateTime you want
-                            //       // var tzdatetime = tz.TZDateTime.from(dt,
-                            //       //     tz.local); //could be var instead of final
-                            //       // // notificationsServices
-                            //       // //     .sendScheduledNotifications2(
-                            //       // //         0, "Swim", "20:05", tzdatetime);
-                            //       // notificationsServices.stopNotifications();
-
-                            //       //////////BURASI ÖNEMLİ////////////
-                            //     },
-                            //     child: Container(
-                            //       child: Text("Notifications Test",
-                            //           style: GoogleFonts.publicSans(
-                            //               fontWeight: FontWeight.w600,
-                            //               fontSize: 18,
-                            //               color: _backgroudRengi)),
-                            //     ),
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                        Stack(
-                          alignment: Alignment.bottomRight,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(8),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Version: ",
-                                      style: GoogleFonts.publicSans(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                          color: _backgroudRengi)),
-                                  Text(_userInfo != null ? _userInfo['id'] : "",
-                                      style: GoogleFonts.publicSans(
-                                          fontWeight: FontWeight.w200,
-                                          fontSize: 8,
-                                          color: _backgroudRengi))
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
-                              child: Column(
-                                children: [
-                                  _userInfo != null
-                                      ? _userInfo['userName'] == "Guest"
-                                          ? SizedBox()
-                                          : ListTile(
-                                              leading: Icon(Icons.delete),
-                                              title: InkWell(
-                                                splashColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {},
-                                                child: Container(
-                                                  child: Text("_deleteAccount",
-                                                      style: GoogleFonts.publicSans(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 18,
-                                                          color:
-                                                              _backgroudRengi)),
-                                                ),
-                                              ),
-                                            )
-                                      : SizedBox(),
-                                  ListTile(
-                                    leading: Icon(Icons.exit_to_app),
-                                    title: InkWell(
-                                      splashColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        if (_userInfo['userName'] == "Guest") {
-                                        } else {}
-                                      },
-                                      child: Container(
-                                        child: Text("_exitButton",
-                                            style: GoogleFonts.publicSans(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18,
-                                                color: _backgroudRengi)),
-                                      ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Visibility(
+                                visible: true,
+                                child: ListTile(
+                                  leading: Icon(Icons.analytics),
+                                  title: InkWell(
+                                    onTap: () async {},
+                                    child: Container(
+                                      child: Text("Analytics",
+                                          style: GoogleFonts.publicSans(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                              color: _backgroudRengi)),
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
+      
+                              Visibility(
+                                visible: true,
+                                child: ListTile(
+                                  leading: Icon(Icons.voicemail),
+                                  title: InkWell(
+                                    onTap: () async {},
+                                    child: Container(
+                                      child: Text("Audio Test",
+                                          style: GoogleFonts.publicSans(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18,
+                                              color: _backgroudRengi)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+      
+                              _userInfo != null
+                                  ? _userInfo['userName'] == "Guest"
+                                      ? ListTile(
+                                          leading: Icon(Icons.person),
+                                          title: InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {},
+                                            child: Container(
+                                              child: Text("_signIn",
+                                                  style: GoogleFonts.publicSans(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 18,
+                                                      color: _backgroudRengi)),
+                                            ),
+                                          ),
+                                        )
+                                      : ListTile(
+                                          leading: CircleAvatar(
+                                              backgroundColor:
+                                                  Colors.black.withOpacity(0),
+                                              backgroundImage: NetworkImage(
+                                                  _userInfo['photoUrl'])),
+                                          title: InkWell(
+                                            splashColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {},
+                                            child: Container(
+                                              child: Text(_userInfo['userName'],
+                                                  style: GoogleFonts.publicSans(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 18,
+                                                      color: _backgroudRengi)),
+                                            ),
+                                          ),
+                                        )
+                                  : SizedBox(),
+      
+                              // ListTile(
+                              //   leading:
+                              //       Icon(Icons.notification_important_rounded),
+                              //   title: InkWell(
+                              //     splashColor: Colors.transparent,
+                              //     highlightColor: Colors.transparent,
+                              //     onTap: () async {
+                              //       //print(DateFormat('dd/MM/yyyy - HH:mm:ss')
+                              //           .format(DateTime.now())
+                              //           .toString());
+      
+                              //       // //print(_configsInfo.docs[_configsInfoInteger]
+                              //       //     ['Social']);
+                              //       // // //print(_todayText);
+                              //       // // notificationsServices
+                              //       // //     .specificTimeNotification(
+                              //       // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
+      
+                              //       // //////////BURASI ÖNEMLİ////////////
+                              //       // notificationsServices.sendNotifications(
+                              //       //     "KiWi🥝", "Yoga zamanı 💁");
+      
+                              //       // notificationsServices
+                              //       //     .sendPayloadNotifications(
+                              //       //         0,
+                              //       //         "KiWi🥝",
+                              //       //         "Premium ol 💁",
+                              //       //         "payload navigationnnnn");
+                              //       // DateTime dt = DateTime.now().add(Duration(
+                              //       //     seconds:
+                              //       //         5)); //Or whatever DateTime you want
+                              //       // var tzdatetime = tz.TZDateTime.from(dt,
+                              //       //     tz.local); //could be var instead of final
+                              //       // // notificationsServices
+                              //       // //     .sendScheduledNotifications2(
+                              //       // //         0, "Swim", "20:05", tzdatetime);
+                              //       // notificationsServices.stopNotifications();
+      
+                              //       //////////BURASI ÖNEMLİ////////////
+                              //     },
+                              //     child: Container(
+                              //       child: Text("Notifications Test",
+                              //           style: GoogleFonts.publicSans(
+                              //               fontWeight: FontWeight.w600,
+                              //               fontSize: 18,
+                              //               color: _backgroudRengi)),
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                          Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Version: ",
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                            color: _backgroudRengi)),
+                                    Text(_userInfo != null ? _userInfo['id'] : "",
+                                        style: GoogleFonts.publicSans(
+                                            fontWeight: FontWeight.w200,
+                                            fontSize: 8,
+                                            color: _backgroudRengi))
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
+                                child: Column(
+                                  children: [
+                                    _userInfo != null
+                                        ? _userInfo['userName'] == "Guest"
+                                            ? SizedBox()
+                                            : ListTile(
+                                                leading: Icon(Icons.delete),
+                                                title: InkWell(
+                                                  splashColor: Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {},
+                                                  child: Container(
+                                                    child: Text("_deleteAccount",
+                                                        style: GoogleFonts.publicSans(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 18,
+                                                            color:
+                                                                _backgroudRengi)),
+                                                  ),
+                                                ),
+                                              )
+                                        : SizedBox(),
+                                    ListTile(
+                                      leading: Icon(Icons.exit_to_app),
+                                      title: InkWell(
+                                        splashColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          if (_userInfo['userName'] == "Guest") {
+                                          } else {}
+                                        },
+                                        child: Container(
+                                          child: Text("_exitButton",
+                                              style: GoogleFonts.publicSans(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 18,
+                                                  color: _backgroudRengi)),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+          body: Stack(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    _scaffoldState.currentState!.openDrawer();
+                  },
+                  icon: Icon(Icons.menu)),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
+                    child: Text(
+                      "WORDOPOL",
+                      style: TextStyle(shadows: <Shadow>[
+                        // Shadow(
+                        //   offset: Offset(5.0, 2),
+                        //   blurRadius: 3.0,
+                        //   color: Color.fromARGB(255, 0, 0, 0),
+                        // ),
+                        Shadow(
+                          offset: Offset(3.0, 3.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(255, 48, 57, 107),
+                        ),
+                      ], fontWeight: FontWeight.w800, fontSize: 40),
+                    ),
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height / 4,
+                    child: Column(
+                      children: [
+                        Text(
+                          _lanLeaderboard,
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 10),
+                        Expanded(
+                          child: RefreshIndicator(
+                            onRefresh: () => scoreTableGetFunction(),
+                            child: ListView.builder(
+                              itemCount: _scoreTable2 != null
+                                  ? _scoreTable2.keys.toList().length
+                                  : 0,
+                              itemBuilder: (context, index) {
+                                final username = _scoreTable2.keys
+                                    .toList()[index]
+                                    .toString()
+                                    .split('%')[1];
+                                final score = _scoreTable2.values.toList()[index];
+                                return ListTile(
+                                  leading: Text(
+                                    "${index + 1}.",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  title: Text(username),
+                                  trailing: Text(score.toString()),
+                                );
+                              },
                             ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            )),
-        body: Stack(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
-                  child: Text(
-                    "WORDOPOL",
-                    style: TextStyle(shadows: <Shadow>[
-                      // Shadow(
-                      //   offset: Offset(5.0, 2),
-                      //   blurRadius: 3.0,
-                      //   color: Color.fromARGB(255, 0, 0, 0),
-                      // ),
-                      Shadow(
-                        offset: Offset(3.0, 3.0),
-                        blurRadius: 8.0,
-                        color: Color.fromARGB(255, 48, 57, 107),
-                      ),
-                    ], fontWeight: FontWeight.w800, fontSize: 40),
-                  ),
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height / 4,
-                  child: Column(
-                    children: [
-                      Text(
-                        _lanLeaderboard,
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 10),
-                      Expanded(
-                        child: RefreshIndicator(
-                          onRefresh: () => scoreTableGetFunction(),
-                          child: ListView.builder(
-                            itemCount: _scoreTable2 != null
-                                ? _scoreTable2.keys.toList().length
-                                : 0,
-                            itemBuilder: (context, index) {
-                              final username = _scoreTable2.keys
-                                  .toList()[index]
-                                  .toString()
-                                  .split('%')[1];
-                              final score = _scoreTable2.values.toList()[index];
-                              return ListTile(
-                                leading: Text(
-                                  "${index + 1}.",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                title: Text(username),
-                                trailing: Text(score.toString()),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Expanded(
-                //   child: Padding(
-                //     padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                //     child: DropdownButton<String>(
-                //         dropdownColor: Color(0xff010114).withOpacity(1),
-                //         value: _languageFull,
-                //         items: _languageDropdown.keys
-                //             .toList()
-                //             .map((dynamic value) {
-                //           return DropdownMenuItem<String>(
-                //             value: value,
-                //             child: new Text(value,
-                //                 style: TextStyle(
-                //                     color: Color.fromARGB(255, 137, 111, 111),
-                //                     fontWeight: FontWeight.bold)),
-                //           );
-                //         }).toList(),
-                //         onChanged: (value) {
-                //           setState(() {
-                //             _languageFull = value!;
-                //           });
-
-                //           if (_configData['supportedLanguages'] != null) {
-                //             setState(() {
-                //               _currentLanguage =
-                //                   _configData['supportedLanguages']
-                //                       [_languageFull];
-                //               box.put(
-                //                   "languageSelectedBefore", _currentLanguage);
-                //             });
-                //           }
-
-                //           print(_currentLanguage);
-                //         }),
-                //   ),
-                // ),
-
-                RawMaterialButton(
-                    fillColor: Color.fromARGB(255, 33, 39, 120),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                    splashColor: Color(0xff77A830),
-                    textStyle: TextStyle(color: Colors.white),
-                    child: Text(_lanSignOut,
-                        style: TextStyle(
-                          color: Colors.amber,
-                          fontSize: 15,
-                          fontFamily: 'Times New Roman',
-                          // fontWeight: FontWeight.bold
-                        )),
-                    onPressed: () async {
-                      var a = await _authService.signOutAndDeleteUser(
-                          widget.userID,
-                          "Anonym",
-                          _userInfo['userName'],
-                          _configData['ScoreTableSeason']);
-                      box.put("DBId", 0);
-                      box.put("WordPool", {});
-                      box.put("CompletedGames", {});
-                      box.put("winners", {});
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => CheckAuth()),
-                          (Route<dynamic> route) => false);
-                    }),
-                Expanded(
-                  child: Container(
-                    // width:
-                    //     MediaQuery.of(context).size.width *
-                    //         3 /
-                    //         5,
-                    height: 200,
-                    // width: 50,
-
-                    child: ListView.builder(
-                        itemCount: _todayGames.length,
-                        itemBuilder: (context, index2) {
-                          // print(_kaydirmaNoktalari);
-                          return Container(
-                            width: MediaQuery.of(context).size.width / 3,
-                            child: RawMaterialButton(
-                                // fillColor: _yaziTipiRengi,
-                                shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                        color: (_completedGames[_todayNumber] !=
-                                                null
-                                            ? (_completedGames[_todayNumber]
-                                                        [index2 + 1] ==
-                                                    true
-                                                ? Color(0xff77A830)
-                                                : Color.fromARGB(
-                                                    255, 168, 76, 48))
-                                            : Color.fromARGB(
-                                                255, 168, 76, 48))),
-
-                                    //eski sistemin kodu
-                                    //  TimeOfDay.now().hour >
-                                    //         _todayGames[index2].hour
-                                    //     ? Color(0xff77A830)
-                                    //     : TimeOfDay.now().hour ==
-                                    //             _todayGames[index2].hour
-                                    //         ? TimeOfDay.now().minute >=
-                                    //                 _todayGames[index2]
-                                    //                     .minute
-                                    //             ? Color(0xff77A830)
-                                    //             : Color.fromARGB(
-                                    //                 255, 168, 76, 48)
-                                    //         : Color.fromARGB(
-                                    //             255, 168, 76, 48)),
-//eski sistemin kodu
-
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(15.0))),
-                                // splashColor: Colors.green,
-                                textStyle: TextStyle(color: Colors.black),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                          _lanGame +
-                                              " " +
-                                              (index2 + 1).toString(),
-                                          style: GoogleFonts.publicSans(
-                                              // fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                              color: Colors.black)),
-                                      Row(
-                                        children: [
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () {},
-                                            child: Icon(
-                                              (_completedGames[_todayNumber] !=
-                                                      null
-                                                  ? (_completedGames[
-                                                                  _todayNumber]
-                                                              [index2 + 1] ==
-                                                          true
-                                                      ? Icons.check
-                                                      : Icons.pending)
-                                                  : Icons.pending),
-
-                                              //eski sistemin kodu
-                                              // Icon(
-                                              //   TimeOfDay.now().hour >
-                                              //           _todayGames[index2].hour
-                                              //       ? (_completedGames[
-                                              //                   _todayNumber] !=
-                                              //               null
-                                              //           ? (_completedGames[_todayNumber]
-                                              //                       [
-                                              //                       index2 + 1] ==
-                                              //                   true
-                                              //               ? Icons.check
-                                              //               : Icons.pending)
-                                              //           : Icons.pending)
-                                              //       : TimeOfDay.now().hour ==
-                                              //               _todayGames[index2]
-                                              //                   .hour
-                                              //           ? TimeOfDay.now().minute >=
-                                              //                   _todayGames[index2]
-                                              //                       .minute
-                                              //               ? (_completedGames[
-                                              //                           _todayNumber] !=
-                                              //                       null
-                                              //                   ? (_completedGames[_todayNumber]
-                                              //                               [index2 + 1] ==
-                                              //                           true
-                                              //                       ? Icons.check
-                                              //                       : Icons.pending)
-                                              //                   : Icons.pending)
-                                              //               : Icons.lock
-                                              //           : Icons.lock,
-                                              //eski sistemin kodu
-                                              size: 25,
-                                              color: (_completedGames[
-                                                          _todayNumber] !=
-                                                      null
-                                                  ? (_completedGames[
-                                                                  _todayNumber]
-                                                              [index2 + 1] ==
-                                                          true
-                                                      ? Color(0xff77A830)
-                                                      : Color.fromARGB(
-                                                          255, 168, 76, 48))
+                  // Expanded(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                  //     child: DropdownButton<String>(
+                  //         dropdownColor: Color(0xff010114).withOpacity(1),
+                  //         value: _languageFull,
+                  //         items: _languageDropdown.keys
+                  //             .toList()
+                  //             .map((dynamic value) {
+                  //           return DropdownMenuItem<String>(
+                  //             value: value,
+                  //             child: new Text(value,
+                  //                 style: TextStyle(
+                  //                     color: Color.fromARGB(255, 137, 111, 111),
+                  //                     fontWeight: FontWeight.bold)),
+                  //           );
+                  //         }).toList(),
+                  //         onChanged: (value) {
+                  //           setState(() {
+                  //             _languageFull = value!;
+                  //           });
+      
+                  //           if (_configData['supportedLanguages'] != null) {
+                  //             setState(() {
+                  //               _currentLanguage =
+                  //                   _configData['supportedLanguages']
+                  //                       [_languageFull];
+                  //               box.put(
+                  //                   "languageSelectedBefore", _currentLanguage);
+                  //             });
+                  //           }
+      
+                  //           print(_currentLanguage);
+                  //         }),
+                  //   ),
+                  // ),
+      
+                  RawMaterialButton(
+                      fillColor: Color.fromARGB(255, 33, 39, 120),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                      splashColor: Color(0xff77A830),
+                      textStyle: TextStyle(color: Colors.white),
+                      child: Text(_lanSignOut,
+                          style: TextStyle(
+                            color: Colors.amber,
+                            fontSize: 15,
+                            fontFamily: 'Times New Roman',
+                            // fontWeight: FontWeight.bold
+                          )),
+                      onPressed: () async {
+                        var a = await _authService.signOutAndDeleteUser(
+                            widget.userID,
+                            "Anonym",
+                            _userInfo['userName'],
+                            _configData['ScoreTableSeason']);
+                        box.put("DBId", 0);
+                        box.put("WordPool", {});
+                        box.put("CompletedGames", {});
+                        box.put("winners", {});
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => CheckAuth()),
+                            (Route<dynamic> route) => false);
+                      }),
+                  Expanded(
+                    child: Container(
+                      // width:
+                      //     MediaQuery.of(context).size.width *
+                      //         3 /
+                      //         5,
+                      height: 200,
+                      // width: 50,
+      
+                      child: ListView.builder(
+                          itemCount: _todayGames.length,
+                          itemBuilder: (context, index2) {
+                            // print(_kaydirmaNoktalari);
+                            return Container(
+                              width: MediaQuery.of(context).size.width / 3,
+                              child: RawMaterialButton(
+                                  // fillColor: _yaziTipiRengi,
+                                  shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          color: (_completedGames[_todayNumber] !=
+                                                  null
+                                              ? (_completedGames[_todayNumber]
+                                                          [index2 + 1] ==
+                                                      true
+                                                  ? Color(0xff77A830)
                                                   : Color.fromARGB(
-                                                      255, 168, 76, 48)),
-
-                                              //eski sistemin renk düzeni
-                                              // TimeOfDay.now().hour >
-                                              //         _todayGames[index2].hour
-                                              //     ? Color(0xff77A830)
-                                              //     : TimeOfDay.now().hour ==
-                                              //             _todayGames[index2]
-                                              //                 .hour
-                                              //         ? TimeOfDay.now()
-                                              //                     .minute >=
-                                              //                 _todayGames[
-                                              //                         index2]
-                                              //                     .minute
-                                              //             ? Color(0xff77A830)
-                                              //             : Color.fromARGB(
-                                              //                 255, 168, 76, 48)
-                                              //         : Color.fromARGB(
-                                              //             255, 168, 76, 48),
-                                              //eski sistemin renk düzeni
+                                                      255, 168, 76, 48))
+                                              : Color.fromARGB(
+                                                  255, 168, 76, 48))),
+      
+                                      //eski sistemin kodu
+                                      //  TimeOfDay.now().hour >
+                                      //         _todayGames[index2].hour
+                                      //     ? Color(0xff77A830)
+                                      //     : TimeOfDay.now().hour ==
+                                      //             _todayGames[index2].hour
+                                      //         ? TimeOfDay.now().minute >=
+                                      //                 _todayGames[index2]
+                                      //                     .minute
+                                      //             ? Color(0xff77A830)
+                                      //             : Color.fromARGB(
+                                      //                 255, 168, 76, 48)
+                                      //         : Color.fromARGB(
+                                      //             255, 168, 76, 48)),
+      //eski sistemin kodu
+      
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(15.0))),
+                                  // splashColor: Colors.green,
+                                  textStyle: TextStyle(color: Colors.black),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                            _lanGame +
+                                                " " +
+                                                (index2 + 1).toString(),
+                                            style: GoogleFonts.publicSans(
+                                                // fontWeight: FontWeight.bold,
+                                                fontSize: 15,
+                                                color: Colors.black)),
+                                        Row(
+                                          children: [
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              highlightColor: Colors.transparent,
+                                              onTap: () {},
+                                              child: Icon(
+                                                (_completedGames[_todayNumber] !=
+                                                        null
+                                                    ? (_completedGames[
+                                                                    _todayNumber]
+                                                                [index2 + 1] ==
+                                                            true
+                                                        ? Icons.check
+                                                        : Icons.pending)
+                                                    : Icons.pending),
+      
+                                                //eski sistemin kodu
+                                                // Icon(
+                                                //   TimeOfDay.now().hour >
+                                                //           _todayGames[index2].hour
+                                                //       ? (_completedGames[
+                                                //                   _todayNumber] !=
+                                                //               null
+                                                //           ? (_completedGames[_todayNumber]
+                                                //                       [
+                                                //                       index2 + 1] ==
+                                                //                   true
+                                                //               ? Icons.check
+                                                //               : Icons.pending)
+                                                //           : Icons.pending)
+                                                //       : TimeOfDay.now().hour ==
+                                                //               _todayGames[index2]
+                                                //                   .hour
+                                                //           ? TimeOfDay.now().minute >=
+                                                //                   _todayGames[index2]
+                                                //                       .minute
+                                                //               ? (_completedGames[
+                                                //                           _todayNumber] !=
+                                                //                       null
+                                                //                   ? (_completedGames[_todayNumber]
+                                                //                               [index2 + 1] ==
+                                                //                           true
+                                                //                       ? Icons.check
+                                                //                       : Icons.pending)
+                                                //                   : Icons.pending)
+                                                //               : Icons.lock
+                                                //           : Icons.lock,
+                                                //eski sistemin kodu
+                                                size: 25,
+                                                color: (_completedGames[
+                                                            _todayNumber] !=
+                                                        null
+                                                    ? (_completedGames[
+                                                                    _todayNumber]
+                                                                [index2 + 1] ==
+                                                            true
+                                                        ? Color(0xff77A830)
+                                                        : Color.fromARGB(
+                                                            255, 168, 76, 48))
+                                                    : Color.fromARGB(
+                                                        255, 168, 76, 48)),
+      
+                                                //eski sistemin renk düzeni
+                                                // TimeOfDay.now().hour >
+                                                //         _todayGames[index2].hour
+                                                //     ? Color(0xff77A830)
+                                                //     : TimeOfDay.now().hour ==
+                                                //             _todayGames[index2]
+                                                //                 .hour
+                                                //         ? TimeOfDay.now()
+                                                //                     .minute >=
+                                                //                 _todayGames[
+                                                //                         index2]
+                                                //                     .minute
+                                                //             ? Color(0xff77A830)
+                                                //             : Color.fromARGB(
+                                                //                 255, 168, 76, 48)
+                                                //         : Color.fromARGB(
+                                                //             255, 168, 76, 48),
+                                                //eski sistemin renk düzeni
+                                              ),
                                             ),
-                                          ),
-
-                                          //eski sistemin kodu
-                                          // InkWell(
-                                          //   splashColor: Colors.transparent,
-                                          //   highlightColor: Colors.transparent,
-                                          //   onTap: () async {},
-                                          //   child: Text(
-                                          //       _todayGames[index2]
-                                          //           .format(context),
-                                          //       style: GoogleFonts.publicSans(
-                                          //           // fontWeight: FontWeight.bold,
-                                          //           fontSize: 25,
-                                          //           color: Colors.black)),
-                                          // ),
-                                          //eski sistemin kodu
-                                        ],
-                                      ),
-                                    ],
+      
+                                            //eski sistemin kodu
+                                            // InkWell(
+                                            //   splashColor: Colors.transparent,
+                                            //   highlightColor: Colors.transparent,
+                                            //   onTap: () async {},
+                                            //   child: Text(
+                                            //       _todayGames[index2]
+                                            //           .format(context),
+                                            //       style: GoogleFonts.publicSans(
+                                            //           // fontWeight: FontWeight.bold,
+                                            //           fontSize: 25,
+                                            //           color: Colors.black)),
+                                            // ),
+                                            //eski sistemin kodu
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                onPressed: () {
-                                  String _check = "vakitGeldi";
-
-                                  if (TimeOfDay.now().hour >
-                                      _todayGames[index2].hour) {
-                                    _check = "vakitGeldi";
-                                  } else {
-                                    if (TimeOfDay.now().hour ==
+                                  onPressed: () {
+                                    String _check = "vakitGeldi";
+      
+                                    if (TimeOfDay.now().hour >
                                         _todayGames[index2].hour) {
-                                      if (TimeOfDay.now().minute >=
-                                          _todayGames[index2].minute) {
-                                        _check = "vakitGeldi";
+                                      _check = "vakitGeldi";
+                                    } else {
+                                      if (TimeOfDay.now().hour ==
+                                          _todayGames[index2].hour) {
+                                        if (TimeOfDay.now().minute >=
+                                            _todayGames[index2].minute) {
+                                          _check = "vakitGeldi";
+                                        } else {
+                                          _check = "vakitGelmedi";
+                                        }
                                       } else {
                                         _check = "vakitGelmedi";
                                       }
+                                    }
+      
+                                    if (_completedGames[_todayNumber] != null) {
+                                      if (_completedGames[_todayNumber]
+                                              [index2 + 1] ==
+                                          true) {
+                                        _check = "oyunTamamlandi";
+                                      }
+                                    }
+      
+                                    if (
+                                        // _check == "vakitGeldi"
+                                        _check == _check) {
+                                      if (_completedGames[_todayNumber] == null) {
+                                        _completedGames[_todayNumber] = {};
+                                      }
+                                      _completedGames[_todayNumber][index2 + 1] =
+                                          true;
+                                      box.put("CompletedGames", _completedGames);
+                                      if (index2 == 0) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (BuildContext context) =>
+                                                    PlayPage(
+                                                      wordsForPlay:
+                                                          _wordsForPlay1,
+                                                      userName:
+                                                          _userInfo['userName'],
+                                                      uid: _userInfo['id'],
+                                                      point: _scoreTable[
+                                                          _userInfo['id'] +
+                                                              "%" +
+                                                              _userInfo[
+                                                                  'userName']],
+                                                      seasonNumber: _configData[
+                                                          'ScoreTableSeason'],
+                                                      language: _currentLanguage,
+                                                    )));
+                                      } else if (index2 == 1) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (BuildContext context) =>
+                                                    PlayPage(
+                                                      wordsForPlay:
+                                                          _wordsForPlay2,
+                                                      userName:
+                                                          _userInfo['userName'],
+                                                      uid: _userInfo['id'],
+                                                      point: _scoreTable[
+                                                          _userInfo['id'] +
+                                                              "%" +
+                                                              _userInfo[
+                                                                  'userName']],
+                                                      seasonNumber: _configData[
+                                                          'ScoreTableSeason'],
+                                                      language: _currentLanguage,
+                                                    )));
+                                      } else if (index2 == 2) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (BuildContext context) =>
+                                                    PlayPage(
+                                                      wordsForPlay:
+                                                          _wordsForPlay3,
+                                                      userName:
+                                                          _userInfo['userName'],
+                                                      uid: _userInfo['id'],
+                                                      point: _scoreTable[
+                                                          _userInfo['id'] +
+                                                              "%" +
+                                                              _userInfo[
+                                                                  'userName']],
+                                                      seasonNumber: _configData[
+                                                          'ScoreTableSeason'],
+                                                      language: _currentLanguage,
+                                                    )));
+                                      }
+                                    } else if (_check == "oyunTamamlandi") {
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          duration: Duration(milliseconds: 2000),
+                                          content: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text("Bu oyunu oynadınız..."),
+                                            ],
+                                          ),
+                                          // action: SnackBarAction(
+                                          //   label: "Be a Premium User",
+                                          //   onPressed: () {
+                                          //     Navigator.push(
+                                          //         context,
+                                          //         MaterialPageRoute(
+                                          //             builder: (context) =>
+                                          //                 BePremiumUser()));
+                                          //   },
+                                          // )
+                                        ),
+                                      );
                                     } else {
-                                      _check = "vakitGelmedi";
-                                    }
-                                  }
-
-                                  if (_completedGames[_todayNumber] != null) {
-                                    if (_completedGames[_todayNumber]
-                                            [index2 + 1] ==
-                                        true) {
-                                      _check = "oyunTamamlandi";
-                                    }
-                                  }
-
-                                  if (
-                                      // _check == "vakitGeldi"
-                                      _check == _check) {
-                                    if (_completedGames[_todayNumber] == null) {
-                                      _completedGames[_todayNumber] = {};
-                                    }
-                                    _completedGames[_todayNumber][index2 + 1] =
-                                        true;
-                                    box.put("CompletedGames", _completedGames);
-                                    if (index2 == 0) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  PlayPage(
-                                                    wordsForPlay:
-                                                        _wordsForPlay1,
-                                                    userName:
-                                                        _userInfo['userName'],
-                                                    uid: _userInfo['id'],
-                                                    point: _scoreTable[
-                                                        _userInfo['id'] +
-                                                            "%" +
-                                                            _userInfo[
-                                                                'userName']],
-                                                    seasonNumber: _configData[
-                                                        'ScoreTableSeason'],
-                                                    language: _currentLanguage,
-                                                  )));
-                                    } else if (index2 == 1) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  PlayPage(
-                                                    wordsForPlay:
-                                                        _wordsForPlay2,
-                                                    userName:
-                                                        _userInfo['userName'],
-                                                    uid: _userInfo['id'],
-                                                    point: _scoreTable[
-                                                        _userInfo['id'] +
-                                                            "%" +
-                                                            _userInfo[
-                                                                'userName']],
-                                                    seasonNumber: _configData[
-                                                        'ScoreTableSeason'],
-                                                    language: _currentLanguage,
-                                                  )));
-                                    } else if (index2 == 2) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  PlayPage(
-                                                    wordsForPlay:
-                                                        _wordsForPlay3,
-                                                    userName:
-                                                        _userInfo['userName'],
-                                                    uid: _userInfo['id'],
-                                                    point: _scoreTable[
-                                                        _userInfo['id'] +
-                                                            "%" +
-                                                            _userInfo[
-                                                                'userName']],
-                                                    seasonNumber: _configData[
-                                                        'ScoreTableSeason'],
-                                                    language: _currentLanguage,
-                                                  )));
-                                    }
-                                  } else if (_check == "oyunTamamlandi") {
-                                    ScaffoldMessenger.of(context)
-                                        .hideCurrentSnackBar();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        duration: Duration(milliseconds: 2000),
-                                        content: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text("Bu oyunu oynadınız..."),
-                                          ],
+                                      ScaffoldMessenger.of(context)
+                                          .hideCurrentSnackBar();
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          duration: Duration(milliseconds: 2000),
+                                          content: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                  "Bu oyun için zaman henüz gelmedi"),
+                                            ],
+                                          ),
+                                          // action: SnackBarAction(
+                                          //   label: "Be a Premium User",
+                                          //   onPressed: () {
+                                          //     Navigator.push(
+                                          //         context,
+                                          //         MaterialPageRoute(
+                                          //             builder: (context) =>
+                                          //                 BePremiumUser()));
+                                          //   },
+                                          // )
                                         ),
-                                        // action: SnackBarAction(
-                                        //   label: "Be a Premium User",
-                                        //   onPressed: () {
-                                        //     Navigator.push(
-                                        //         context,
-                                        //         MaterialPageRoute(
-                                        //             builder: (context) =>
-                                        //                 BePremiumUser()));
-                                        //   },
-                                        // )
-                                      ),
-                                    );
-                                  } else {
-                                    ScaffoldMessenger.of(context)
-                                        .hideCurrentSnackBar();
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        duration: Duration(milliseconds: 2000),
-                                        content: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                                "Bu oyun için zaman henüz gelmedi"),
-                                          ],
-                                        ),
-                                        // action: SnackBarAction(
-                                        //   label: "Be a Premium User",
-                                        //   onPressed: () {
-                                        //     Navigator.push(
-                                        //         context,
-                                        //         MaterialPageRoute(
-                                        //             builder: (context) =>
-                                        //                 BePremiumUser()));
-                                        //   },
-                                        // )
-                                      ),
-                                    );
-                                  }
-                                }),
-                          );
-                        }),
-                  ),
-                ),
-              ],
-            ),
-            Visibility(
-              visible: _userDataLoadScreen,
-              child: Stack(
-                children: [
-                  BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-                    child: Container(
-                      color: Colors.white.withOpacity(0.8),
+                                      );
+                                    }
+                                  }),
+                            );
+                          }),
                     ),
                   ),
-                  Center(
-                    child: Container(
-                      child: Lottie.asset(
-                          // "https://assets5.lottiefiles.com/private_files/lf30_ijwulw45.json"
-                          "assets/json/loading.json"),
-                    ),
-                  )
                 ],
               ),
-            )
-          ],
+              Visibility(
+                visible: _userDataLoadScreen,
+                child: Stack(
+                  children: [
+                    BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                      child: Container(
+                        color: Colors.white.withOpacity(0.8),
+                      ),
+                    ),
+                    Center(
+                      child: Container(
+                        child: Lottie.asset(
+                            // "https://assets5.lottiefiles.com/private_files/lf30_ijwulw45.json"
+                            "assets/json/loading.json"),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

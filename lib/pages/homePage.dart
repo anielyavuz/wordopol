@@ -504,15 +504,13 @@ class _HomePageState extends State<HomePage> {
     }
 
     for (var i = 1; i < 10; i++) {
-      DateTime _dt = DateTime(
-          DateTime.now().year,
-          DateTime.now().month,
-          DateTime.now().add(Duration(days: i)).day,
-          20,
-          30,
-          DateTime.now().add(Duration(seconds: 5)).second);
+      DateTime _dt = DateTime.now().add(Duration(days: i));
 
-      var tzdatetime = tz.TZDateTime.from(_dt, tz.local);
+      var timeNew = new DateTime(_dt.year, _dt.month, _dt.day, 20, 00,
+          _dt.second, _dt.millisecond, _dt.microsecond);
+      // print(timeNew);
+      var tzdatetime = tz.TZDateTime.from(timeNew, tz.local);
+
       notificationsServices.sendScheduledNotifications2(
           _notificaitonID,
           "Wordopol🎯",

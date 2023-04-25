@@ -147,6 +147,7 @@ class NotificationsServices {
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: iosNotificationDetails);
 
+    // print("TZT zamanııııııı  $tzz");
     await _flutterLocalNotificationsPlugin.zonedSchedule(
         id, title, body, tzz, notificationDetails,
         androidAllowWhileIdle: true,

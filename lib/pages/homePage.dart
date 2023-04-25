@@ -552,14 +552,23 @@ class _HomePageState extends State<HomePage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Expanded(
-                  child: Container(
-                      child: Center(
-                          child: Text(_lanWelcome
-
-                              // _wordPoolData[_currentLanguage].toString()
-
-                              ))),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
+                  child: Text(
+                    "WORDOPOL",
+                    style: TextStyle(shadows: <Shadow>[
+                      // Shadow(
+                      //   offset: Offset(5.0, 2),
+                      //   blurRadius: 3.0,
+                      //   color: Color.fromARGB(255, 0, 0, 0),
+                      // ),
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 8.0,
+                        color: Color.fromARGB(255, 48, 57, 107),
+                      ),
+                    ], fontWeight: FontWeight.w800, fontSize: 40),
+                  ),
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height / 4,

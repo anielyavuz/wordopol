@@ -550,8 +550,8 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
       home: SafeArea(
         child: Scaffold(
+          key: _scaffoldState,
           drawer: Drawer(
-              key: _scaffoldState,
               backgroundColor: _yaziTipiRengi,
               child: Container(
                 child: Column(
@@ -625,7 +625,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-      
+
                               Visibility(
                                 visible: true,
                                 child: ListTile(
@@ -642,7 +642,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-      
+
                               _userInfo != null
                                   ? _userInfo['userName'] == "Guest"
                                       ? ListTile(
@@ -654,7 +654,8 @@ class _HomePageState extends State<HomePage> {
                                             child: Container(
                                               child: Text("_signIn",
                                                   style: GoogleFonts.publicSans(
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       fontSize: 18,
                                                       color: _backgroudRengi)),
                                             ),
@@ -673,14 +674,15 @@ class _HomePageState extends State<HomePage> {
                                             child: Container(
                                               child: Text(_userInfo['userName'],
                                                   style: GoogleFonts.publicSans(
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       fontSize: 18,
                                                       color: _backgroudRengi)),
                                             ),
                                           ),
                                         )
                                   : SizedBox(),
-      
+
                               // ListTile(
                               //   leading:
                               //       Icon(Icons.notification_important_rounded),
@@ -691,18 +693,18 @@ class _HomePageState extends State<HomePage> {
                               //       //print(DateFormat('dd/MM/yyyy - HH:mm:ss')
                               //           .format(DateTime.now())
                               //           .toString());
-      
+
                               //       // //print(_configsInfo.docs[_configsInfoInteger]
                               //       //     ['Social']);
                               //       // // //print(_todayText);
                               //       // // notificationsServices
                               //       // //     .specificTimeNotification(
                               //       // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
-      
+
                               //       // //////////BURASI ÖNEMLİ////////////
                               //       // notificationsServices.sendNotifications(
                               //       //     "KiWi🥝", "Yoga zamanı 💁");
-      
+
                               //       // notificationsServices
                               //       //     .sendPayloadNotifications(
                               //       //         0,
@@ -718,7 +720,7 @@ class _HomePageState extends State<HomePage> {
                               //       // //     .sendScheduledNotifications2(
                               //       // //         0, "Swim", "20:05", tzdatetime);
                               //       // notificationsServices.stopNotifications();
-      
+
                               //       //////////BURASI ÖNEMLİ////////////
                               //     },
                               //     child: Container(
@@ -745,7 +747,10 @@ class _HomePageState extends State<HomePage> {
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16,
                                             color: _backgroudRengi)),
-                                    Text(_userInfo != null ? _userInfo['id'] : "",
+                                    Text(
+                                        _userInfo != null
+                                            ? _userInfo['id']
+                                            : "",
                                         style: GoogleFonts.publicSans(
                                             fontWeight: FontWeight.w200,
                                             fontSize: 8,
@@ -754,7 +759,8 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
                                 child: Column(
                                   children: [
                                     _userInfo != null
@@ -763,18 +769,22 @@ class _HomePageState extends State<HomePage> {
                                             : ListTile(
                                                 leading: Icon(Icons.delete),
                                                 title: InkWell(
-                                                  splashColor: Colors.transparent,
+                                                  splashColor:
+                                                      Colors.transparent,
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {},
                                                   child: Container(
-                                                    child: Text("_deleteAccount",
-                                                        style: GoogleFonts.publicSans(
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            fontSize: 18,
-                                                            color:
-                                                                _backgroudRengi)),
+                                                    child: Text(
+                                                        "_deleteAccount",
+                                                        style: GoogleFonts
+                                                            .publicSans(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 18,
+                                                                color:
+                                                                    _backgroudRengi)),
                                                   ),
                                                 ),
                                               )
@@ -785,7 +795,8 @@ class _HomePageState extends State<HomePage> {
                                         splashColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          if (_userInfo['userName'] == "Guest") {
+                                          if (_userInfo['userName'] ==
+                                              "Guest") {
                                           } else {}
                                         },
                                         child: Container(
@@ -810,11 +821,11 @@ class _HomePageState extends State<HomePage> {
               )),
           body: Stack(
             children: [
-              IconButton(
-                  onPressed: () {
+              InkWell(
+                  onTap: () {
                     _scaffoldState.currentState!.openDrawer();
                   },
-                  icon: Icon(Icons.menu)),
+                  child: Icon(Icons.menu)),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -858,7 +869,8 @@ class _HomePageState extends State<HomePage> {
                                     .toList()[index]
                                     .toString()
                                     .split('%')[1];
-                                final score = _scoreTable2.values.toList()[index];
+                                final score =
+                                    _scoreTable2.values.toList()[index];
                                 return ListTile(
                                   leading: Text(
                                     "${index + 1}.",
@@ -895,7 +907,7 @@ class _HomePageState extends State<HomePage> {
                   //           setState(() {
                   //             _languageFull = value!;
                   //           });
-      
+
                   //           if (_configData['supportedLanguages'] != null) {
                   //             setState(() {
                   //               _currentLanguage =
@@ -905,16 +917,17 @@ class _HomePageState extends State<HomePage> {
                   //                   "languageSelectedBefore", _currentLanguage);
                   //             });
                   //           }
-      
+
                   //           print(_currentLanguage);
                   //         }),
                   //   ),
                   // ),
-      
+
                   RawMaterialButton(
                       fillColor: Color.fromARGB(255, 33, 39, 120),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(15.0))),
                       splashColor: Color(0xff77A830),
                       textStyle: TextStyle(color: Colors.white),
                       child: Text(_lanSignOut,
@@ -948,7 +961,7 @@ class _HomePageState extends State<HomePage> {
                       //         5,
                       height: 200,
                       // width: 50,
-      
+
                       child: ListView.builder(
                           itemCount: _todayGames.length,
                           itemBuilder: (context, index2) {
@@ -959,7 +972,8 @@ class _HomePageState extends State<HomePage> {
                                   // fillColor: _yaziTipiRengi,
                                   shape: RoundedRectangleBorder(
                                       side: BorderSide(
-                                          color: (_completedGames[_todayNumber] !=
+                                          color: (_completedGames[
+                                                      _todayNumber] !=
                                                   null
                                               ? (_completedGames[_todayNumber]
                                                           [index2 + 1] ==
@@ -969,7 +983,7 @@ class _HomePageState extends State<HomePage> {
                                                       255, 168, 76, 48))
                                               : Color.fromARGB(
                                                   255, 168, 76, 48))),
-      
+
                                       //eski sistemin kodu
                                       //  TimeOfDay.now().hour >
                                       //         _todayGames[index2].hour
@@ -984,8 +998,8 @@ class _HomePageState extends State<HomePage> {
                                       //                 255, 168, 76, 48)
                                       //         : Color.fromARGB(
                                       //             255, 168, 76, 48)),
-      //eski sistemin kodu
-      
+                                      //eski sistemin kodu
+
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(15.0))),
                                   // splashColor: Colors.green,
@@ -1009,10 +1023,12 @@ class _HomePageState extends State<HomePage> {
                                           children: [
                                             InkWell(
                                               splashColor: Colors.transparent,
-                                              highlightColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
                                               onTap: () {},
                                               child: Icon(
-                                                (_completedGames[_todayNumber] !=
+                                                (_completedGames[
+                                                            _todayNumber] !=
                                                         null
                                                     ? (_completedGames[
                                                                     _todayNumber]
@@ -1021,7 +1037,7 @@ class _HomePageState extends State<HomePage> {
                                                         ? Icons.check
                                                         : Icons.pending)
                                                     : Icons.pending),
-      
+
                                                 //eski sistemin kodu
                                                 // Icon(
                                                 //   TimeOfDay.now().hour >
@@ -1067,7 +1083,7 @@ class _HomePageState extends State<HomePage> {
                                                             255, 168, 76, 48))
                                                     : Color.fromARGB(
                                                         255, 168, 76, 48)),
-      
+
                                                 //eski sistemin renk düzeni
                                                 // TimeOfDay.now().hour >
                                                 //         _todayGames[index2].hour
@@ -1088,7 +1104,7 @@ class _HomePageState extends State<HomePage> {
                                                 //eski sistemin renk düzeni
                                               ),
                                             ),
-      
+
                                             //eski sistemin kodu
                                             // InkWell(
                                             //   splashColor: Colors.transparent,
@@ -1110,7 +1126,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   onPressed: () {
                                     String _check = "vakitGeldi";
-      
+
                                     if (TimeOfDay.now().hour >
                                         _todayGames[index2].hour) {
                                       _check = "vakitGeldi";
@@ -1127,7 +1143,7 @@ class _HomePageState extends State<HomePage> {
                                         _check = "vakitGelmedi";
                                       }
                                     }
-      
+
                                     if (_completedGames[_todayNumber] != null) {
                                       if (_completedGames[_todayNumber]
                                               [index2 + 1] ==
@@ -1135,21 +1151,24 @@ class _HomePageState extends State<HomePage> {
                                         _check = "oyunTamamlandi";
                                       }
                                     }
-      
+
                                     if (
                                         // _check == "vakitGeldi"
                                         _check == _check) {
-                                      if (_completedGames[_todayNumber] == null) {
+                                      if (_completedGames[_todayNumber] ==
+                                          null) {
                                         _completedGames[_todayNumber] = {};
                                       }
-                                      _completedGames[_todayNumber][index2 + 1] =
-                                          true;
-                                      box.put("CompletedGames", _completedGames);
+                                      _completedGames[_todayNumber]
+                                          [index2 + 1] = true;
+                                      box.put(
+                                          "CompletedGames", _completedGames);
                                       if (index2 == 0) {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (BuildContext context) =>
+                                                builder: (BuildContext
+                                                        context) =>
                                                     PlayPage(
                                                       wordsForPlay:
                                                           _wordsForPlay1,
@@ -1163,13 +1182,15 @@ class _HomePageState extends State<HomePage> {
                                                                   'userName']],
                                                       seasonNumber: _configData[
                                                           'ScoreTableSeason'],
-                                                      language: _currentLanguage,
+                                                      language:
+                                                          _currentLanguage,
                                                     )));
                                       } else if (index2 == 1) {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (BuildContext context) =>
+                                                builder: (BuildContext
+                                                        context) =>
                                                     PlayPage(
                                                       wordsForPlay:
                                                           _wordsForPlay2,
@@ -1183,13 +1204,15 @@ class _HomePageState extends State<HomePage> {
                                                                   'userName']],
                                                       seasonNumber: _configData[
                                                           'ScoreTableSeason'],
-                                                      language: _currentLanguage,
+                                                      language:
+                                                          _currentLanguage,
                                                     )));
                                       } else if (index2 == 2) {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (BuildContext context) =>
+                                                builder: (BuildContext
+                                                        context) =>
                                                     PlayPage(
                                                       wordsForPlay:
                                                           _wordsForPlay3,
@@ -1203,15 +1226,18 @@ class _HomePageState extends State<HomePage> {
                                                                   'userName']],
                                                       seasonNumber: _configData[
                                                           'ScoreTableSeason'],
-                                                      language: _currentLanguage,
+                                                      language:
+                                                          _currentLanguage,
                                                     )));
                                       }
                                     } else if (_check == "oyunTamamlandi") {
                                       ScaffoldMessenger.of(context)
                                           .hideCurrentSnackBar();
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         SnackBar(
-                                          duration: Duration(milliseconds: 2000),
+                                          duration:
+                                              Duration(milliseconds: 2000),
                                           content: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -1234,9 +1260,11 @@ class _HomePageState extends State<HomePage> {
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .hideCurrentSnackBar();
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         SnackBar(
-                                          duration: Duration(milliseconds: 2000),
+                                          duration:
+                                              Duration(milliseconds: 2000),
                                           content: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,

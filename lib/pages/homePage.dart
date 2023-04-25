@@ -821,16 +821,11 @@ class _HomePageState extends State<HomePage> {
               )),
           body: Stack(
             children: [
-              InkWell(
-                  onTap: () {
-                    _scaffoldState.currentState!.openDrawer();
-                  },
-                  child: Icon(Icons.menu)),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 20),
                     child: Text(
                       "WORDOPOL",
                       style: TextStyle(shadows: <Shadow>[
@@ -1312,7 +1307,29 @@ class _HomePageState extends State<HomePage> {
                     )
                   ],
                 ),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1),
+                    borderRadius: BorderRadius.all(
+                                            Radius.circular(35.0))),
+                  child: ClipOval(
+                    child: Ink.image(
+                      height: 40,
+                      width: 40,
+                      image: AssetImage("assets/images/wordopolLogo.png"),
+                      fit: BoxFit.cover,
+                      child: InkWell(
+                        onTap: () {
+                          _scaffoldState.currentState!.openDrawer();
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

@@ -920,7 +920,7 @@ class _HomePageState extends State<HomePage> {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                               child: Container(
-                                height: (((MediaQuery.of(context).size.height-70)/8*5)-60)/3,
+                                height: (((MediaQuery.of(context).size.height-80)/8*5)-60)/3,
                                 width: MediaQuery.of(context).size.width / 3,
                                 child: RawMaterialButton(
                                     // fillColor: _yaziTipiRengi,

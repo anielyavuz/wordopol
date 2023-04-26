@@ -870,38 +870,91 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       // height: MediaQuery.of(context).size.height / 2 - 30 -200,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
                             _lanLeaderboard,
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(height: 10),
-                          Expanded(
-                            child: RefreshIndicator(
-                              onRefresh: () => scoreTableGetFunction(),
-                              child: ListView.builder(
-                                itemCount: _scoreTable2 != null
-                                    ? _scoreTable2.keys.toList().length
-                                    : 0,
-                                itemBuilder: (context, index) {
-                                  final username = _scoreTable2.keys
-                                      .toList()[index]
-                                      .toString()
-                                      .split('%')[1];
-                                  final score =
-                                      _scoreTable2.values.toList()[index];
-                                  return ListTile(
-                                    leading: Text(
-                                      "${index + 1}.",
-                                      style: TextStyle(fontSize: 16),
+                          // SizedBox(height: 10),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0,0,0,15),
+                                    child: Container(
+                                      height: 110,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                        color: Color.fromARGB(255, 151, 147, 134),
+                                        borderRadius: BorderRadius.vertical(top: Radius.circular(50))
+                                      ),
                                     ),
-                                    title: Text(username),
-                                    trailing: Text(score.toString()),
-                                  );
-                                },
+                                  ),
+                                  Positioned(
+                                    bottom: -2,
+                                    child: Icon(
+                                      Icons.star,
+                                      size: 40,
+                                      color: Color.fromARGB(255, 198, 199, 199),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
+                              Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0,0,0,20),
+                                    child: Container(
+                                      height: 150,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        color: Color.fromARGB(255, 151, 147, 134),
+                                        borderRadius: BorderRadius.vertical(top: Radius.circular(50))
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: -2,
+                                    child: Icon(
+                                      Icons.star,
+                                      size: 50,
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0,0,0,10),
+                                    child: Container(
+                                      height: 80,
+                                      width: 80,
+                                      decoration: BoxDecoration(
+                                        color: Color.fromARGB(255, 151, 147, 134),
+                                        borderRadius: BorderRadius.vertical(top: Radius.circular(50))
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: -2,
+                                    child: Icon(
+                                      Icons.star,
+                                      size: 30,
+                                      color: Color.fromARGB(255, 246, 129, 39),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),

@@ -546,6 +546,12 @@ class _HomePageState extends State<HomePage> {
     // groupOfWords();
   }
 
+    @override
+  void didChangeDependencies() {
+    precacheImage(new AssetImage("assets/images/kapak.jpg"),context);
+    precacheImage(new AssetImage("assets/images/wordopolLogo.png"),context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

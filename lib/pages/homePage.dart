@@ -840,23 +840,28 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    height: 70,
+                    height: 80,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 20),
-                      child: Text(
-                        "WORDOPOL",
-                        style: TextStyle(shadows: <Shadow>[
-                          // Shadow(
-                          //   offset: Offset(5.0, 2),
-                          //   blurRadius: 3.0,
-                          //   color: Color.fromARGB(255, 0, 0, 0),
-                          // ),
-                          Shadow(
-                            offset: Offset(3.0, 3.0),
-                            blurRadius: 8.0,
-                            color: Color.fromARGB(255, 48, 57, 107),
+                      child: Center(
+                        child: FittedBox(
+                          fit: BoxFit.fitHeight,
+                          child: Text(
+                            "WORDOPOL",
+                            style: TextStyle(shadows: <Shadow>[
+                              // Shadow(
+                              //   offset: Offset(5.0, 2),
+                              //   blurRadius: 3.0,
+                              //   color: Color.fromARGB(255, 0, 0, 0),
+                              // ),
+                              Shadow(
+                                offset: Offset(3.0, 3.0),
+                                blurRadius: 8.0,
+                                color: Color.fromARGB(255, 48, 57, 107),
+                              ),
+                            ], fontWeight: FontWeight.w800, fontSize: 40),
                           ),
-                        ], fontWeight: FontWeight.w800, fontSize: 40),
+                        ),
                       ),
                     ),
                   ),

@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -552,30 +553,22 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           key: _scaffoldState,
           drawer: Drawer(
-              backgroundColor: _yaziTipiRengi,
+              backgroundColor: Color.fromARGB(255, 251, 244, 244),
               child: Container(
                 child: Column(
                   children: [
                     UserAccountsDrawerHeader(
                       accountName: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text("_todayText",
+                          Text(
+                              _userInfo == null
+                                  ? ""
+                                  : "Hello " + _userInfo['userName'],
                               style: GoogleFonts.publicSans(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 20,
                                   color: _backgroudRengi)),
-                          Column(
-                            children: [
-                              Text("asd",
-                                  style: TextStyle(
-                                    color: _backgroudRengi,
-                                    // fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    // fontFamily: 'Times New Roman'
-                                  )),
-                            ],
-                          ),
                         ],
                       ),
                       currentAccountPicture: GestureDetector(
@@ -614,7 +607,10 @@ class _HomePageState extends State<HomePage> {
                                 child: ListTile(
                                   leading: Icon(Icons.analytics),
                                   title: InkWell(
-                                    onTap: () async {},
+                                    onTap: () async {
+                                      notificationsServices.sendNotifications(
+                                          "title", "body");
+                                    },
                                     child: Container(
                                       child: Text("Test",
                                           style: GoogleFonts.publicSans(

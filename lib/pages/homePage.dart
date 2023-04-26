@@ -616,7 +616,7 @@ class _HomePageState extends State<HomePage> {
                                   title: InkWell(
                                     onTap: () async {},
                                     child: Container(
-                                      child: Text("Analytics",
+                                      child: Text("Test",
                                           style: GoogleFonts.publicSans(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 18,
@@ -625,113 +625,6 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-
-                              Visibility(
-                                visible: true,
-                                child: ListTile(
-                                  leading: Icon(Icons.voicemail),
-                                  title: InkWell(
-                                    onTap: () async {},
-                                    child: Container(
-                                      child: Text("Audio Test",
-                                          style: GoogleFonts.publicSans(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18,
-                                              color: _backgroudRengi)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              _userInfo != null
-                                  ? _userInfo['userName'] == "Guest"
-                                      ? ListTile(
-                                          leading: Icon(Icons.person),
-                                          title: InkWell(
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {},
-                                            child: Container(
-                                              child: Text("_signIn",
-                                                  style: GoogleFonts.publicSans(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 18,
-                                                      color: _backgroudRengi)),
-                                            ),
-                                          ),
-                                        )
-                                      : ListTile(
-                                          leading: CircleAvatar(
-                                              backgroundColor:
-                                                  Colors.black.withOpacity(0),
-                                              backgroundImage: NetworkImage(
-                                                  _userInfo['photoUrl'])),
-                                          title: InkWell(
-                                            splashColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {},
-                                            child: Container(
-                                              child: Text(_userInfo['userName'],
-                                                  style: GoogleFonts.publicSans(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 18,
-                                                      color: _backgroudRengi)),
-                                            ),
-                                          ),
-                                        )
-                                  : SizedBox(),
-
-                              // ListTile(
-                              //   leading:
-                              //       Icon(Icons.notification_important_rounded),
-                              //   title: InkWell(
-                              //     splashColor: Colors.transparent,
-                              //     highlightColor: Colors.transparent,
-                              //     onTap: () async {
-                              //       //print(DateFormat('dd/MM/yyyy - HH:mm:ss')
-                              //           .format(DateTime.now())
-                              //           .toString());
-
-                              //       // //print(_configsInfo.docs[_configsInfoInteger]
-                              //       //     ['Social']);
-                              //       // // //print(_todayText);
-                              //       // // notificationsServices
-                              //       // //     .specificTimeNotification(
-                              //       // //         "KiWi🥝", "Yoga zamanı 💁", 0, 5);
-
-                              //       // //////////BURASI ÖNEMLİ////////////
-                              //       // notificationsServices.sendNotifications(
-                              //       //     "KiWi🥝", "Yoga zamanı 💁");
-
-                              //       // notificationsServices
-                              //       //     .sendPayloadNotifications(
-                              //       //         0,
-                              //       //         "KiWi🥝",
-                              //       //         "Premium ol 💁",
-                              //       //         "payload navigationnnnn");
-                              //       // DateTime dt = DateTime.now().add(Duration(
-                              //       //     seconds:
-                              //       //         5)); //Or whatever DateTime you want
-                              //       // var tzdatetime = tz.TZDateTime.from(dt,
-                              //       //     tz.local); //could be var instead of final
-                              //       // // notificationsServices
-                              //       // //     .sendScheduledNotifications2(
-                              //       // //         0, "Swim", "20:05", tzdatetime);
-                              //       // notificationsServices.stopNotifications();
-
-                              //       //////////BURASI ÖNEMLİ////////////
-                              //     },
-                              //     child: Container(
-                              //       child: Text("Notifications Test",
-                              //           style: GoogleFonts.publicSans(
-                              //               fontWeight: FontWeight.w600,
-                              //               fontSize: 18,
-                              //               color: _backgroudRengi)),
-                              //     ),
-                              //   ),
-                              // ),
                             ],
                           ),
                           Stack(
@@ -763,32 +656,6 @@ class _HomePageState extends State<HomePage> {
                                     const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
                                 child: Column(
                                   children: [
-                                    _userInfo != null
-                                        ? _userInfo['userName'] == "Guest"
-                                            ? SizedBox()
-                                            : ListTile(
-                                                leading: Icon(Icons.delete),
-                                                title: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {},
-                                                  child: Container(
-                                                    child: Text(
-                                                        "_deleteAccount",
-                                                        style: GoogleFonts
-                                                            .publicSans(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                fontSize: 18,
-                                                                color:
-                                                                    _backgroudRengi)),
-                                                  ),
-                                                ),
-                                              )
-                                        : SizedBox(),
                                     ListTile(
                                       leading: Icon(Icons.exit_to_app),
                                       title: InkWell(
@@ -886,14 +753,16 @@ class _HomePageState extends State<HomePage> {
                                 alignment: Alignment.bottomCenter,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(0,0,0,15),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 15),
                                     child: Container(
                                       height: 110,
                                       width: 90,
                                       decoration: BoxDecoration(
-                                        color: Color.fromARGB(255, 151, 147, 134),
-                                        borderRadius: BorderRadius.vertical(top: Radius.circular(50))
-                                      ),
+                                          color: Color.fromARGB(
+                                              255, 151, 147, 134),
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(50))),
                                     ),
                                   ),
                                   Positioned(
@@ -910,14 +779,16 @@ class _HomePageState extends State<HomePage> {
                                 alignment: Alignment.bottomCenter,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(0,0,0,20),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 20),
                                     child: Container(
                                       height: 150,
                                       width: 100,
                                       decoration: BoxDecoration(
-                                        color: Color.fromARGB(255, 151, 147, 134),
-                                        borderRadius: BorderRadius.vertical(top: Radius.circular(50))
-                                      ),
+                                          color: Color.fromARGB(
+                                              255, 151, 147, 134),
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(50))),
                                     ),
                                   ),
                                   Positioned(
@@ -934,14 +805,16 @@ class _HomePageState extends State<HomePage> {
                                 alignment: Alignment.bottomCenter,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(0,0,0,10),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 10),
                                     child: Container(
                                       height: 80,
                                       width: 80,
                                       decoration: BoxDecoration(
-                                        color: Color.fromARGB(255, 151, 147, 134),
-                                        borderRadius: BorderRadius.vertical(top: Radius.circular(50))
-                                      ),
+                                          color: Color.fromARGB(
+                                              255, 151, 147, 134),
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(50))),
                                     ),
                                   ),
                                   Positioned(
@@ -973,7 +846,12 @@ class _HomePageState extends State<HomePage> {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                               child: Container(
-                                height: (((MediaQuery.of(context).size.height-80)/8*5)-60)/3,
+                                height: (((MediaQuery.of(context).size.height -
+                                                80) /
+                                            8 *
+                                            5) -
+                                        60) /
+                                    3,
                                 width: MediaQuery.of(context).size.width / 3,
                                 child: RawMaterialButton(
                                     // fillColor: _yaziTipiRengi,
@@ -990,7 +868,7 @@ class _HomePageState extends State<HomePage> {
                                                         255, 168, 76, 48))
                                                 : Color.fromARGB(
                                                     255, 168, 76, 48))),
-                  
+
                                         //eski sistemin kodu
                                         //  TimeOfDay.now().hour >
                                         //         _todayGames[index2].hour
@@ -1006,14 +884,14 @@ class _HomePageState extends State<HomePage> {
                                         //         : Color.fromARGB(
                                         //             255, 168, 76, 48)),
                                         //eski sistemin kodu
-                  
+
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(15.0))),
                                     // splashColor: Colors.green,
                                     textStyle: TextStyle(color: Colors.black),
                                     child: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 5, 15, 5),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -1039,12 +917,13 @@ class _HomePageState extends State<HomePage> {
                                                           null
                                                       ? (_completedGames[
                                                                       _todayNumber]
-                                                                  [index2 + 1] ==
+                                                                  [
+                                                                  index2 + 1] ==
                                                               true
                                                           ? Icons.check
                                                           : Icons.pending)
                                                       : Icons.pending),
-                  
+
                                                   //eski sistemin kodu
                                                   // Icon(
                                                   //   TimeOfDay.now().hour >
@@ -1083,14 +962,15 @@ class _HomePageState extends State<HomePage> {
                                                           null
                                                       ? (_completedGames[
                                                                       _todayNumber]
-                                                                  [index2 + 1] ==
+                                                                  [
+                                                                  index2 + 1] ==
                                                               true
                                                           ? Color(0xff77A830)
                                                           : Color.fromARGB(
                                                               255, 168, 76, 48))
                                                       : Color.fromARGB(
                                                           255, 168, 76, 48)),
-                  
+
                                                   //eski sistemin renk düzeni
                                                   // TimeOfDay.now().hour >
                                                   //         _todayGames[index2].hour
@@ -1111,7 +991,7 @@ class _HomePageState extends State<HomePage> {
                                                   //eski sistemin renk düzeni
                                                 ),
                                               ),
-                  
+
                                               //eski sistemin kodu
                                               // InkWell(
                                               //   splashColor: Colors.transparent,
@@ -1133,7 +1013,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     onPressed: () {
                                       String _check = "vakitGeldi";
-                  
+
                                       if (TimeOfDay.now().hour >
                                           _todayGames[index2].hour) {
                                         _check = "vakitGeldi";
@@ -1150,15 +1030,16 @@ class _HomePageState extends State<HomePage> {
                                           _check = "vakitGelmedi";
                                         }
                                       }
-                  
-                                      if (_completedGames[_todayNumber] != null) {
+
+                                      if (_completedGames[_todayNumber] !=
+                                          null) {
                                         if (_completedGames[_todayNumber]
                                                 [index2 + 1] ==
                                             true) {
                                           _check = "oyunTamamlandi";
                                         }
                                       }
-                  
+
                                       if (
                                           // _check == "vakitGeldi"
                                           _check == _check) {
@@ -1179,8 +1060,8 @@ class _HomePageState extends State<HomePage> {
                                                       PlayPage(
                                                         wordsForPlay:
                                                             _wordsForPlay1,
-                                                        userName:
-                                                            _userInfo['userName'],
+                                                        userName: _userInfo[
+                                                            'userName'],
                                                         uid: _userInfo['id'],
                                                         point: _scoreTable[
                                                             _userInfo['id'] +
@@ -1201,8 +1082,8 @@ class _HomePageState extends State<HomePage> {
                                                       PlayPage(
                                                         wordsForPlay:
                                                             _wordsForPlay2,
-                                                        userName:
-                                                            _userInfo['userName'],
+                                                        userName: _userInfo[
+                                                            'userName'],
                                                         uid: _userInfo['id'],
                                                         point: _scoreTable[
                                                             _userInfo['id'] +
@@ -1223,8 +1104,8 @@ class _HomePageState extends State<HomePage> {
                                                       PlayPage(
                                                         wordsForPlay:
                                                             _wordsForPlay3,
-                                                        userName:
-                                                            _userInfo['userName'],
+                                                        userName: _userInfo[
+                                                            'userName'],
                                                         uid: _userInfo['id'],
                                                         point: _scoreTable[
                                                             _userInfo['id'] +

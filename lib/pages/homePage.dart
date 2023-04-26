@@ -839,8 +839,8 @@ class _HomePageState extends State<HomePage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(
-                    flex: 1,
+                  Container(
+                    height: 70,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 20),
                       child: Text(
@@ -861,7 +861,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Container(
                       // height: MediaQuery.of(context).size.height / 2 - 30 -200,
                       child: Column(
@@ -903,8 +903,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Expanded(
-                    flex: 4,
+                    flex: 5,
                     child: Container(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                       // height: MediaQuery.of(context).size.height / 2 + 30,
                       child: ListView.builder(
                           shrinkWrap: true,
@@ -914,7 +915,7 @@ class _HomePageState extends State<HomePage> {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                               child: Container(
-                                height: MediaQuery.of(context).size.height / 6,
+                                height: (((MediaQuery.of(context).size.height-70)/8*5)-60)/3,
                                 width: MediaQuery.of(context).size.width / 3,
                                 child: RawMaterialButton(
                                     // fillColor: _yaziTipiRengi,

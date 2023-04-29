@@ -3,14 +3,14 @@ class LanguageService {
     List _result = [];
     String _welcome = "Welcome";
     String _leaderboard = "Leaderboard";
-    String _signout = "Sign Out";
+    String _signout = "Sign Out & Delete My Account";
     String _game = "Game";
     String _lanLastChamp = "Last Champion";
     if (_lan == "en") {
     } else if (_lan == "tr") {
       _welcome = "Hoşgeldiniz";
       _leaderboard = "Skor Tablosu";
-      _signout = "Çıkış";
+      _signout = "Çık ve Hesabımı Sil";
       _game = "Oyun";
       _lanLastChamp = "Son Şampiyon";
     }

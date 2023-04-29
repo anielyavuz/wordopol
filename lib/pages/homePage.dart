@@ -546,10 +546,10 @@ class _HomePageState extends State<HomePage> {
     // groupOfWords();
   }
 
-    @override
+  @override
   void didChangeDependencies() {
-    precacheImage(new AssetImage("assets/images/kapak.jpg"),context);
-    precacheImage(new AssetImage("assets/images/wordopolLogo.png"),context);
+    precacheImage(new AssetImage("assets/images/kapak.jpg"), context);
+    precacheImage(new AssetImage("assets/images/wordopolLogo.png"), context);
   }
 
   @override
@@ -684,7 +684,7 @@ class _HomePageState extends State<HomePage> {
                                               (Route<dynamic> route) => false);
                                         },
                                         child: Container(
-                                          child: Text("Çıkış",
+                                          child: Text(_lanSignOut,
                                               style: GoogleFonts.publicSans(
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 18,
